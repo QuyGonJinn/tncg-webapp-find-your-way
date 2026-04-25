@@ -13,6 +13,13 @@ export const STATIONS = [
   { id: 12, title: "Kennst du mich",          description: "Wie gut kennt ihr euch? Beantwortet Fragen übereinander und sammelt Punkte.", type: "passiv", points: 20, emoji: "❤️", completed: false },
 ];
 
-export const TEAM_ICONS = ["🦁", "🐯", "🦊", "🐺", "🦅", "🐉", "🦄", "🐸", "🦋", "🐙", "🦈", "🐻"];
+export const TEAM_ICONS = [
+  // Glaube & Hoffnung
+  "✝️", "🙏", "⚓", "🕊️", "⭐", "🔥", "💧", "🌊", "🌿", "🕯️", "📖", "🗝️",
+  // Tiere
+  "🦁", "🐯", "🦅", "🐉", "🦄", "🦋", "🐑", "🐟", "🦈", "🐬", "🦉", "🐺",
+  // Sonstiges
+  "⚡", "🌟", "🏔️", "🌈", "🎯", "🛡️", "⚔️", "🧭",
+];
 
 export const GAME_DURATION = 2 * 60 * 60; // 2 hours in seconds

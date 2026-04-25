@@ -8,8 +8,8 @@ export default function AdminTimer({ gameState, onStart, onPause, onReset }) {
 
   return (
     <div className="bg-white rounded-2xl shadow p-4 mb-4">
-      <h2 className="text-teal-700 font-black text-lg mb-3">⏱ Timer</h2>
-      <div className={`text-5xl font-mono font-black text-center mb-4 ${urgent ? 'text-red-500' : 'text-teal-700'}`}>
+      <h2 className="text-blue-700 font-black text-lg mb-3">⏱ Timer</h2>
+      <div className={`text-5xl font-mono font-black text-center mb-4 ${urgent ? 'text-red-500' : 'text-blue-700'}`}>
         {pad(h)}:{pad(m)}:{pad(s)}
       </div>
       <div className="flex gap-2">
@@ -18,7 +18,7 @@ export default function AdminTimer({ gameState, onStart, onPause, onReset }) {
             ⏸ Pause
           </button>
         ) : (
-          <button onClick={onStart} className="flex-1 bg-teal-600 text-white font-bold py-3 rounded-xl active:scale-95 transition-transform">
+          <button onClick={onStart} className="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl active:scale-95 transition-transform">
             ▶ Start
           </button>
         )}

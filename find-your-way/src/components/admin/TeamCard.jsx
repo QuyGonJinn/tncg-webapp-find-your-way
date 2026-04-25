@@ -16,7 +16,7 @@ export default function TeamCard({ team, onUncomplete, onDelete }) {
           <span className="text-3xl">{team.icon}</span>
           <div>
             <p className="font-black text-slate-800">{team.name}</p>
-            <p className="text-teal-600 font-bold text-sm">{team.totalXP} / {MAX_XP} XP</p>
+            <p className="text-blue-600 font-bold text-sm">{team.totalXP} / {MAX_XP} XP</p>
           </div>
         </div>
         <div className="text-right">
@@ -26,13 +26,13 @@ export default function TeamCard({ team, onUncomplete, onDelete }) {
       </div>
 
       {/* Progress bar */}
-      <div className="bg-cyan-100 rounded-full h-2 mt-3 overflow-hidden">
-        <div className="bg-teal-500 h-2 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+      <div className="bg-blue-100 rounded-full h-2 mt-3 overflow-hidden">
+        <div className="bg-blue-500 h-2 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
       </div>
 
       <button
         onClick={() => setExpanded(e => !e)}
-        className="w-full text-center text-teal-600 text-sm font-semibold mt-2"
+        className="w-full text-center text-blue-600 text-sm font-semibold mt-2"
       >
         {expanded ? '▲ Einklappen' : '▼ Stationen anzeigen'}
       </button>
@@ -42,8 +42,8 @@ export default function TeamCard({ team, onUncomplete, onDelete }) {
           {STATIONS.map(s => {
             const done = !!team.completed?.[s.id];
             return (
-              <div key={s.id} className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm ${done ? 'bg-teal-50' : 'bg-gray-50'}`}>
-                <span className={done ? 'text-teal-700 font-semibold' : 'text-gray-400'}>
+              <div key={s.id} className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm ${done ? 'bg-blue-50' : 'bg-gray-50'}`}>
+                <span className={done ? 'text-blue-700 font-semibold' : 'text-gray-400'}>
                   {s.emoji} {s.title}
                 </span>
                 {done ? (
