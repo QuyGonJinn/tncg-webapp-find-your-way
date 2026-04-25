@@ -34,6 +34,15 @@ async function getDb() {
       completed_at INTEGER NOT NULL,
       PRIMARY KEY (team_id, station_id)
     );
+    CREATE TABLE IF NOT EXISTS messages (
+      id TEXT PRIMARY KEY,
+      team_id TEXT NOT NULL,
+      team_name TEXT NOT NULL,
+      team_icon TEXT NOT NULL,
+      text TEXT NOT NULL,
+      from_admin INTEGER NOT NULL DEFAULT 0,
+      sent_at INTEGER NOT NULL
+    );
   `);
 
   // Init defaults

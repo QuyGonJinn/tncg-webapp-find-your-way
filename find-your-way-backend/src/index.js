@@ -13,6 +13,7 @@ async function main() {
 
   app.use('/api/teams', require('./routes/teams'));
   app.use('/api/game',  require('./routes/game'));
+  app.use('/api/chat',  require('./routes/chat'));
   app.get('/health', (_, res) => res.json({ ok: true }));
 
   const server = http.createServer(app);

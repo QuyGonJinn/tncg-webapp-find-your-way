@@ -56,6 +56,34 @@ export async function timerReset() {
   return res.json();
 }
 
+export async function fetchMessages(teamId) {
+  const res = await fetch(`${BASE}/chat/${teamId}`);
+  return res.json();
+}
+
+export async function fetchAllMessages() {
+  const res = await fetch(`${BASE}/chat`);
+  return res.json();
+}
+
+export async function sendMessage(teamId, text) {
+  const res = await fetch(`${BASE}/chat/${teamId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text }),
+  });
+  return res.json();
+}
+
+export async function sendAdminReply(teamId, text) {
+  const res = await fetch(`${BASE}/chat/${teamId}/reply`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text }),
+  });
+  return res.json();
+}
+
 export function createWebSocket(onMessage) {
   const ws = new WebSocket(WS_URL);
   ws.onmessage = (e) => {
