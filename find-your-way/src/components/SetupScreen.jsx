@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TEAM_ICONS } from '../data/stations';
 
-export default function SetupScreen({ onStart }) {
+export default function SetupScreen({ onStart, error }) {
   const [name, setName] = useState('');
   const [icon, setIcon] = useState(TEAM_ICONS[0]);
 
@@ -51,6 +51,7 @@ export default function SetupScreen({ onStart }) {
         >
           Spiel starten 🌊
         </button>
+        {error && <p className="text-red-500 text-sm text-center mt-3 font-semibold">{error}</p>}
       </form>
     </div>
   );

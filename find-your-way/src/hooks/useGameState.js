@@ -1,101 +1,93 @@
 import { useState, useEffect, useRef } from 'react';
-import { GAME_DURATION, STATIONS } from '../data/stations';
+import { registerTeam, fetchTeam, completeStation as apiComplete, createWebSocket, fetchGameState } from '../api';
 
-const STORAGE_KEY = 'fyw_game_state';
-
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
-}
-
-function saveState(state) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
+const SESSION_KEY = 'fyw_team_id';
 
 export function useGameState() {
   const [screen, setScreen] = useState('setup'); // setup | game | final
-  const [team, setTeam] = useState({ name: '', icon: '🦁' });
-  const [completed, setCompleted] = useState({}); // { stationId: true }
-  const [timeLeft, setTimeLeft] = useState(GAME_DURATION);
-  const [startedAt, setStartedAt] = useState(null);
+  const [team, setTeam] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(7200);
+  const [timerRunning, setTimerRunning] = useState(false);
   const [xpPopups, setXpPopups] = useState([]);
+  const [error, setError] = useState(null);
+  const wsRef = useRef(null);
   const timerRef = useRef(null);
 
-  // Restore from localStorage on mount
+  // Reconnect to existing team on reload
   useEffect(() => {
-    const saved = loadState();
-    if (saved) {
-      setTeam(saved.team || { name: '', icon: '🦁' });
-      setCompleted(saved.completed || {});
-      setStartedAt(saved.startedAt || null);
-      setScreen(saved.screen || 'setup');
-      if (saved.startedAt) {
-        const elapsed = Math.floor((Date.now() - saved.startedAt) / 1000);
-        const remaining = Math.max(0, GAME_DURATION - elapsed);
-        setTimeLeft(remaining);
-        if (remaining === 0 && saved.screen === 'game') {
-          setScreen('final');
-        }
-      }
+    const savedId = sessionStorage.getItem(SESSION_KEY);
+    if (savedId) {
+      fetchTeam(savedId)
+        .then(t => { setTeam(t); setScreen('game'); })
+        .catch(() => sessionStorage.removeItem(SESSION_KEY));
     }
+    fetchGameState().then(state => {
+      setTimeLeft(state.timeLeft);
+      setTimerRunning(state.timerRunning);
+      if (state.timeLeft === 0) setScreen('final');
+    }).catch(() => {});
   }, []);
 
-  // Persist on change
+  // WebSocket
   useEffect(() => {
-    saveState({ team, completed, startedAt, screen });
-  }, [team, completed, startedAt, screen]);
+    wsRef.current = createWebSocket(handleWsMessage);
+    return () => wsRef.current?.close();
+  }, []);
 
-  // Timer
+  function handleWsMessage({ type, payload }) {
+    if (type === 'TEAM_UPDATED') {
+      setTeam(prev => prev && prev.id === payload.id ? payload : prev);
+    }
+    if (type === 'GAME_STATE') {
+      setTimeLeft(payload.timeLeft);
+      setTimerRunning(payload.timerRunning);
+      if (payload.timeLeft === 0) setScreen('final');
+    }
+  }
+
+  // Local countdown tick
   useEffect(() => {
-    if (screen !== 'game') return;
+    clearInterval(timerRef.current);
+    if (!timerRunning || screen !== 'game') return;
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
-        if (prev <= 1) {
-          clearInterval(timerRef.current);
-          setScreen('final');
-          return 0;
-        }
+        if (prev <= 1) { clearInterval(timerRef.current); setScreen('final'); return 0; }
         return prev - 1;
       });
     }, 1000);
     return () => clearInterval(timerRef.current);
-  }, [screen]);
+  }, [timerRunning, screen]);
 
-  function startGame(teamData) {
-    const now = Date.now();
-    setTeam(teamData);
-    setStartedAt(now);
-    setCompleted({});
-    setTimeLeft(GAME_DURATION);
-    setScreen('game');
+  async function startGame(teamData) {
+    try {
+      setError(null);
+      const t = await registerTeam(teamData.name, teamData.icon);
+      sessionStorage.setItem(SESSION_KEY, t.id);
+      setTeam(t);
+      setScreen('game');
+    } catch (e) {
+      setError('Server nicht erreichbar. Läuft das Backend?');
+    }
   }
 
-  function completeStation(station) {
-    if (completed[station.id]) return;
-    setCompleted(prev => ({ ...prev, [station.id]: true }));
-    // XP popup
+  async function completeStation(station) {
+    if (!team || team.completed?.[station.id]) return;
+    const updated = await apiComplete(team.id, station.id);
+    setTeam(updated);
     const id = Date.now();
     setXpPopups(prev => [...prev, { id, points: station.points }]);
     setTimeout(() => setXpPopups(prev => prev.filter(p => p.id !== id)), 1400);
   }
 
   function resetGame() {
-    localStorage.removeItem(STORAGE_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+    setTeam(null);
     setScreen('setup');
-    setTeam({ name: '', icon: '🦁' });
-    setCompleted({});
-    setTimeLeft(GAME_DURATION);
-    setStartedAt(null);
+    setXpPopups([]);
   }
 
-  const totalXP = Object.keys(completed).reduce((sum, id) => {
-    const s = STATIONS.find(s => s.id === Number(id));
-    return sum + (s ? s.points : 0);
-  }, 0);
+  const totalXP = team?.totalXP ?? 0;
+  const completed = team?.completed ?? {};
 
-  return { screen, team, completed, timeLeft, xpPopups, startGame, completeStation, resetGame, totalXP };
+  return { screen, team, completed, timeLeft, timerRunning, xpPopups, error, startGame, completeStation, resetGame, totalXP };
 }
