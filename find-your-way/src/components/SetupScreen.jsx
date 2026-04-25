@@ -16,7 +16,7 @@ export default function SetupScreen({ onStart, error }) {
       <div className="text-center mb-8">
         <div className="text-6xl mb-3">⚓</div>
         <h1 className="text-4xl font-black text-white tracking-tight">Find Your Way</h1>
-        <p className="text-blue-100 mt-2 text-lg">Die ultimative Schnitzeljagd</p>
+        <p className="text-blue-100 mt-2 text-lg">Die ultimative Glaubensjagd</p>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-white/95 backdrop-blur rounded-3xl shadow-2xl p-6 w-full max-w-sm">
