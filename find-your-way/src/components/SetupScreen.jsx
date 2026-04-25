@@ -31,13 +31,13 @@ export default function SetupScreen({ onStart, error }) {
         />
 
         <label className="block text-blue-900 font-bold mb-3 text-lg">Team-Icon wählen</label>
-        <div className="grid grid-cols-6 gap-2 mb-6">
+        <div className="grid grid-cols-6 gap-3 mb-6">
           {TEAM_ICONS.map(ic => (
             <button
               key={ic}
               type="button"
               onClick={() => setIcon(ic)}
-              className={`text-3xl p-2 rounded-xl transition-all ${icon === ic ? 'bg-blue-100 ring-2 ring-blue-500 scale-110' : 'hover:bg-blue-50'}`}
+              className={`text-4xl p-3 rounded-2xl transition-all aspect-square flex items-center justify-center ${icon === ic ? 'bg-blue-100 ring-2 ring-blue-500 scale-110' : 'hover:bg-blue-50 bg-gray-50'}`}
             >
               {ic}
             </button>
