@@ -11,9 +11,9 @@ export default function HintBox({ completedCount }) {
   if (!hint) return null;
 
   return (
-    <div className="bg-yellow-50 border-2 border-yellow-300 rounded-2xl p-4 mx-4 mb-4">
-      <p className="text-yellow-800 font-semibold text-sm">
-        💡 <span className="font-bold">Hinweis:</span> {hint.text}
+    <div className="bg-cyan-50 border-2 border-cyan-300 rounded-2xl p-4 mx-4 mb-4 mt-4">
+      <p className="text-teal-800 font-semibold text-sm">
+        ⚓ <span className="font-bold">Hinweis:</span> {hint.text}
       </p>
     </div>
   );
