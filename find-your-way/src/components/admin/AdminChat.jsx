@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { fetchAllMessages, sendAdminReply, createWebSocket } from '../../api';
+import { fetchAllMessages, sendAdminReply, createWebSocket, clearAllMessages } from '../../api';
 
 export default function AdminChat({ teams }) {
   const [messages, setMessages] = useState([]);
@@ -15,6 +15,9 @@ export default function AdminChat({ teams }) {
     wsRef.current = createWebSocket(({ type, payload }) => {
       if (type === 'NEW_MESSAGE') {
         setMessages(prev => [...prev, payload]);
+      }
+      if (type === 'CHAT_CLEARED') {
+        setMessages([]);
       }
       if (type === 'TEAM_JOINED') {
         // new team available, no action needed
@@ -54,8 +57,19 @@ export default function AdminChat({ teams }) {
 
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
-      <div className="bg-gradient-to-r from-blue-700 to-blue-500 px-4 py-3">
+      <div className="bg-gradient-to-r from-blue-700 to-blue-500 px-4 py-3 flex items-center justify-between">
         <h2 className="text-white font-black text-lg">💬 Team-Chat</h2>
+        <button
+          onClick={async () => {
+            if (confirm('Alle Nachrichten wirklich löschen?')) {
+              await clearAllMessages();
+              setMessages([]);
+            }
+          }}
+          className="text-xs text-red-200 border border-red-300 px-3 py-1.5 rounded-xl font-semibold hover:bg-red-500 hover:text-white transition-colors"
+        >
+          🗑 Alle löschen
+        </button>
       </div>
 
       <div className="flex" style={{ height: '480px' }}>

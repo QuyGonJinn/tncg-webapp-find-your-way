@@ -56,6 +56,10 @@ export async function timerReset() {
   return res.json();
 }
 
+export async function clearAllMessages() {
+  await fetch(`${BASE}/chat`, { method: 'DELETE' });
+}
+
 export async function fetchMessages(teamId) {
   const res = await fetch(`${BASE}/chat/${teamId}`);
   return res.json();

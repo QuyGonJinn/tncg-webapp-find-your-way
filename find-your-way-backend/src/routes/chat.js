@@ -4,6 +4,13 @@ const db = require('../db');
 const { broadcast } = require('../wss');
 const { randomUUID } = require('crypto');
 
+// DELETE all messages (admin reset)
+router.delete('/', (req, res) => {
+  db.run(`DELETE FROM messages`);
+  broadcast('CHAT_CLEARED', {});
+  res.json({ ok: true });
+});
+
 // GET all messages (admin)
 router.get('/', (req, res) => {
   const messages = db.all(`SELECT * FROM messages ORDER BY sent_at ASC`);
