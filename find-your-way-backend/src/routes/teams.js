@@ -46,13 +46,19 @@ router.get('/', (req, res) => {
   res.json(teams.map(buildTeamPayload));
 });
 
+// Normalize team name: lowercase, trim, collapse multiple spaces
+function normalizeTeamName(name) {
+  return name.toLowerCase().trim().replace(/\s+/g, ' ');
+}
+
 // POST register team
 router.post('/', (req, res) => {
   const { name, icon } = req.body;
   if (!name || !icon) return res.status(400).json({ error: 'name and icon required' });
   
-  // Check if team name already exists (case-insensitive)
-  const existing = db.get(`SELECT id FROM teams WHERE LOWER(name) = LOWER(?)`, [name.trim()]);
+  // Check if team name already exists (normalized comparison)
+  const normalized = normalizeTeamName(name);
+  const existing = db.all(`SELECT id FROM teams`).find(t => normalizeTeamName(t.name) === normalized);
   if (existing) return res.status(409).json({ error: 'Teamname existiert bereits' });
   
   const id = randomUUID();
