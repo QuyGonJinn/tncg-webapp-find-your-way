@@ -75,13 +75,13 @@ export default function SetupScreen({ onStart, onLogin, error }) {
                 ))}
               </div>
 
-              {/* Participants */}
-              <label className="block text-blue-900 font-bold mb-2 text-lg">
-                👥 Teilnehmer
-              </label>
-              <p className="text-gray-600 text-sm mb-5 bg-blue-50 p-3 rounded-lg">
-                ℹ️ Teilnehmer können später im Control Board hinzugefügt werden.
-              </p>
+              {/* Info Message */}
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-4 mb-6">
+                <p className="text-blue-900 font-bold text-sm">ℹ️ Anmeldung</p>
+                <p className="text-gray-700 text-sm mt-2">
+                  Die Anmeldung wird beim Caféstand abgeschlossen. Dort werden die Namen der Teilnehmer eingetragen.
+                </p>
+              </div>
 
               <button
                 type="submit"
