@@ -9,18 +9,19 @@ Eine gamifizierte, mobile-first Web-App für eine Schnitzeljagd mit Glaubensthem
 ```
 find-your-way/          # React Frontend (Vite + Tailwind CSS)
 find-your-way-backend/  # Node.js Backend (Express + WebSockets + SQLite)
+docker-compose.yml      # Docker Setup
 ```
 
 ---
 
 ## Voraussetzungen
 
-- Node.js (v18+)
-- npm
+- Node.js (v18+) – für lokale Entwicklung
+- Docker + Docker Compose – für Deployment
 
 ---
 
-## Setup & Start
+## Option 1: Lokal starten (Entwicklung)
 
 ### Backend
 
@@ -44,12 +45,56 @@ Läuft auf `http://localhost:5173`
 
 ---
 
+## Option 2: Docker (Empfohlen für Deployment)
+
+### Voraussetzungen auf dem Server / Raspberry Pi
+
+```bash
+# Docker installieren
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+# Neu einloggen danach
+```
+
+### Starten
+
+```bash
+git clone <repo-url>
+cd tncg-webapp-find-your-way
+docker compose up --build -d
+```
+
+### Erreichbar unter
+
+| URL | Beschreibung |
+|-----|-------------|
+| `http://<server-ip>` | Teilnehmer-App |
+| `http://<server-ip>/admin` | Admin-Bereich |
+
+IP des Raspberry Pi herausfinden:
+```bash
+hostname -I
+```
+
+### Nützliche Befehle
+
+```bash
+docker compose logs -f        # Logs live anschauen
+docker compose down           # Stoppen
+docker compose up -d          # Wieder starten
+docker compose up --build -d  # Nach Code-Änderungen neu bauen
+```
+
+> Die Datenbank wird im Docker Volume `fyw-data` gespeichert und überlebt Neustarts. Durch `restart: unless-stopped` startet die App automatisch wenn der Server neu bootet.
+
+---
+
 ## Seiten
 
 | URL | Beschreibung |
 |-----|-------------|
-| `localhost:5173` | Teilnehmer-App |
-| `localhost:5173/admin` | Admin-Bereich |
+| `/` | Teilnehmer-App |
+| `/admin` | Admin-Bereich |
 
 ---
 
@@ -72,6 +117,7 @@ Läuft auf `http://localhost:5173`
 - Einzelne Stationen eines Teams zurücksetzen
 - Teams löschen
 - Chat: Nachrichten aller Teams lesen und antworten
+- Alle Chatnachrichten auf einmal löschen
 - Alle Updates in Echtzeit via WebSocket
 
 ---
@@ -105,4 +151,5 @@ Läuft auf `http://localhost:5173`
 | Backend | Node.js, Express, sql.js (SQLite) |
 | Echtzeit | WebSockets (`ws`) |
 | Routing | React Router |
-| Persistenz | SQLite (`game.db`) |
+| Persistenz | SQLite via Docker Volume |
+| Deployment | Docker + nginx |
