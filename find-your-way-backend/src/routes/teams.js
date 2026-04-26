@@ -5,6 +5,11 @@ const STATIONS = require('../stations');
 const { broadcast } = require('../wss');
 const { randomUUID } = require('crypto');
 
+function generatePin() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O/1/I confusion
+  return Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+}
+
 function buildTeamPayload(team) {
   const completions = db.all(
     `SELECT station_id, completed_at FROM completions WHERE team_id = ?`, [team.id]
@@ -20,6 +25,17 @@ function buildTeamPayload(team) {
   return { ...team, completed, totalXP };
 }
 
+// POST login with PIN
+router.post('/login', (req, res) => {
+  const { pin } = req.body;
+  if (!pin) return res.status(400).json({ error: 'pin required' });
+
+  const team = db.get(`SELECT * FROM teams WHERE pin = ?`, [pin.toUpperCase()]);
+  if (!team) return res.status(404).json({ error: 'Ungültiger Code' });
+
+  res.json(buildTeamPayload(team));
+});
+
 // GET all teams
 router.get('/', (req, res) => {
   const teams = db.all(`SELECT * FROM teams ORDER BY created_at ASC`);
@@ -32,11 +48,12 @@ router.post('/', (req, res) => {
   if (!name || !icon) return res.status(400).json({ error: 'name and icon required' });
 
   const id = randomUUID();
-  db.run(`INSERT INTO teams (id, name, icon, created_at) VALUES (?, ?, ?, ?)`, [id, name, icon, Date.now()]);
+  const pin = generatePin();
+  db.run(`INSERT INTO teams (id, name, icon, pin, created_at) VALUES (?, ?, ?, ?, ?)`, [id, name, icon, pin, Date.now()]);
 
-  const team = buildTeamPayload({ id, name, icon, created_at: Date.now() });
+  const team = buildTeamPayload({ id, name, icon, pin, created_at: Date.now() });
   broadcast('TEAM_JOINED', team);
-  res.status(201).json(team);
+  res.status(201).json(team); // pin is included here so frontend can show it
 });
 
 // GET single team

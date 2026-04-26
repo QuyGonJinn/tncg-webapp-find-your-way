@@ -1,6 +1,19 @@
 const BASE = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
 const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:3001';
 
+export async function loginWithPin(pin) {
+  const res = await fetch(`${BASE}/teams/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pin }),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Login fehlgeschlagen');
+  }
+  return res.json();
+}
+
 export async function registerTeam(name, icon) {
   const res = await fetch(`${BASE}/teams`, {
     method: 'POST',

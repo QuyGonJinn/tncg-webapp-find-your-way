@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { registerTeam, fetchTeam, completeStation as apiComplete, createWebSocket, fetchGameState } from '../api';
+import { registerTeam, fetchTeam, loginWithPin, completeStation as apiComplete, createWebSocket, fetchGameState } from '../api';
 
-const SESSION_KEY = 'fyw_team_id';
+const STORAGE_KEY = 'fyw_team_id';
 
 export function useGameState() {
   const [screen, setScreen] = useState('setup'); // setup | game | final
@@ -13,13 +13,13 @@ export function useGameState() {
   const wsRef = useRef(null);
   const timerRef = useRef(null);
 
-  // Reconnect to existing team on reload
+  // Restore from localStorage on mount
   useEffect(() => {
-    const savedId = sessionStorage.getItem(SESSION_KEY);
+    const savedId = localStorage.getItem(STORAGE_KEY);
     if (savedId) {
       fetchTeam(savedId)
         .then(t => { setTeam(t); setScreen('game'); })
-        .catch(() => sessionStorage.removeItem(SESSION_KEY));
+        .catch(() => localStorage.removeItem(STORAGE_KEY));
     }
     fetchGameState().then(state => {
       setTimeLeft(state.timeLeft);
@@ -62,11 +62,23 @@ export function useGameState() {
     try {
       setError(null);
       const t = await registerTeam(teamData.name, teamData.icon);
-      sessionStorage.setItem(SESSION_KEY, t.id);
+      localStorage.setItem(STORAGE_KEY, t.id);
+      setTeam(t);
+      setScreen('pin'); // show PIN before game
+    } catch {
+      setError('Server nicht erreichbar. Läuft das Backend?');
+    }
+  }
+
+  async function loginGame(pin) {
+    try {
+      setError(null);
+      const t = await loginWithPin(pin);
+      localStorage.setItem(STORAGE_KEY, t.id);
       setTeam(t);
       setScreen('game');
     } catch (e) {
-      setError('Server nicht erreichbar. Läuft das Backend?');
+      setError(e.message || 'Ungültiger Code');
     }
   }
 
@@ -80,14 +92,15 @@ export function useGameState() {
   }
 
   function resetGame() {
-    sessionStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(STORAGE_KEY);
     setTeam(null);
     setScreen('setup');
     setXpPopups([]);
+    setError(null);
   }
 
   const totalXP = team?.totalXP ?? 0;
   const completed = team?.completed ?? {};
 
-  return { screen, team, completed, timeLeft, timerRunning, xpPopups, error, startGame, completeStation, resetGame, totalXP };
+  return { screen, setScreen, team, completed, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP };
 }

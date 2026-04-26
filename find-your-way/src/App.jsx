@@ -4,12 +4,14 @@ import { useGameState } from './hooks/useGameState';
 import SetupScreen from './components/SetupScreen';
 import GameScreen from './components/GameScreen';
 import FinalScreen from './components/FinalScreen';
+import PinDisplay from './components/PinDisplay';
 import AdminPage from './pages/AdminPage';
 
 function GameApp() {
-  const { screen, team, completed, timeLeft, timerRunning, xpPopups, error, startGame, completeStation, resetGame, totalXP } = useGameState();
+  const { screen, setScreen, team, completed, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP } = useGameState();
 
-  if (screen === 'setup') return <SetupScreen onStart={startGame} error={error} />;
+  if (screen === 'setup') return <SetupScreen onStart={startGame} onLogin={loginGame} error={error} />;
+  if (screen === 'pin') return <PinDisplay pin={team?.pin} onContinue={() => setScreen('game')} />;
   if (screen === 'final') return <FinalScreen team={team} completed={completed} totalXP={totalXP} onReset={resetGame} />;
   return (
     <GameScreen

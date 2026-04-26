@@ -22,6 +22,7 @@ db.exec(`
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     icon TEXT NOT NULL,
+    pin TEXT NOT NULL DEFAULT '0000',
     created_at INTEGER NOT NULL
   );
   CREATE TABLE IF NOT EXISTS completions (
@@ -40,6 +41,9 @@ db.exec(`
     sent_at INTEGER NOT NULL
   );
 `);
+
+// Migration: add pin column if missing
+try { db.exec(`ALTER TABLE teams ADD COLUMN pin TEXT NOT NULL DEFAULT '0000'`); } catch {}
 
 // Init game state defaults
 const initState = db.prepare(`INSERT OR IGNORE INTO game_state (key, value) VALUES (?, ?)`);
