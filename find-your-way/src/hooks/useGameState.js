@@ -113,6 +113,7 @@ export function useGameState() {
 
   function resetGame() {
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('fyw_active_tab');
     setTeam(null);
     setScreen('setup');
     setXpPopups([]);

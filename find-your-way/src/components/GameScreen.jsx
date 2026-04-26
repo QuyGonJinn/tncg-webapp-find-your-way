@@ -6,10 +6,20 @@ import HintBox from './HintBox';
 import ChatBox from './ChatBox';
 
 export default function GameScreen({ team, completed, pending, timeLeft, xpPopups, onComplete, onReset, totalXP }) {
-  const [tab, setTab] = useState('stations'); // stations | chat
+  const [tab, setTab] = useState(() => {
+    // Restore tab from localStorage on mount
+    return localStorage.getItem('fyw_active_tab') || 'stations';
+  });
+  
   const completedCount = Object.keys(completed).length;
   const activeCompleted = STATIONS.filter(s => s.type === 'aktiv' && completed[s.id]).length;
   const progress = Math.round((completedCount / STATIONS.length) * 100);
+
+  // Save tab to localStorage whenever it changes
+  const handleTabChange = (newTab) => {
+    setTab(newTab);
+    localStorage.setItem('fyw_active_tab', newTab);
+  };
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col">
@@ -42,7 +52,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
         {/* Tabs */}
         <div className="flex gap-2 mt-3">
           <button
-            onClick={() => setTab('stations')}
+            onClick={() => handleTabChange('stations')}
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${
               tab === 'stations' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'
             }`}
@@ -50,7 +60,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
             🗺️ Stationen
           </button>
           <button
-            onClick={() => setTab('chat')}
+            onClick={() => handleTabChange('chat')}
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${
               tab === 'chat' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'
             }`}

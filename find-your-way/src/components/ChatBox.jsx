@@ -33,7 +33,9 @@ export default function ChatBox({ team }) {
     setText(''); // Clear immediately for better UX
     setSending(true);
     try {
-      await sendMessage(team.id, msgText);
+      const newMsg = await sendMessage(team.id, msgText);
+      // Add message immediately to UI (optimistic update)
+      setMessages(prev => [...prev, newMsg]);
     } catch (err) {
       console.error('Senden fehlgeschlagen', err);
       setText(msgText); // Restore on error
