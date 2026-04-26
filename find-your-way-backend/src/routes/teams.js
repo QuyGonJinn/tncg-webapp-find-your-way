@@ -48,6 +48,7 @@ router.get('/', (req, res) => {
 
 // Normalize team name: lowercase, trim, collapse multiple spaces
 function normalizeTeamName(name) {
+  if (!name || typeof name !== 'string') return '';
   return name.toLowerCase().trim().replace(/\s+/g, ' ');
 }
 
@@ -58,7 +59,8 @@ router.post('/', (req, res) => {
   
   // Check if team name already exists (normalized comparison)
   const normalized = normalizeTeamName(name);
-  const existing = db.all(`SELECT id FROM teams`).find(t => normalizeTeamName(t.name) === normalized);
+  const allTeams = db.all(`SELECT id, name FROM teams`);
+  const existing = allTeams.find(t => normalizeTeamName(t.name) === normalized);
   if (existing) return res.status(409).json({ error: 'Teamname existiert bereits' });
   
   const id = randomUUID();

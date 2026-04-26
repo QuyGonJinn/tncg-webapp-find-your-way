@@ -46,10 +46,12 @@ db.exec(`
     id TEXT PRIMARY KEY,
     team_id TEXT NOT NULL,
     name TEXT NOT NULL,
-    created_at INTEGER NOT NULL,
-    FOREIGN KEY (team_id) REFERENCES teams(id)
+    created_at INTEGER NOT NULL
   );
 `);
+
+// Enable foreign keys
+db.pragma('foreign_keys = ON');
 
 // Migration: add pin column if missing
 try {
