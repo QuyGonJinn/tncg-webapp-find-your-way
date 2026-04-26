@@ -45,11 +45,37 @@ db.exec(`
 `);
 
 // Migration: add pin column if missing
-try { db.exec(`ALTER TABLE teams ADD COLUMN pin TEXT NOT NULL DEFAULT '0000'`); } catch {}
+try {
+  const hasPin = db.prepare(`PRAGMA table_info(teams)`).all().some(col => col.name === 'pin');
+  if (!hasPin) {
+    db.exec(`ALTER TABLE teams ADD COLUMN pin TEXT NOT NULL DEFAULT '0000'`);
+    console.log('✅ Added pin column to teams');
+  }
+} catch (e) {
+  console.log('pin column already exists or error:', e.message);
+}
+
 // Migration: add status column if missing
-try { db.exec(`ALTER TABLE completions ADD COLUMN status TEXT NOT NULL DEFAULT 'done'`); } catch {}
+try {
+  const hasStatus = db.prepare(`PRAGMA table_info(completions)`).all().some(col => col.name === 'status');
+  if (!hasStatus) {
+    db.exec(`ALTER TABLE completions ADD COLUMN status TEXT NOT NULL DEFAULT 'done'`);
+    console.log('✅ Added status column to completions');
+  }
+} catch (e) {
+  console.log('status column already exists or error:', e.message);
+}
+
 // Migration: add read_at column if missing
-try { db.exec(`ALTER TABLE messages ADD COLUMN read_at INTEGER`); } catch {}
+try {
+  const hasReadAt = db.prepare(`PRAGMA table_info(messages)`).all().some(col => col.name === 'read_at');
+  if (!hasReadAt) {
+    db.exec(`ALTER TABLE messages ADD COLUMN read_at INTEGER`);
+    console.log('✅ Added read_at column to messages');
+  }
+} catch (e) {
+  console.log('read_at column already exists or error:', e.message);
+}
 
 // Init game state defaults
 const initState = db.prepare(`INSERT OR IGNORE INTO game_state (key, value) VALUES (?, ?)`);
