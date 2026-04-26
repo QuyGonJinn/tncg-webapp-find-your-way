@@ -22,6 +22,7 @@ export default function TeamCard({ team, onUncomplete, onDelete }) {
         <div className="text-right">
           <p className="text-slate-500 text-sm">{completedCount}/12 Stationen</p>
           <p className="text-orange-500 text-xs font-semibold">⚡ {activeCompleted} aktive</p>
+          <p className="text-blue-300 font-mono font-bold text-xs mt-0.5">🔑 {team.pin}</p>
         </div>
       </div>
 
