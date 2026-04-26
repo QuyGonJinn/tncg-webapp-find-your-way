@@ -35,8 +35,26 @@ export async function fetchAllTeams() {
   return res.json();
 }
 
-export async function completeStation(teamId, stationId) {
-  const res = await fetch(`${BASE}/teams/${teamId}/complete/${stationId}`, { method: 'POST' });
+export async function completeStation(teamId, stationId, code = null) {
+  const res = await fetch(`${BASE}/teams/${teamId}/complete/${stationId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code }),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Fehler');
+  }
+  return res.json();
+}
+
+export async function approveStation(teamId, stationId) {
+  const res = await fetch(`${BASE}/teams/${teamId}/approve/${stationId}`, { method: 'POST' });
+  return res.json();
+}
+
+export async function rejectStation(teamId, stationId) {
+  const res = await fetch(`${BASE}/teams/${teamId}/reject/${stationId}`, { method: 'POST' });
   return res.json();
 }
 

@@ -8,7 +8,7 @@ import PinDisplay from './components/PinDisplay';
 import AdminPage from './pages/AdminPage';
 
 function GameApp() {
-  const { screen, setScreen, team, completed, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP } = useGameState();
+  const { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP } = useGameState();
 
   if (screen === 'setup') return <SetupScreen onStart={startGame} onLogin={loginGame} error={error} />;
   if (screen === 'pin') return <PinDisplay pin={team?.pin} onContinue={() => setScreen('game')} />;
@@ -17,6 +17,7 @@ function GameApp() {
     <GameScreen
       team={team}
       completed={completed}
+      pending={pending}
       timeLeft={timeLeft}
       xpPopups={xpPopups}
       onComplete={completeStation}

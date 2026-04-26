@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { fetchAllTeams, fetchGameState, timerStart, timerPause, timerReset, uncompleteStation, deleteTeam, createWebSocket } from '../api';
+import { fetchAllTeams, fetchGameState, timerStart, timerPause, timerReset, uncompleteStation, deleteTeam, approveStation, rejectStation, createWebSocket } from '../api';
 
 export function useAdmin() {
   const [teams, setTeams] = useState([]);
@@ -35,6 +35,16 @@ export function useAdmin() {
   async function handleTimerPause() { const s = await timerPause(); setGameState(s); }
   async function handleTimerReset() { const s = await timerReset(); setGameState(s); }
 
+  async function handleApprove(teamId, stationId) {
+    const updated = await approveStation(teamId, stationId);
+    setTeams(prev => prev.map(t => t.id === teamId ? updated : t));
+  }
+
+  async function handleReject(teamId, stationId) {
+    const updated = await rejectStation(teamId, stationId);
+    setTeams(prev => prev.map(t => t.id === teamId ? updated : t));
+  }
+
   async function handleUncomplete(teamId, stationId) {
     const updated = await uncompleteStation(teamId, stationId);
     setTeams(prev => prev.map(t => t.id === teamId ? updated : t));
@@ -45,5 +55,5 @@ export function useAdmin() {
     setTeams(prev => prev.filter(t => t.id !== teamId));
   }
 
-  return { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam };
+  return { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam, handleApprove, handleReject };
 }

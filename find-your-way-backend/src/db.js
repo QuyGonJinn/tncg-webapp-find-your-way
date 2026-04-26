@@ -29,6 +29,7 @@ db.exec(`
     team_id TEXT NOT NULL,
     station_id INTEGER NOT NULL,
     completed_at INTEGER NOT NULL,
+    status TEXT NOT NULL DEFAULT 'done',
     PRIMARY KEY (team_id, station_id)
   );
   CREATE TABLE IF NOT EXISTS messages (
@@ -44,6 +45,8 @@ db.exec(`
 
 // Migration: add pin column if missing
 try { db.exec(`ALTER TABLE teams ADD COLUMN pin TEXT NOT NULL DEFAULT '0000'`); } catch {}
+// Migration: add status column if missing
+try { db.exec(`ALTER TABLE completions ADD COLUMN status TEXT NOT NULL DEFAULT 'done'`); } catch {}
 
 // Init game state defaults
 const initState = db.prepare(`INSERT OR IGNORE INTO game_state (key, value) VALUES (?, ?)`);

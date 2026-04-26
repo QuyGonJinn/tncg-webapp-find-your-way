@@ -8,7 +8,7 @@ import { STATIONS } from '../data/stations';
 const MAX_XP = STATIONS.reduce((s, st) => s + st.points, 0);
 
 export default function AdminPage() {
-  const { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam } = useAdmin();
+  const { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam, handleApprove, handleReject } = useAdmin();
   const [adminTab, setAdminTab] = useState('overview');
   const sorted = [...teams].sort((a, b) => b.totalXP - a.totalXP);
 
@@ -77,6 +77,8 @@ export default function AdminPage() {
                     team={team}
                     onUncomplete={handleUncomplete}
                     onDelete={handleDeleteTeam}
+                    onApprove={handleApprove}
+                    onReject={handleReject}
                   />
                 ))}
               </div>

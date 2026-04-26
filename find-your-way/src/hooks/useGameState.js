@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { registerTeam, fetchTeam, loginWithPin, completeStation as apiComplete, createWebSocket, fetchGameState } from '../api';
+import { registerTeam, fetchTeam, loginWithPin, completeStation as completeStationApi, createWebSocket, fetchGameState } from '../api';
 
 const STORAGE_KEY = 'fyw_team_id';
 
@@ -82,13 +82,16 @@ export function useGameState() {
     }
   }
 
-  async function completeStation(station) {
-    if (!team || team.completed?.[station.id]) return;
-    const updated = await apiComplete(team.id, station.id);
+  async function completeStation(station, code = null) {
+    if (!team || team.completed?.[station.id] || team.pending?.[station.id]) return;
+    const updated = await completeStationApi(team.id, station.id, code);
     setTeam(updated);
-    const id = Date.now();
-    setXpPopups(prev => [...prev, { id, points: station.points }]);
-    setTimeout(() => setXpPopups(prev => prev.filter(p => p.id !== id)), 1400);
+    // Only show XP popup if immediately done (passive with correct code)
+    if (updated.completed?.[station.id]) {
+      const id = Date.now();
+      setXpPopups(prev => [...prev, { id, points: station.points }]);
+      setTimeout(() => setXpPopups(prev => prev.filter(p => p.id !== id)), 1400);
+    }
   }
 
   function resetGame() {
@@ -101,6 +104,7 @@ export function useGameState() {
 
   const totalXP = team?.totalXP ?? 0;
   const completed = team?.completed ?? {};
+  const pending = team?.pending ?? {};
 
-  return { screen, setScreen, team, completed, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP };
+  return { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP };
 }

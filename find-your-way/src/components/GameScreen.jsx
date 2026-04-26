@@ -5,7 +5,7 @@ import Timer from './Timer';
 import HintBox from './HintBox';
 import ChatBox from './ChatBox';
 
-export default function GameScreen({ team, completed, timeLeft, xpPopups, onComplete, onReset, totalXP }) {
+export default function GameScreen({ team, completed, pending, timeLeft, xpPopups, onComplete, onReset, totalXP }) {
   const [tab, setTab] = useState('stations'); // stations | chat
   const completedCount = Object.keys(completed).length;
   const activeCompleted = STATIONS.filter(s => s.type === 'aktiv' && completed[s.id]).length;
@@ -79,6 +79,7 @@ export default function GameScreen({ team, completed, timeLeft, xpPopups, onComp
                 key={station.id}
                 station={station}
                 done={!!completed[station.id]}
+                pending={!!pending[station.id]}
                 onComplete={onComplete}
               />
             ))}

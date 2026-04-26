@@ -3,9 +3,10 @@ import { STATIONS } from '../../data/stations';
 
 const MAX_XP = STATIONS.reduce((s, st) => s + st.points, 0);
 
-export default function TeamCard({ team, onUncomplete, onDelete }) {
+export default function TeamCard({ team, onUncomplete, onDelete, onApprove, onReject }) {
   const [expanded, setExpanded] = useState(false);
   const completedCount = Object.keys(team.completed || {}).length;
+  const pendingCount = Object.keys(team.pending || {}).length;
   const progress = Math.round((completedCount / STATIONS.length) * 100);
   const activeCompleted = STATIONS.filter(s => s.type === 'aktiv' && team.completed?.[s.id]).length;
 
@@ -31,29 +32,57 @@ export default function TeamCard({ team, onUncomplete, onDelete }) {
         <div className="bg-blue-500 h-2 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
       </div>
 
+      {/* Pending approvals — always visible if any */}
+      {pendingCount > 0 && (
+        <div className="mt-3 bg-yellow-50 border-2 border-yellow-300 rounded-xl p-3">
+          <p className="text-yellow-700 font-black text-sm mb-2">⏳ Wartet auf Bestätigung ({pendingCount})</p>
+          {STATIONS.filter(s => team.pending?.[s.id]).map(s => (
+            <div key={s.id} className="flex items-center justify-between py-1.5 border-b border-yellow-200 last:border-0">
+              <span className="text-sm font-semibold text-yellow-800">{s.emoji} {s.title}</span>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => onApprove(team.id, s.id)}
+                  className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-lg active:scale-95"
+                >
+                  ✓ OK
+                </button>
+                <button
+                  onClick={() => onReject(team.id, s.id)}
+                  className="bg-red-400 text-white text-xs font-bold px-3 py-1 rounded-lg active:scale-95"
+                >
+                  ✕ Nein
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       <button
         onClick={() => setExpanded(e => !e)}
         className="w-full text-center text-blue-600 text-sm font-semibold mt-2"
       >
-        {expanded ? '▲ Einklappen' : '▼ Stationen anzeigen'}
+        {expanded ? '▲ Einklappen' : '▼ Alle Stationen anzeigen'}
       </button>
 
       {expanded && (
         <div className="mt-3 flex flex-col gap-1">
           {STATIONS.map(s => {
             const done = !!team.completed?.[s.id];
+            const pend = !!team.pending?.[s.id];
             return (
-              <div key={s.id} className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm ${done ? 'bg-blue-50' : 'bg-gray-50'}`}>
-                <span className={done ? 'text-blue-700 font-semibold' : 'text-gray-400'}>
+              <div key={s.id} className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm ${
+                done ? 'bg-blue-50' : pend ? 'bg-yellow-50' : 'bg-gray-50'
+              }`}>
+                <span className={done ? 'text-blue-700 font-semibold' : pend ? 'text-yellow-700 font-semibold' : 'text-gray-400'}>
                   {s.emoji} {s.title}
                 </span>
                 {done ? (
-                  <button
-                    onClick={() => onUncomplete(team.id, s.id)}
-                    className="text-xs text-red-400 font-bold hover:text-red-600"
-                  >
+                  <button onClick={() => onUncomplete(team.id, s.id)} className="text-xs text-red-400 font-bold hover:text-red-600">
                     ✕ Zurücksetzen
                   </button>
+                ) : pend ? (
+                  <span className="text-yellow-500 text-xs font-bold">⏳ ausstehend</span>
                 ) : (
                   <span className="text-gray-300 text-xs">offen</span>
                 )}
