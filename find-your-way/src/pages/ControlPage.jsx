@@ -6,9 +6,17 @@ export default function ControlPage() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expandedTeam, setExpandedTeam] = useState(null);
+  const [authenticated, setAuthenticated] = useState(() => {
+    // Restore control board session from localStorage on mount
+    return localStorage.getItem('fyw_control_authenticated') === 'true';
+  });
+  const [pin, setPin] = useState('');
+  const [loginError, setLoginError] = useState('');
   const pollIntervalRef = useRef(null);
 
   useEffect(() => {
+    if (!authenticated) return;
+    
     loadStats();
     
     // Poll every 2 seconds
@@ -17,7 +25,7 @@ export default function ControlPage() {
     }, 2000);
 
     return () => clearInterval(pollIntervalRef.current);
-  }, []);
+  }, [authenticated]);
 
   async function loadStats() {
     try {
@@ -29,11 +37,60 @@ export default function ControlPage() {
     }
   }
 
-  function formatTime(seconds) {
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = seconds % 60;
-    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  function handleLogin(e) {
+    e.preventDefault();
+    if (pin === '1234') {
+      setAuthenticated(true);
+      localStorage.setItem('fyw_control_authenticated', 'true');
+      setLoginError('');
+      setPin('');
+    } else {
+      setLoginError('Falscher PIN');
+      setPin('');
+    }
+  }
+
+  function handleLogout() {
+    setAuthenticated(false);
+    localStorage.removeItem('fyw_control_authenticated');
+    setPin('');
+  }
+
+  if (!authenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-600 to-blue-900 flex flex-col items-center justify-center p-6">
+        <div className="text-center mb-8">
+          <div className="text-6xl mb-3">📊</div>
+          <h1 className="text-4xl font-black text-white tracking-tight">Control Board</h1>
+          <p className="text-blue-100 mt-2 text-lg">Admin-Zugang erforderlich</p>
+        </div>
+
+        <div className="bg-white/95 backdrop-blur rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden">
+          <div className="p-6">
+            <form onSubmit={handleLogin}>
+              <label className="block text-blue-900 font-bold mb-2 text-lg">PIN eingeben</label>
+              <input
+                type="password"
+                value={pin}
+                onChange={e => setPin(e.target.value)}
+                placeholder="z.B. 1234"
+                maxLength={4}
+                className="w-full border-2 border-blue-200 rounded-2xl px-4 py-4 text-3xl font-black text-center tracking-widest focus:outline-none focus:border-blue-500 mb-6"
+              />
+              <button
+                type="submit"
+                disabled={pin.trim().length < 4}
+                className="w-full bg-blue-600 disabled:bg-gray-300 text-white font-black text-xl py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
+              >
+                Einloggen 🔑
+              </button>
+            </form>
+
+            {loginError && <p className="text-red-500 text-sm text-center mt-3 font-semibold">{loginError}</p>}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (loading) {
@@ -58,19 +115,34 @@ export default function ControlPage() {
   const timerRunning = gameState?.timerRunning || false;
   const isLowTime = timeLeft < 300; // < 5 minutes
 
+  function formatTime(seconds) {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
   return (
     <div className="min-h-screen bg-blue-50 pb-10">
       {/* Header */}
       <div className={`${isLowTime ? 'bg-gradient-to-r from-red-700 to-red-600' : 'bg-gradient-to-r from-blue-800 to-blue-600'} text-white px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10 transition-colors`}>
         <div className="flex items-center justify-between mb-3">
           <h1 className="text-3xl font-black">📊 Control Dashboard</h1>
-          <div className="text-right">
-            <div className={`text-4xl font-black tracking-wider ${isLowTime ? 'animate-pulse' : ''}`}>
-              {formatTime(timeLeft)}
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <div className={`text-4xl font-black tracking-wider ${isLowTime ? 'animate-pulse' : ''}`}>
+                {formatTime(timeLeft)}
+              </div>
+              <div className="text-sm mt-1">
+                {timerRunning ? '▶️ Läuft' : '⏸️ Pausiert'}
+              </div>
             </div>
-            <div className="text-sm mt-1">
-              {timerRunning ? '▶️ Läuft' : '⏸️ Pausiert'}
-            </div>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1 rounded-lg text-sm"
+            >
+              Logout
+            </button>
           </div>
         </div>
         <p className="text-blue-100 text-sm">Live-Statistiken & Fortschritt</p>

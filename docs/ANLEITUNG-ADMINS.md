@@ -92,7 +92,8 @@ Das Control Board ist ein separates Dashboard für Admins zur Verwaltung von Tea
 ### Zugang zum Control Board
 
 1. **URL:** `http://<server-ip>/control` (oder `https://fyw.tncg.de/control`)
-2. **Keine PIN erforderlich** (öffentlich für Admins)
+2. **PIN eingeben** (Standard: `1234`)
+3. **"Einloggen 🔑" drücken**
 
 ### Control Board Features
 
@@ -100,6 +101,7 @@ Das Control Board ist ein separates Dashboard für Admins zur Verwaltung von Tea
 - ⏱️ Verbleibende Zeit in HH:MM:SS Format
 - ▶️ Läuft / ⏸️ Pausiert Status
 - Wird rot und pulsiert bei < 5 Minuten
+- **Logout Button:** Abmelden vom Control Board
 
 **Statistik-Karten:**
 - 📊 **Teams:** Anzahl registrierter Gruppen
