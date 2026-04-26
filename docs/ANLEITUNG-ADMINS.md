@@ -12,19 +12,6 @@
 2. **PIN eingeben** (Standard: `1234`)
 3. **"Einloggen 🔑" drücken**
 
-### PIN ändern
-
-In `docker-compose.yml`:
-```yaml
-environment:
-  ADMIN_PIN: "1234"  # Hier ändern
-```
-
-Dann neu starten:
-```bash
-docker compose up --build -d
-```
-
 ---
 
 ## 2️⃣ Dashboard-Tabs
@@ -39,7 +26,12 @@ docker compose up --build -d
 **Mitte: Rangliste**
 - Alle Teams sortiert nach XP
 - Fortschrittsbalken pro Team
-- Team-Code sichtbar (🔑)
+- Zeigt: Teilnehmer • Stationen • ⚡ Aktive Stationen
+- **Expandieren (▼):** Zeigt:
+  - **Zugangscode:** Der PIN des Teams (z.B. "A3KX")
+  - **Aktive Stationen:** Anzahl der aktiven Stationen
+  - **Angemeldete Teilnehmer:** Liste der registrierten Teilnehmer (bearbeitbar)
+  - **Stats:** Erledigt/Ausstehend/XP
 
 **Unten: Team-Details**
 - Jedes Team als Karte
@@ -93,7 +85,94 @@ docker compose up --build -d
 
 ---
 
-## 3️⃣ Spielablauf
+## 3️⃣ Control Board (für Admins)
+
+Das Control Board ist ein separates Dashboard für Admins zur Verwaltung von Teams und Teilnehmern.
+
+### Zugang zum Control Board
+
+1. **URL:** `http://<server-ip>/control` (oder `https://fyw.tncg.de/control`)
+2. **Keine PIN erforderlich** (öffentlich für Admins)
+
+### Control Board Features
+
+**Header mit Live-Timer:**
+- ⏱️ Verbleibende Zeit in HH:MM:SS Format
+- ▶️ Läuft / ⏸️ Pausiert Status
+- Wird rot und pulsiert bei < 5 Minuten
+
+**Statistik-Karten:**
+- 📊 **Teams:** Anzahl registrierter Gruppen
+- 👥 **Teilnehmer:** Gesamtzahl aller Teilnehmer
+- ✅ **Fertig:** Anzahl abgeschlossener Teams
+- 📈 **Ø Fortschritt:** Durchschnittlicher Fortschritt aller Teams
+
+**Chat-Aktivität:**
+- 💬 **Nachrichten gesamt:** Alle Nachrichten
+- 🔴 **Ungelesen:** Ungelesene Nachrichten
+
+**Rangliste (Expandierbar):**
+- Alle Teams sortiert nach XP
+- **Übersicht zeigt:**
+  - Rang (1, 2, 3, ...)
+  - Team-Icon und Name
+  - Teilnehmer-Anzahl
+  - Stationen-Fortschritt (z.B. 5/12)
+  - ⚡ Aktive Stationen
+  - XP-Punkte
+  - Status-Badge (✅ Fertig / ⏳ Ausstehend / 🎮 Aktiv)
+
+- **Beim Expandieren (▼) sehen Sie:**
+  - **Zugangscode:** Der PIN des Teams (z.B. "A3KX") - zum Weitergeben an Teams
+  - **Aktive Stationen:** Anzahl der aktiven Stationen (z.B. "⚡ 5")
+  - **Angemeldete Teilnehmer:** 
+    - Liste der registrierten Teilnehmer
+    - ✏️ Bearbeiten: Namen ändern
+    - 🗑️ Löschen: Teilnehmer entfernen
+    - ➕ Hinzufügen: Neue Teilnehmer eintragen (max. 6)
+  - **Stats:** Erledigt/Ausstehend/XP
+
+**Zusammenfassung (unten):**
+- 📈 Gruppen gesamt
+- 👥 Teilnehmer gesamt
+- 📊 Abschlussquote (%)
+- ⚡ Durchschn. XP
+
+### Teilnehmer-Verwaltung im Control Board
+
+**Teilnehmer hinzufügen:**
+1. Team expandieren (▼)
+2. Im Feld "Weitere Teilnehmer hinzufügen" Namen eingeben
+3. ➕ Button drücken
+4. Teilnehmer wird sofort hinzugefügt (max. 6 pro Team)
+
+**Teilnehmer bearbeiten:**
+1. Team expandieren (▼)
+2. ✏️ Button neben dem Namen drücken
+3. Namen ändern
+4. ✓ Button drücken zum Speichern
+5. ✕ Button zum Abbrechen
+
+**Teilnehmer löschen:**
+1. Team expandieren (▼)
+2. 🗑️ Button neben dem Namen drücken
+3. Bestätigung erforderlich
+4. Teilnehmer wird gelöscht
+
+### Workflow: Teilnehmer-Anmeldung
+
+1. **Team erstellt sich** mit Teamnamen + Icon (keine Teilnehmer erforderlich)
+2. **Team erhält Zugangscode** (z.B. "A3KX")
+3. **Team geht zum Caféstand** zur Anmeldung
+4. **Admin trägt Teilnehmer-Namen im Control Board ein:**
+   - Team expandieren
+   - Namen in "Weitere Teilnehmer hinzufügen" eingeben
+   - ➕ drücken
+5. **Anmeldung abgeschlossen** - Team kann spielen
+
+---
+
+## 4️⃣ Spielablauf
 
 ### Vor dem Spiel
 
@@ -133,7 +212,7 @@ docker compose up --build -d
 
 ---
 
-## 4️⃣ Häufige Admin-Aufgaben
+## 5️⃣ Häufige Admin-Aufgaben
 
 ### Station bestätigen
 
@@ -171,7 +250,7 @@ docker compose up --build -d
 
 ---
 
-## 5️⃣ Technische Tipps
+## 6️⃣ Technische Tipps
 
 ### Codes ändern
 
@@ -210,7 +289,7 @@ Dann neu deployen.
 
 ---
 
-## 6️⃣ Problembehebung
+## 7️⃣ Problembehebung
 
 ### Admin-Bereich lädt nicht
 
@@ -244,7 +323,7 @@ Dann neu deployen.
 
 ---
 
-## 7️⃣ Best Practices
+## 8️⃣ Best Practices
 
 ### Vor dem Event
 
