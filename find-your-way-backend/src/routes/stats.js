@@ -38,6 +38,9 @@ router.get('/', (req, res) => {
       const completed = completions.filter(c => c.status === 'done').length;
       const pending = completions.filter(c => c.status === 'pending').length;
       
+      // Count active stations (type === 'aktiv')
+      const activeStations = STATIONS.filter(s => s.type === 'aktiv').length;
+      
       const totalXP = completions
         .filter(c => c.status === 'done')
         .reduce((sum, c) => {
@@ -51,6 +54,7 @@ router.get('/', (req, res) => {
         id: team.id,
         name: team.name,
         icon: team.icon,
+        pin: team.pin,
         completed,
         pending,
         totalXP,
@@ -58,6 +62,7 @@ router.get('/', (req, res) => {
         created_at: team.created_at,
         participants,
         participantCount: participants.length,
+        activeStations,
       };
     });
     

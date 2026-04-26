@@ -145,7 +145,7 @@ export default function ControlPage() {
                         <div className="flex-1 min-w-0">
                           <p className="font-bold text-slate-800 truncate">{team.name}</p>
                           <p className="text-xs text-gray-500">
-                            {team.participantCount} Teilnehmer • {team.completed}/{12} Stationen
+                            {team.participantCount} Teilnehmer • {team.completed}/{12} Stationen • ⚡ {team.activeStations} aktiv
                           </p>
                         </div>
                       </div>
@@ -185,6 +185,18 @@ export default function ControlPage() {
                   {/* Expanded Content */}
                   {expandedTeam === team.id && (
                     <div className="p-4 bg-white border-t border-blue-100 space-y-4">
+                      {/* PIN and Active Stations */}
+                      <div className="grid grid-cols-2 gap-3 bg-blue-50 p-3 rounded-lg">
+                        <div>
+                          <p className="text-xs text-gray-600 font-bold">Zugangscode</p>
+                          <p className="text-lg font-black text-blue-600 tracking-wider">{team.pin}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-600 font-bold">Aktive Stationen</p>
+                          <p className="text-lg font-black text-orange-600">⚡ {team.activeStations}</p>
+                        </div>
+                      </div>
+
                       {/* Registered Participants - Editable */}
                       <div>
                         <h3 className="font-bold text-slate-800 mb-2">✅ Angemeldete Teilnehmer</h3>
