@@ -56,7 +56,7 @@ export default function AdminChat({ teams }) {
   }
 
   const filtered = selectedTeamId === 'all'
-    ? messages
+    ? messages.filter(m => !m.from_admin && !m.read_at)
     : messages.filter(m => m.team_id === selectedTeamId);
 
   // Unread count per team (messages from teams that haven't been read yet)
