@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./find-your-way-backend
+    container_name: fyw-backend
+    ports:
+      - "3001:3001"
+    volumes:
+      - fyw-data:/app/data
+    environment:
+      PORT: 3001
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./find-your-way
+      args:
+        VITE_API_URL: http://localhost:3001
+        VITE_WS_URL: ws://localhost:3001
+    container_name: fyw-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  fyw-data:

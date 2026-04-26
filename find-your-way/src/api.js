@@ -1,5 +1,5 @@
-const BASE = 'http://localhost:3001/api';
-const WS_URL = 'ws://localhost:3001';
+const BASE = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:3001';
 
 export async function registerTeam(name, icon) {
   const res = await fetch(`${BASE}/teams`, {
