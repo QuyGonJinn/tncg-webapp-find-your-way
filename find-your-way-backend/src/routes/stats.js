@@ -8,20 +8,6 @@ router.get('/', (req, res) => {
   try {
     const teams = db.all(`SELECT * FROM teams ORDER BY created_at ASC`);
     
-    // Get game state for timer
-    const gameState = db.get(`SELECT value FROM game_state WHERE key = 'timer_running'`);
-    const timerRunning = gameState?.value === 'true';
-    const timeLeftMs = db.get(`SELECT value FROM game_state WHERE key = 'timer_elapsed'`);
-    const timerDuration = db.get(`SELECT value FROM game_state WHERE key = 'timer_duration'`);
-    const timerStartedAt = db.get(`SELECT value FROM game_state WHERE key = 'timer_started_at'`);
-    
-    let timeLeft = 7200; // default 2 hours
-    if (timerRunning && timerStartedAt && timerDuration) {
-      const elapsed = Math.floor((Date.now() - Number(timerStartedAt.value)) / 1000);
-      const duration = Number(timerDuration.value);
-      timeLeft = Math.max(0, duration - elapsed);
-    }
-    
     // Build team stats
     const teamStats = teams.map(team => {
       const completions = db.all(
@@ -80,10 +66,6 @@ router.get('/', (req, res) => {
     
     res.json({
       timestamp: Date.now(),
-      gameState: {
-        timerRunning,
-        timeLeft,
-      },
       overall: {
         totalTeams,
         totalParticipants,
