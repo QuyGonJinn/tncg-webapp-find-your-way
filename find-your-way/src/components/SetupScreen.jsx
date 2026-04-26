@@ -5,12 +5,17 @@ export default function SetupScreen({ onStart, onLogin, error }) {
   const [tab, setTab] = useState('new'); // new | login
   const [name, setName] = useState('');
   const [icon, setIcon] = useState(TEAM_ICONS[0]);
+  const [participants, setParticipants] = useState(['', '', '', '', '', '']);
   const [pin, setPin] = useState('');
 
   function handleCreate(e) {
     e.preventDefault();
     if (!name.trim()) return;
-    onStart({ name: name.trim(), icon });
+    
+    // Filter out empty participant names
+    const validParticipants = participants.filter(p => p.trim().length > 0);
+    
+    onStart({ name: name.trim(), icon, participants: validParticipants });
   }
 
   function handleLogin(e) {
@@ -18,6 +23,14 @@ export default function SetupScreen({ onStart, onLogin, error }) {
     if (pin.trim().length < 4) return;
     onLogin(pin.trim());
   }
+
+  function handleParticipantChange(idx, value) {
+    const newParticipants = [...participants];
+    newParticipants[idx] = value;
+    setParticipants(newParticipants);
+  }
+
+  const filledParticipants = participants.filter(p => p.trim().length > 0).length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-600 to-blue-900 flex flex-col items-center justify-center p-6">
@@ -44,9 +57,10 @@ export default function SetupScreen({ onStart, onLogin, error }) {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 max-h-[80vh] overflow-y-auto">
           {tab === 'new' ? (
             <form onSubmit={handleCreate}>
+              {/* Team Name */}
               <label className="block text-blue-900 font-bold mb-2 text-lg">Teamname</label>
               <input
                 type="text"
@@ -57,6 +71,7 @@ export default function SetupScreen({ onStart, onLogin, error }) {
                 className="w-full border-2 border-blue-200 rounded-2xl px-4 py-3 text-xl font-semibold focus:outline-none focus:border-blue-500 mb-5"
               />
 
+              {/* Team Icon */}
               <label className="block text-blue-900 font-bold mb-3 text-lg">Team-Icon wählen</label>
               <div className="grid grid-cols-6 gap-3 mb-6">
                 {TEAM_ICONS.map(ic => (
@@ -68,6 +83,24 @@ export default function SetupScreen({ onStart, onLogin, error }) {
                   >
                     {ic}
                   </button>
+                ))}
+              </div>
+
+              {/* Participants */}
+              <label className="block text-blue-900 font-bold mb-2 text-lg">
+                👥 Teilnehmer ({filledParticipants}/6)
+              </label>
+              <div className="space-y-2 mb-5">
+                {participants.map((participant, idx) => (
+                  <input
+                    key={idx}
+                    type="text"
+                    value={participant}
+                    onChange={e => handleParticipantChange(idx, e.target.value)}
+                    placeholder={`Teilnehmer ${idx + 1} (optional)`}
+                    maxLength={20}
+                    className="w-full border-2 border-blue-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                  />
                 ))}
               </div>
 

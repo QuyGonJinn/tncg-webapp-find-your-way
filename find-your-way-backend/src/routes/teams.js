@@ -54,7 +54,7 @@ function normalizeTeamName(name) {
 
 // POST register team
 router.post('/', (req, res) => {
-  const { name, icon } = req.body;
+  const { name, icon, participants } = req.body;
   if (!name || !icon) return res.status(400).json({ error: 'name and icon required' });
   
   // Check if team name already exists (normalized comparison)
@@ -66,6 +66,23 @@ router.post('/', (req, res) => {
   const id = randomUUID();
   const pin = generatePin();
   db.run(`INSERT INTO teams (id, name, icon, pin, created_at) VALUES (?, ?, ?, ?, ?)`, [id, name, icon, pin, Date.now()]);
+  
+  // Add participants if provided
+  if (Array.isArray(participants) && participants.length > 0) {
+    const maxParticipants = 6;
+    const validParticipants = participants
+      .filter(p => p && typeof p === 'string' && p.trim().length > 0)
+      .slice(0, maxParticipants);
+    
+    validParticipants.forEach(participantName => {
+      const participantId = randomUUID();
+      db.run(
+        `INSERT INTO participants (id, team_id, name, created_at) VALUES (?, ?, ?, ?)`,
+        [participantId, id, participantName.trim(), Date.now()]
+      );
+    });
+  }
+  
   const team = buildTeamPayload({ id, name, icon, pin, created_at: Date.now() });
   broadcast('TEAM_JOINED', team);
   res.status(201).json(team);

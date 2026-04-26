@@ -14,11 +14,11 @@ export async function loginWithPin(pin) {
   return res.json();
 }
 
-export async function registerTeam(name, icon) {
+export async function registerTeam(name, icon, participants = []) {
   const res = await fetch(`${BASE}/teams`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, icon }),
+    body: JSON.stringify({ name, icon, participants }),
   });
   if (!res.ok) {
     const err = await res.json();
