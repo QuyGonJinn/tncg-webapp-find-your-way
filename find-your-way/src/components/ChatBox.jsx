@@ -7,16 +7,22 @@ export default function ChatBox({ team }) {
   const [sending, setSending] = useState(false);
   const bottomRef = useRef(null);
   const wsRef = useRef(null);
+  const sentMessageIdsRef = useRef(new Set());
 
   useEffect(() => {
     fetchMessages(team.id).then(setMessages).catch(() => {});
 
     wsRef.current = createWebSocket(({ type, payload }) => {
       if (type === 'NEW_MESSAGE' && payload.team_id === team.id) {
-        setMessages(prev => prev.find(m => m.id === payload.id) ? prev : [...prev, payload]);
+        // Only add if we haven't already added it optimistically
+        if (!sentMessageIdsRef.current.has(payload.id)) {
+          setMessages(prev => [...prev, payload]);
+        }
+        sentMessageIdsRef.current.delete(payload.id);
       }
       if (type === 'CHAT_CLEARED') {
         setMessages([]);
+        sentMessageIdsRef.current.clear();
       }
     });
     return () => wsRef.current?.close();
@@ -36,6 +42,8 @@ export default function ChatBox({ team }) {
       const newMsg = await sendMessage(team.id, msgText);
       // Add message immediately to UI (optimistic update)
       setMessages(prev => [...prev, newMsg]);
+      // Mark this message ID so WebSocket handler doesn't add it again
+      sentMessageIdsRef.current.add(newMsg.id);
     } catch (err) {
       console.error('Senden fehlgeschlagen', err);
       setText(msgText); // Restore on error

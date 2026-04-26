@@ -13,7 +13,10 @@ const MAX_XP = STATIONS.reduce((s, st) => s + st.points, 0);
 export default function AdminPage() {
   const { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam, handleApprove, handleReject } = useAdmin();
   const [adminTab, setAdminTab] = useState('overview');
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(() => {
+    // Restore admin session from localStorage on mount
+    return localStorage.getItem('fyw_admin_authenticated') === 'true';
+  });
   const [loginError, setLoginError] = useState('');
   const sorted = [...teams].sort((a, b) => b.totalXP - a.totalXP);
 
@@ -22,9 +25,15 @@ export default function AdminPage() {
       setLoginError('');
       await adminLogin(pin);
       setAuthenticated(true);
+      localStorage.setItem('fyw_admin_authenticated', 'true');
     } catch (e) {
       setLoginError(e.message || 'Login fehlgeschlagen');
     }
+  }
+
+  function handleAdminLogout() {
+    setAuthenticated(false);
+    localStorage.removeItem('fyw_admin_authenticated');
   }
 
   if (!authenticated) {
@@ -35,8 +44,16 @@ export default function AdminPage() {
     <div className="min-h-screen bg-blue-50 pb-10">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-4 pt-6 pb-4 shadow-lg">
-        <h1 className="text-2xl font-black">🛠 Admin – Find Your Way</h1>
-        <p className="text-blue-200 text-sm mt-1">{teams.length} Teams registriert</p>
+        <div className="flex items-center justify-between mb-3">
+          <h1 className="text-2xl font-black">🛠 Admin – Find Your Way</h1>
+          <button
+            onClick={handleAdminLogout}
+            className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1 rounded-lg text-sm"
+          >
+            Logout
+          </button>
+        </div>
+        <p className="text-blue-200 text-sm">{teams.length} Teams registriert</p>
         <div className="flex gap-2 mt-3">
           <button
             onClick={() => setAdminTab('overview')}
