@@ -144,6 +144,16 @@ export async function markMessagesAsRead(teamId, messageIds) {
   return res.json();
 }
 
+export async function fetchStats() {
+  const res = await fetch(`${BASE}/stats`);
+  return res.json();
+}
+
+export async function fetchTeamStats(teamId) {
+  const res = await fetch(`${BASE}/stats/${teamId}`);
+  return res.json();
+}
+
 export function createWebSocket(onMessage) {
   const ws = new WebSocket(WS_URL);
   ws.onmessage = (e) => {

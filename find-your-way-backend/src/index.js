@@ -14,6 +14,7 @@ async function main() {
   app.use('/api/teams', require('./routes/teams'));
   app.use('/api/game',  require('./routes/game'));
   app.use('/api/chat',  require('./routes/chat'));
+  app.use('/api/stats', require('./routes/stats'));
   
   // Admin auth
   app.post('/api/admin/login', (req, res) => {
