@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { registerTeam, fetchTeam, loginWithPin, completeStation as completeStationApi, createWebSocket, fetchGameState } from '../api';
+import { STATIONS } from '../data/stations';
 
 const STORAGE_KEY = 'fyw_team_id';
 
@@ -35,8 +36,24 @@ export function useGameState() {
   }, []);
 
   function handleWsMessage({ type, payload }) {
-    if (type === 'TEAM_UPDATED') {
-      setTeam(prev => prev && prev.id === payload.id ? payload : prev);
+    if (type === 'TEAM_UPDATED' && team && payload.id === team.id) {
+      // Check if a pending station was approved → show XP popup
+      const wasPending = Object.keys(team.pending || {});
+      const nowCompleted = Object.keys(payload.completed || {});
+      const newlyApproved = nowCompleted.filter(id => wasPending.includes(id));
+      
+      if (newlyApproved.length > 0) {
+        newlyApproved.forEach(stationId => {
+          const station = STATIONS.find(s => s.id === Number(stationId));
+          if (station) {
+            const id = Date.now() + Math.random();
+            setXpPopups(prev => [...prev, { id, points: station.points }]);
+            setTimeout(() => setXpPopups(prev => prev.filter(p => p.id !== id)), 1400);
+          }
+        });
+      }
+      
+      setTeam(payload);
     }
     if (type === 'GAME_STATE') {
       setTimeLeft(payload.timeLeft);

@@ -15,6 +15,9 @@ export default function ChatBox({ team }) {
       if (type === 'NEW_MESSAGE' && payload.team_id === team.id) {
         setMessages(prev => prev.find(m => m.id === payload.id) ? prev : [...prev, payload]);
       }
+      if (type === 'CHAT_CLEARED') {
+        setMessages([]);
+      }
     });
     return () => wsRef.current?.close();
   }, [team.id]);
@@ -26,14 +29,14 @@ export default function ChatBox({ team }) {
   async function handleSend(e) {
     e.preventDefault();
     if (!text.trim() || sending) return;
+    const msgText = text.trim();
+    setText(''); // Clear immediately for better UX
     setSending(true);
     try {
-      const msg = await sendMessage(team.id, text.trim());
-      // Optimistically add if WS doesn't echo back
-      setMessages(prev => prev.find(m => m.id === msg.id) ? prev : [...prev, msg]);
-      setText('');
+      await sendMessage(team.id, msgText);
     } catch (err) {
       console.error('Senden fehlgeschlagen', err);
+      setText(msgText); // Restore on error
     } finally {
       setSending(false);
     }
