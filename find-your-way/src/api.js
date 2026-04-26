@@ -154,6 +154,48 @@ export async function fetchTeamStats(teamId) {
   return res.json();
 }
 
+export async function fetchParticipants(teamId) {
+  const res = await fetch(`${BASE}/participants/${teamId}`);
+  return res.json();
+}
+
+export async function addParticipant(teamId, name) {
+  const res = await fetch(`${BASE}/participants/${teamId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name }),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Failed to add participant');
+  }
+  return res.json();
+}
+
+export async function updateParticipant(teamId, participantId, name) {
+  const res = await fetch(`${BASE}/participants/${teamId}/${participantId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name }),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Failed to update participant');
+  }
+  return res.json();
+}
+
+export async function deleteParticipant(teamId, participantId) {
+  const res = await fetch(`${BASE}/participants/${teamId}/${participantId}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Failed to delete participant');
+  }
+  return res.json();
+}
+
 export function createWebSocket(onMessage) {
   const ws = new WebSocket(WS_URL);
   ws.onmessage = (e) => {

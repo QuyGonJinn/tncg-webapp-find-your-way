@@ -15,6 +15,11 @@ router.get('/', (req, res) => {
         [team.id]
       );
       
+      const participants = db.all(
+        `SELECT id, name FROM participants WHERE team_id = ? ORDER BY created_at ASC`,
+        [team.id]
+      );
+      
       const completed = completions.filter(c => c.status === 'done').length;
       const pending = completions.filter(c => c.status === 'pending').length;
       
@@ -36,12 +41,14 @@ router.get('/', (req, res) => {
         totalXP,
         progress,
         created_at: team.created_at,
+        participants,
+        participantCount: participants.length,
       };
     });
     
     // Overall stats
     const totalTeams = teams.length;
-    const totalParticipants = teams.length; // 1 team = 1 group
+    const totalParticipants = teamStats.reduce((sum, t) => sum + t.participantCount, 0);
     const teamsFinished = teamStats.filter(t => t.completed === STATIONS.length).length;
     const totalMessages = db.get(`SELECT COUNT(*) as count FROM messages`)?.count || 0;
     const unreadMessages = db.get(

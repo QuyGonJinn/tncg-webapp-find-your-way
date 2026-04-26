@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { fetchStats } from '../api';
+import ParticipantManager from '../components/ParticipantManager';
 
 export default function ControlPage() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [expandedTeam, setExpandedTeam] = useState(null);
   const pollIntervalRef = useRef(null);
 
   useEffect(() => {
@@ -65,6 +67,12 @@ export default function ControlPage() {
           </div>
 
           <div className="bg-white rounded-2xl shadow p-4">
+            <p className="text-purple-600 text-xs font-bold uppercase">Teilnehmer</p>
+            <p className="text-3xl font-black text-purple-600 mt-1">{overall.totalParticipants}</p>
+            <p className="text-xs text-gray-500 mt-1">Personen insgesamt</p>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow p-4">
             <p className="text-green-600 text-xs font-bold uppercase">Fertig</p>
             <p className="text-3xl font-black text-green-600 mt-1">{overall.teamsFinished}</p>
             <p className="text-xs text-gray-500 mt-1">Gruppen abgeschlossen</p>
@@ -74,12 +82,6 @@ export default function ControlPage() {
             <p className="text-orange-600 text-xs font-bold uppercase">Ø Fortschritt</p>
             <p className="text-3xl font-black text-orange-600 mt-1">{overall.avgProgress}%</p>
             <p className="text-xs text-gray-500 mt-1">Durchschnitt</p>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow p-4">
-            <p className="text-purple-600 text-xs font-bold uppercase">Ø XP</p>
-            <p className="text-3xl font-black text-purple-600 mt-1">{overall.avgXP}</p>
-            <p className="text-xs text-gray-500 mt-1">von {overall.maxXP}</p>
           </div>
         </div>
 
@@ -105,94 +107,93 @@ export default function ControlPage() {
             {teams
               .sort((a, b) => b.totalXP - a.totalXP)
               .map((team, idx) => (
-                <div key={team.id} className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl">
-                  {/* Rank */}
-                  <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-sm">
-                    {idx + 1}
-                  </div>
+                <div key={team.id} className="border border-blue-100 rounded-xl overflow-hidden">
+                  {/* Team Header */}
+                  <button
+                    onClick={() => setExpandedTeam(expandedTeam === team.id ? null : team.id)}
+                    className="w-full flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 transition-colors"
+                  >
+                    {/* Rank */}
+                    <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-sm">
+                      {idx + 1}
+                    </div>
 
-                  {/* Team Info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">{team.icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-slate-800 truncate">{team.name}</p>
-                        <p className="text-xs text-gray-500">
-                          {team.completed}/{12} Stationen • {team.pending} ausstehend
-                        </p>
+                    {/* Team Info */}
+                    <div className="flex-1 min-w-0 text-left">
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl">{team.icon}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-bold text-slate-800 truncate">{team.name}</p>
+                          <p className="text-xs text-gray-500">
+                            {team.participantCount} Teilnehmer • {team.completed}/{12} Stationen
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="bg-blue-200 rounded-full h-2 mt-2 overflow-hidden">
+                        <div
+                          className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${team.progress}%` }}
+                        />
                       </div>
                     </div>
 
-                    {/* Progress Bar */}
-                    <div className="bg-blue-200 rounded-full h-2 mt-2 overflow-hidden">
-                      <div
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${team.progress}%` }}
-                      />
+                    {/* XP */}
+                    <div className="text-right">
+                      <p className="font-black text-blue-600 text-lg">{team.totalXP}</p>
+                      <p className="text-xs text-gray-500">XP</p>
                     </div>
-                  </div>
 
-                  {/* XP */}
-                  <div className="text-right">
-                    <p className="font-black text-blue-600 text-lg">{team.totalXP}</p>
-                    <p className="text-xs text-gray-500">XP</p>
-                  </div>
+                    {/* Status Badge */}
+                    <div className="ml-2">
+                      {team.completed === 12 ? (
+                        <span className="text-2xl">✅</span>
+                      ) : team.pending > 0 ? (
+                        <span className="text-2xl">⏳</span>
+                      ) : (
+                        <span className="text-2xl">🎮</span>
+                      )}
+                    </div>
 
-                  {/* Status Badge */}
-                  <div className="ml-2">
-                    {team.completed === 12 ? (
-                      <span className="text-2xl">✅</span>
-                    ) : team.pending > 0 ? (
-                      <span className="text-2xl">⏳</span>
-                    ) : (
-                      <span className="text-2xl">🎮</span>
-                    )}
-                  </div>
+                    {/* Expand Arrow */}
+                    <span className={`text-xl transition-transform ${expandedTeam === team.id ? 'rotate-180' : ''}`}>
+                      ▼
+                    </span>
+                  </button>
+
+                  {/* Expanded Content */}
+                  {expandedTeam === team.id && (
+                    <div className="p-4 bg-white border-t border-blue-100 space-y-4">
+                      {/* Participants */}
+                      <div>
+                        <h3 className="font-bold text-slate-800 mb-2">👥 Teilnehmer ({team.participantCount}/6)</h3>
+                        <ParticipantManager
+                          teamId={team.id}
+                          participants={team.participants || []}
+                          onUpdate={loadStats}
+                        />
+                      </div>
+
+                      {/* Stats */}
+                      <div className="grid grid-cols-3 gap-2 pt-2 border-t border-gray-100">
+                        <div className="text-center">
+                          <p className="text-xs text-gray-600">Erledigt</p>
+                          <p className="text-lg font-black text-green-600">{team.completed}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-xs text-gray-600">Ausstehend</p>
+                          <p className="text-lg font-black text-yellow-600">{team.pending}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-xs text-gray-600">XP</p>
+                          <p className="text-lg font-black text-blue-600">{team.totalXP}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
-          </div>
-        </div>
-
-        {/* Detailed Team Stats */}
-        <div className="bg-white rounded-2xl shadow p-4">
-          <h2 className="text-blue-700 font-black text-lg mb-4">📋 Team-Details</h2>
-          <div className="space-y-3">
-            {teams.map(team => (
-              <div key={team.id} className="border-b border-gray-100 pb-3 last:border-0">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">{team.icon}</span>
-                    <div>
-                      <p className="font-bold text-slate-800">{team.name}</p>
-                      <p className="text-xs text-gray-500">
-                        Erstellt: {new Date(team.created_at).toLocaleString('de-DE')}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-black text-blue-600">{team.progress}%</p>
-                    <p className="text-xs text-gray-500">{team.completed}/12</p>
-                  </div>
-                </div>
-
-                {/* Mini Progress Bar */}
-                <div className="bg-gray-200 rounded-full h-1.5 overflow-hidden">
-                  <div
-                    className="bg-gradient-to-r from-blue-400 to-blue-600 h-1.5 rounded-full transition-all duration-300"
-                    style={{ width: `${team.progress}%` }}
-                  />
-                </div>
-
-                {/* Stats Row */}
-                <div className="flex gap-4 mt-2 text-xs">
-                  <span className="text-green-600 font-bold">✅ {team.completed} erledigt</span>
-                  {team.pending > 0 && (
-                    <span className="text-yellow-600 font-bold">⏳ {team.pending} ausstehend</span>
-                  )}
-                  <span className="text-blue-600 font-bold">⭐ {team.totalXP} XP</span>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
@@ -200,6 +201,10 @@ export default function ControlPage() {
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-2xl shadow p-6">
           <h2 className="font-black text-lg mb-4">📈 Zusammenfassung</h2>
           <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-blue-200 text-sm">Gruppen gesamt</p>
+              <p className="text-3xl font-black mt-1">{overall.totalTeams}</p>
+            </div>
             <div>
               <p className="text-blue-200 text-sm">Teilnehmer gesamt</p>
               <p className="text-3xl font-black mt-1">{overall.totalParticipants}</p>
@@ -211,10 +216,6 @@ export default function ControlPage() {
                   ? Math.round((overall.teamsFinished / overall.totalTeams) * 100)
                   : 0}%
               </p>
-            </div>
-            <div>
-              <p className="text-blue-200 text-sm">Durchschn. Fortschritt</p>
-              <p className="text-3xl font-black mt-1">{overall.avgProgress}%</p>
             </div>
             <div>
               <p className="text-blue-200 text-sm">Durchschn. XP</p>
