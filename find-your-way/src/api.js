@@ -20,7 +20,10 @@ export async function registerTeam(name, icon) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, icon }),
   });
-  if (!res.ok) throw new Error('Team konnte nicht erstellt werden');
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Team konnte nicht erstellt werden');
+  }
   return res.json();
 }
 

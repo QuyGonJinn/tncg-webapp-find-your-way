@@ -82,8 +82,8 @@ export function useGameState() {
       localStorage.setItem(STORAGE_KEY, t.id);
       setTeam(t);
       setScreen('pin'); // show PIN before game
-    } catch {
-      setError('Server nicht erreichbar. Läuft das Backend?');
+    } catch (e) {
+      setError(e.message || 'Server nicht erreichbar. Läuft das Backend?');
     }
   }
 
