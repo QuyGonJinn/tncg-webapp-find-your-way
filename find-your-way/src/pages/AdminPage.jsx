@@ -3,6 +3,7 @@ import { useAdmin } from '../hooks/useAdmin';
 import AdminTimer from '../components/admin/AdminTimer';
 import TeamCard from '../components/admin/TeamCard';
 import AdminChat from '../components/admin/AdminChat';
+import StationCodes from '../components/admin/StationCodes';
 import { STATIONS } from '../data/stations';
 
 const MAX_XP = STATIONS.reduce((s, st) => s + st.points, 0);
@@ -24,6 +25,12 @@ export default function AdminPage() {
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${adminTab === 'overview' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'}`}
           >
             📊 Übersicht
+          </button>
+          <button
+            onClick={() => setAdminTab('codes')}
+            className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${adminTab === 'codes' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'}`}
+          >
+            📋 Codes
           </button>
           <button
             onClick={() => setAdminTab('chat')}
@@ -87,6 +94,7 @@ export default function AdminPage() {
         )}
 
         {adminTab === 'chat' && <AdminChat teams={teams} />}
+        {adminTab === 'codes' && <StationCodes />}
       </div>
     </div>
   );
