@@ -19,11 +19,7 @@ export default function AdminChat({ teams }) {
   useEffect(() => {
     wsRef.current = createWebSocket(({ type, payload }) => {
       if (type === 'NEW_MESSAGE') {
-        setMessages(prev => {
-          // Check if message already exists
-          if (prev.find(m => m.id === payload.id)) return prev;
-          return [...prev, payload];
-        });
+        setMessages(prev => [...prev, payload]);
       }
       if (type === 'CHAT_CLEARED') {
         setMessages([]);
@@ -60,7 +56,7 @@ export default function AdminChat({ teams }) {
   }
 
   const filtered = selectedTeamId === 'all'
-    ? messages.filter(m => !m.from_admin && !m.read_at)
+    ? messages
     : messages.filter(m => m.team_id === selectedTeamId);
 
   // Unread count per team (messages from teams that haven't been read yet)
@@ -119,9 +115,9 @@ export default function AdminChat({ teams }) {
             }`}
           >
             🌊 Alle Nachrichten
-            {Object.values(unreadByTeam).reduce((a, b) => a + b, 0) > 0 && (
+            {messages.filter(m => !m.from_admin).length > 0 && (
               <span className="ml-1 bg-blue-500 text-white text-xs rounded-full px-1.5">
-                {Object.values(unreadByTeam).reduce((a, b) => a + b, 0)}
+                {messages.filter(m => !m.from_admin).length}
               </span>
             )}
           </button>
@@ -129,25 +125,19 @@ export default function AdminChat({ teams }) {
             <button
               key={team.id}
               onClick={() => setSelectedTeamId(team.id)}
-              className={`px-3 py-3 text-left border-b border-blue-50 transition-colors ${
+              className={`px-3 py-3 text-left border-b border-blue-50 ${
                 selectedTeamId === team.id ? 'bg-blue-50' : 'hover:bg-gray-50'
-              } ${unreadByTeam[team.id] ? 'bg-blue-100' : ''}`}
+              }`}
             >
               <div className="flex items-center gap-2">
                 <span className="text-xl">{team.icon}</span>
                 <div className="flex-1 min-w-0">
-                  <p className={`text-sm font-bold truncate ${
-                    selectedTeamId === team.id 
-                      ? 'text-blue-700' 
-                      : unreadByTeam[team.id]
-                      ? 'text-blue-700 font-black'
-                      : 'text-slate-700'
-                  }`}>
+                  <p className={`text-sm font-bold truncate ${selectedTeamId === team.id ? 'text-blue-700' : 'text-slate-700'}`}>
                     {team.name}
                   </p>
                 </div>
-                {unreadByTeam[team.id] > 0 && (
-                  <span className="bg-blue-500 text-white text-xs rounded-full px-1.5 shrink-0 font-bold">
+                {unreadByTeam[team.id] && (
+                  <span className="bg-blue-500 text-white text-xs rounded-full px-1.5 shrink-0">
                     {unreadByTeam[team.id]}
                   </span>
                 )}
