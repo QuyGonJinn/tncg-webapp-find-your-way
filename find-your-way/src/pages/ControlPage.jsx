@@ -185,25 +185,9 @@ export default function ControlPage() {
                   {/* Expanded Content */}
                   {expandedTeam === team.id && (
                     <div className="p-4 bg-white border-t border-blue-100 space-y-4">
-                      {/* Registered Participants */}
+                      {/* Registered Participants - Editable */}
                       <div>
                         <h3 className="font-bold text-slate-800 mb-2">✅ Angemeldete Teilnehmer</h3>
-                        {team.participants && team.participants.length > 0 ? (
-                          <div className="bg-blue-50 rounded-lg p-3 space-y-1">
-                            {team.participants.map((p, idx) => (
-                              <div key={idx} className="text-sm text-slate-700">
-                                {idx + 1}. {p.name}
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <p className="text-sm text-gray-500 italic">Keine Teilnehmer registriert</p>
-                        )}
-                      </div>
-
-                      {/* Add More Participants */}
-                      <div className="pt-2 border-t border-gray-100">
-                        <h3 className="font-bold text-slate-800 mb-2">➕ Weitere Teilnehmer hinzufügen</h3>
                         <ParticipantManager
                           teamId={team.id}
                           participants={team.participants || []}
