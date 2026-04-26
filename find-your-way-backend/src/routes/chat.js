@@ -14,7 +14,7 @@ router.delete('/', (req, res) => {
 // GET all messages (admin)
 router.get('/', (req, res) => {
   const messages = db.all(`SELECT * FROM messages ORDER BY sent_at ASC`);
-  res.json(messages.map(m => ({ ...m, from_admin: !!m.from_admin })));
+  res.json(messages.map(m => ({ ...m, from_admin: !!m.from_admin, read_at: m.read_at || null })));
 });
 
 // GET messages for a specific team
@@ -23,7 +23,7 @@ router.get('/:teamId', (req, res) => {
     `SELECT * FROM messages WHERE team_id = ? ORDER BY sent_at ASC`,
     [req.params.teamId]
   );
-  res.json(messages.map(m => ({ ...m, from_admin: !!m.from_admin })));
+  res.json(messages.map(m => ({ ...m, from_admin: !!m.from_admin, read_at: m.read_at || null })));
 });
 
 // POST send message from team
@@ -42,6 +42,7 @@ router.post('/:teamId', (req, res) => {
     text: text.trim(),
     from_admin: 0,
     sent_at: Date.now(),
+    read_at: null,
   };
   db.run(
     `INSERT INTO messages (id, team_id, team_name, team_icon, text, from_admin, sent_at) VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -69,6 +70,7 @@ router.post('/:teamId/reply', (req, res) => {
     text: text.trim(),
     from_admin: 1,
     sent_at: Date.now(),
+    read_at: null,
   };
   db.run(
     `INSERT INTO messages (id, team_id, team_name, team_icon, text, from_admin, sent_at) VALUES (?, ?, ?, ?, ?, ?, ?)`,
