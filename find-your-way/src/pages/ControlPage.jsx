@@ -29,6 +29,13 @@ export default function ControlPage() {
     }
   }
 
+  function formatTime(seconds) {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-blue-50 flex items-center justify-center">
@@ -45,16 +52,29 @@ export default function ControlPage() {
     );
   }
 
-  const { overall, teams } = stats;
+  const { overall, teams, gameState } = stats;
   const maxXP = overall.maxXP;
+  const timeLeft = gameState?.timeLeft || 0;
+  const timerRunning = gameState?.timerRunning || false;
+  const isLowTime = timeLeft < 300; // < 5 minutes
 
   return (
     <div className="min-h-screen bg-blue-50 pb-10">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-800 to-blue-600 text-white px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10">
-        <h1 className="text-3xl font-black">📊 Control Dashboard</h1>
-        <p className="text-blue-200 text-sm mt-1">Live-Statistiken & Fortschritt</p>
-        <p className="text-blue-300 text-xs mt-2">Aktualisiert: {new Date(stats.timestamp).toLocaleTimeString('de-DE')}</p>
+      <div className={`${isLowTime ? 'bg-gradient-to-r from-red-700 to-red-600' : 'bg-gradient-to-r from-blue-800 to-blue-600'} text-white px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10 transition-colors`}>
+        <div className="flex items-center justify-between mb-3">
+          <h1 className="text-3xl font-black">📊 Control Dashboard</h1>
+          <div className="text-right">
+            <div className={`text-4xl font-black tracking-wider ${isLowTime ? 'animate-pulse' : ''}`}>
+              {formatTime(timeLeft)}
+            </div>
+            <div className="text-sm mt-1">
+              {timerRunning ? '▶️ Läuft' : '⏸️ Pausiert'}
+            </div>
+          </div>
+        </div>
+        <p className="text-blue-100 text-sm">Live-Statistiken & Fortschritt</p>
+        <p className="text-blue-200 text-xs mt-2">Aktualisiert: {new Date(stats.timestamp).toLocaleTimeString('de-DE')}</p>
       </div>
 
       <div className="px-4 mt-6 space-y-6">
@@ -165,9 +185,25 @@ export default function ControlPage() {
                   {/* Expanded Content */}
                   {expandedTeam === team.id && (
                     <div className="p-4 bg-white border-t border-blue-100 space-y-4">
-                      {/* Participants */}
+                      {/* Registered Participants */}
                       <div>
-                        <h3 className="font-bold text-slate-800 mb-2">👥 Teilnehmer ({team.participantCount}/6)</h3>
+                        <h3 className="font-bold text-slate-800 mb-2">✅ Angemeldete Teilnehmer</h3>
+                        {team.participants && team.participants.length > 0 ? (
+                          <div className="bg-blue-50 rounded-lg p-3 space-y-1">
+                            {team.participants.map((p, idx) => (
+                              <div key={idx} className="text-sm text-slate-700">
+                                {idx + 1}. {p.name}
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-sm text-gray-500 italic">Keine Teilnehmer registriert</p>
+                        )}
+                      </div>
+
+                      {/* Add More Participants */}
+                      <div className="pt-2 border-t border-gray-100">
+                        <h3 className="font-bold text-slate-800 mb-2">➕ Weitere Teilnehmer hinzufügen</h3>
                         <ParticipantManager
                           teamId={team.id}
                           participants={team.participants || []}
