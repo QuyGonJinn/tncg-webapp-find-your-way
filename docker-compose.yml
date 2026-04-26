@@ -8,6 +8,7 @@ services:
       - fyw-data:/app/data
     environment:
       PORT: 3001
+      ADMIN_PIN: "1234"
     restart: unless-stopped
 
   frontend:

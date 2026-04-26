@@ -1,17 +1,35 @@
 import { useState } from 'react';
 import { useAdmin } from '../hooks/useAdmin';
+import AdminLogin from '../components/admin/AdminLogin';
 import AdminTimer from '../components/admin/AdminTimer';
 import TeamCard from '../components/admin/TeamCard';
 import AdminChat from '../components/admin/AdminChat';
 import StationCodes from '../components/admin/StationCodes';
 import { STATIONS } from '../data/stations';
+import { adminLogin } from '../api';
 
 const MAX_XP = STATIONS.reduce((s, st) => s + st.points, 0);
 
 export default function AdminPage() {
   const { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam, handleApprove, handleReject } = useAdmin();
   const [adminTab, setAdminTab] = useState('overview');
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loginError, setLoginError] = useState('');
   const sorted = [...teams].sort((a, b) => b.totalXP - a.totalXP);
+
+  async function handleAdminLogin(pin) {
+    try {
+      setLoginError('');
+      await adminLogin(pin);
+      setAuthenticated(true);
+    } catch (e) {
+      setLoginError(e.message || 'Login fehlgeschlagen');
+    }
+  }
+
+  if (!authenticated) {
+    return <AdminLogin onLogin={handleAdminLogin} error={loginError} />;
+  }
 
   return (
     <div className="min-h-screen bg-blue-50 pb-10">

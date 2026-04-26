@@ -30,6 +30,19 @@ export async function fetchTeam(id) {
   return res.json();
 }
 
+export async function adminLogin(pin) {
+  const res = await fetch(`${BASE}/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pin }),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || 'Login fehlgeschlagen');
+  }
+  return res.json();
+}
+
 export async function fetchAllTeams() {
   const res = await fetch(`${BASE}/teams`);
   return res.json();
