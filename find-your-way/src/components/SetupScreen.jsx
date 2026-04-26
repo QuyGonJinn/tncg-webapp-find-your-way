@@ -5,20 +5,14 @@ export default function SetupScreen({ onStart, onLogin, error }) {
   const [tab, setTab] = useState('new'); // new | login
   const [name, setName] = useState('');
   const [icon, setIcon] = useState(TEAM_ICONS[0]);
-  const [participants, setParticipants] = useState(['', '', '', '', '', '']);
   const [pin, setPin] = useState('');
 
   function handleCreate(e) {
     e.preventDefault();
     if (!name.trim()) return;
     
-    // Filter out empty participant names
-    const validParticipants = participants.filter(p => p.trim().length > 0);
-    
-    // Require at least 1 participant
-    if (validParticipants.length === 0) return;
-    
-    onStart({ name: name.trim(), icon, participants: validParticipants });
+    // No participants required at team creation - they're added in control board
+    onStart({ name: name.trim(), icon, participants: [] });
   }
 
   function handleLogin(e) {
@@ -26,14 +20,6 @@ export default function SetupScreen({ onStart, onLogin, error }) {
     if (pin.trim().length < 4) return;
     onLogin(pin.trim());
   }
-
-  function handleParticipantChange(idx, value) {
-    const newParticipants = [...participants];
-    newParticipants[idx] = value;
-    setParticipants(newParticipants);
-  }
-
-  const filledParticipants = participants.filter(p => p.trim().length > 0).length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-600 to-blue-900 flex flex-col items-center justify-center p-6">
@@ -91,30 +77,15 @@ export default function SetupScreen({ onStart, onLogin, error }) {
 
               {/* Participants */}
               <label className="block text-blue-900 font-bold mb-2 text-lg">
-                👥 Teilnehmer ({filledParticipants}/6)
+                👥 Teilnehmer
               </label>
-              <div className="space-y-2 mb-5">
-                {participants.map((participant, idx) => (
-                  <input
-                    key={idx}
-                    type="text"
-                    value={participant}
-                    onChange={e => handleParticipantChange(idx, e.target.value)}
-                    placeholder={`Teilnehmer ${idx + 1} ${idx === 0 ? '(erforderlich)' : '(optional)'}`}
-                    maxLength={20}
-                    className="w-full border-2 border-blue-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
-                  />
-                ))}
-              </div>
-              {filledParticipants === 0 && (
-                <p className="text-red-600 text-sm font-semibold mb-3 bg-red-50 p-2 rounded-lg">
-                  ⚠️ Mindestens 1 Teilnehmer erforderlich
-                </p>
-              )}
+              <p className="text-gray-600 text-sm mb-5 bg-blue-50 p-3 rounded-lg">
+                ℹ️ Teilnehmer können später im Control Board hinzugefügt werden.
+              </p>
 
               <button
                 type="submit"
-                disabled={!name.trim() || filledParticipants === 0}
+                disabled={!name.trim()}
                 className="w-full bg-blue-600 disabled:bg-gray-300 text-white font-black text-xl py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
               >
                 Spiel starten 🌊
