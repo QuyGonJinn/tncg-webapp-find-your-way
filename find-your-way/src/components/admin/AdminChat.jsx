@@ -8,10 +8,15 @@ export default function AdminChat({ teams }) {
   const [sending, setSending] = useState(false);
   const bottomRef = useRef(null);
   const wsRef = useRef(null);
+  const pollIntervalRef = useRef(null);
 
+  // Load messages initially
   useEffect(() => {
-    fetchAllMessages().then(setMessages).catch(() => {});
+    loadMessages();
+  }, []);
 
+  // Setup WebSocket and polling
+  useEffect(() => {
     wsRef.current = createWebSocket(({ type, payload }) => {
       if (type === 'NEW_MESSAGE') {
         setMessages(prev => [...prev, payload]);
@@ -23,12 +28,32 @@ export default function AdminChat({ teams }) {
         // new team available, no action needed
       }
     });
-    return () => wsRef.current?.close();
+
+    // Polling fallback: refresh messages every 2 seconds
+    pollIntervalRef.current = setInterval(() => {
+      loadMessages();
+    }, 2000);
+
+    return () => {
+      wsRef.current?.close();
+      clearInterval(pollIntervalRef.current);
+    };
   }, []);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
   }, [messages, selectedTeamId]);
+
+  async function loadMessages() {
+    try {
+      const msgs = await fetchAllMessages();
+      setMessages(msgs);
+    } catch (err) {
+      console.error('Fehler beim Laden der Nachrichten', err);
+    }
+  }
 
   const filtered = selectedTeamId === 'all'
     ? messages
@@ -44,9 +69,15 @@ export default function AdminChat({ teams }) {
     e.preventDefault();
     if (!replyText.trim() || sending || selectedTeamId === 'all') return;
     setSending(true);
-    await sendAdminReply(selectedTeamId, replyText.trim());
-    setReplyText('');
-    setSending(false);
+    try {
+      await sendAdminReply(selectedTeamId, replyText.trim());
+      setReplyText('');
+      await loadMessages();
+    } catch (err) {
+      console.error('Fehler beim Senden', err);
+    } finally {
+      setSending(false);
+    }
   }
 
   function formatTime(ts) {
@@ -135,7 +166,7 @@ export default function AdminChat({ teams }) {
                     ? 'bg-blue-600 text-white rounded-tr-sm'
                     : 'bg-blue-100 text-blue-900 rounded-tl-sm'
                 }`}>
-                  <p className="leading-snug">{msg.text}</p>
+                  <p className="leading-snug break-words">{msg.text}</p>
                   <p className={`text-xs mt-0.5 ${msg.from_admin ? 'text-blue-200' : 'text-blue-400'}`}>
                     {formatTime(msg.sent_at)}
                   </p>
@@ -155,13 +186,14 @@ export default function AdminChat({ teams }) {
                 placeholder={`Antwort an ${selectedTeam?.name ?? ''}...`}
                 maxLength={200}
                 className="flex-1 border-2 border-blue-200 rounded-2xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
+                disabled={sending}
               />
               <button
                 type="submit"
                 disabled={!replyText.trim() || sending}
                 className="bg-blue-600 disabled:bg-blue-200 text-white font-bold px-4 py-2 rounded-2xl active:scale-95 transition-transform text-sm"
               >
-                ➤
+                {sending ? '⏳' : '➤'}
               </button>
             </form>
           ) : (

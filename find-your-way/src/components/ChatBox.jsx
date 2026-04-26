@@ -8,45 +8,76 @@ export default function ChatBox({ team }) {
   const bottomRef = useRef(null);
   const wsRef = useRef(null);
   const sentMessageIdsRef = useRef(new Set());
+  const pollIntervalRef = useRef(null);
+  const lastMessageIdRef = useRef(null);
 
+  // Load messages initially
   useEffect(() => {
-    fetchMessages(team.id).then(setMessages).catch(() => {});
+    loadMessages();
+  }, [team.id]);
 
+  // Setup WebSocket and polling
+  useEffect(() => {
+    // WebSocket for real-time updates
     wsRef.current = createWebSocket(({ type, payload }) => {
       if (type === 'NEW_MESSAGE' && payload.team_id === team.id) {
-        // Only add if we haven't already added it optimistically
         if (!sentMessageIdsRef.current.has(payload.id)) {
           setMessages(prev => [...prev, payload]);
+          lastMessageIdRef.current = payload.id;
         }
         sentMessageIdsRef.current.delete(payload.id);
       }
       if (type === 'CHAT_CLEARED') {
         setMessages([]);
         sentMessageIdsRef.current.clear();
+        lastMessageIdRef.current = null;
       }
     });
-    return () => wsRef.current?.close();
+
+    // Polling fallback: refresh messages every 2 seconds
+    pollIntervalRef.current = setInterval(() => {
+      loadMessages();
+    }, 2000);
+
+    return () => {
+      wsRef.current?.close();
+      clearInterval(pollIntervalRef.current);
+    };
   }, [team.id]);
 
+  // Auto-scroll to bottom when messages change
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
   }, [messages]);
+
+  async function loadMessages() {
+    try {
+      const msgs = await fetchMessages(team.id);
+      setMessages(msgs);
+      if (msgs.length > 0) {
+        lastMessageIdRef.current = msgs[msgs.length - 1].id;
+      }
+    } catch (err) {
+      console.error('Fehler beim Laden der Nachrichten', err);
+    }
+  }
 
   async function handleSend(e) {
     e.preventDefault();
     if (!text.trim() || sending) return;
     const msgText = text.trim();
-    setText(''); // Clear immediately for better UX
+    setText('');
     setSending(true);
     try {
       const newMsg = await sendMessage(team.id, msgText);
-      // Add message immediately to UI (optimistic update)
       setMessages(prev => [...prev, newMsg]);
-      // Mark this message ID so WebSocket handler doesn't add it again
       sentMessageIdsRef.current.add(newMsg.id);
+      lastMessageIdRef.current = newMsg.id;
     } catch (err) {
       console.error('Senden fehlgeschlagen', err);
-      setText(msgText); // Restore on error
+      setText(msgText);
     } finally {
       setSending(false);
     }
@@ -73,7 +104,7 @@ export default function ChatBox({ team }) {
               {msg.from_admin && (
                 <p className="text-xs font-bold text-blue-500 mb-0.5">🛠️ Admin</p>
               )}
-              <p className="text-sm leading-snug">{msg.text}</p>
+              <p className="text-sm leading-snug break-words">{msg.text}</p>
               <p className={`text-xs mt-1 ${msg.from_admin ? 'text-blue-400' : 'text-blue-200'}`}>
                 {formatTime(msg.sent_at)}
               </p>
@@ -92,13 +123,14 @@ export default function ChatBox({ team }) {
           placeholder="Nachricht schreiben..."
           maxLength={200}
           className="flex-1 border-2 border-blue-200 rounded-2xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500"
+          disabled={sending}
         />
         <button
           type="submit"
           disabled={!text.trim() || sending}
           className="bg-blue-600 disabled:bg-blue-200 text-white font-bold px-4 py-2 rounded-2xl active:scale-95 transition-transform"
         >
-          ➤
+          {sending ? '⏳' : '➤'}
         </button>
       </form>
     </div>
