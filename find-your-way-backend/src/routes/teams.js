@@ -28,7 +28,13 @@ function buildTeamPayload(team) {
       return sum + (s ? s.points : 0);
     }, 0);
 
-  return { ...team, completed, pending, totalXP };
+  // Get participants
+  const participants = db.all(
+    `SELECT id, name FROM participants WHERE team_id = ? ORDER BY created_at ASC`,
+    [team.id]
+  );
+
+  return { ...team, completed, pending, totalXP, participants };
 }
 
 // POST login with PIN
