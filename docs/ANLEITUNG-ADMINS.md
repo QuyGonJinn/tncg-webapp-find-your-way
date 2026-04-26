@@ -1,51 +1,49 @@
 # Anleitung für Admins
 
-## 🛠️ Admin-Bereich
+## 🎮 Willkommen im Admin-Bereich!
+
+Hier findest du alles, was du brauchst, um die Glaubensjagd zu leiten.
 
 ---
 
-## 1️⃣ Zugang zum Admin-Dashboard
+## 1️⃣ Anmelden
 
-### Admin-Bereich öffnen
-
-1. **URL:** `http://<server-ip>/admin` (oder `https://fyw.tncg.de/admin`)
-2. **PIN eingeben** (Standard: `1234`)
-3. **"Einloggen 🔑" drücken**
+1. Öffne die Admin-Seite: `http://<server-ip>/admin`
+2. Gib die PIN ein (Standard: `1234`)
+3. Klick auf **"Einloggen 🔑"**
 
 ---
 
-## 2️⃣ Dashboard-Tabs
+## 2️⃣ Was du im Admin-Bereich siehst
 
-### 📊 Übersicht (Standard-Tab)
+### 📊 Übersicht (Hauptseite)
 
-**Oben: Timer-Kontrolle**
-- **▶ Start:** Timer startet (2 Stunden)
-- **⏸ Pause:** Timer pausiert
-- **🔄 Reset:** Timer zurücksetzen
+**Oben: Die Uhr**
+- Zeigt die verbleibende Zeit
+- Wird rot, wenn weniger als 5 Minuten übrig sind
 
-**Mitte: Rangliste**
-- Alle Teams sortiert nach XP
-- Fortschrittsbalken pro Team
-- Zeigt: Teilnehmer • Stationen • ⚡ Aktive Stationen
-- **Expandieren (▼):** Zeigt:
-  - **Zugangscode:** Der PIN des Teams (z.B. "A3KX")
-  - **Aktive Stationen:** Anzahl der aktiven Stationen
-  - **Angemeldete Teilnehmer:** Liste der registrierten Teilnehmer (bearbeitbar)
-  - **Stats:** Erledigt/Ausstehend/XP
+**Timer-Buttons:**
+- **▶ Start:** Spiel beginnt (2 Stunden Spielzeit)
+- **⏸ Pause:** Spiel unterbrechen
+- **🔄 Reset:** Uhr zurücksetzen
 
-**Unten: Team-Details**
-- Jedes Team als Karte
-- **Gelbe Box:** Aktive Stationen warten auf Bestätigung
-  - **✓ OK:** Station bestätigen → XP gutgeschrieben
-  - **✕ Nein:** Station ablehnen → zurückgesetzt
-- **▼ Stationen anzeigen:** Alle Stationen des Teams sehen
-- **Team löschen:** Team komplett entfernen
+**Rangliste:**
+- Alle Teams sortiert nach Punkten
+- Sieht, wie viele Teilnehmer jedes Team hat
+- Sieht, wie viele Stationen erledigt sind
 
-### 📋 Codes
+**Team-Karten:**
+- Jedes Team hat eine Karte
+- **Gelbe Box:** Zeigt Stationen, die auf deine Bestätigung warten
+  - **✓ OK:** Team hat richtig gemacht → Punkte gutgeschrieben
+  - **✕ Nein:** Team hat falsch gemacht → zurückgesetzt
+- **▼ Expandieren:** Mehr Details zum Team sehen
 
-**Alle Station-Codes zum Ausdrucken:**
+### 📋 Codes-Tab
 
-**Passive Stationen (mit Codes):**
+Hier siehst du alle Codes für die Stationen:
+
+**Stationen mit Codes (ausdrucken & auslegen):**
 - Holymoji: `HM42`
 - Geoguesser: `GG17`
 - Anchor of Hope: `AH85`
@@ -54,315 +52,188 @@
 - Wer bin Ich / Standbild: `WI54`
 - Kennst du mich: `KM91`
 
-**Aktive Stationen (ohne Codes):**
+**Stationen ohne Codes (Betreuer vor Ort):**
 - Fake or Fact
 - David und Goliath
 - Krüge von Kana
 - Glaubenssprung
 - Der Gute Hirte
 
-**Wie verwenden?**
-1. Codes ausdrucken
-2. Bei jeder passiven Station auslegen
-3. Teams müssen die Aufgabe lösen um den Code zu finden
+### 💬 Chat-Tab
 
-### 💬 Chat
+Hier kannst du mit den Teams kommunizieren:
 
-**Alle Team-Nachrichten sehen:**
-- Linke Seite: Liste aller Teams
-- Mitte: Chat-Verlauf
-- Rechts: Antwort-Feld
-
-**Nachrichten beantworten:**
-1. Team in der Liste anklicken
-2. Nachricht eingeben
-3. **"➤" drücken** zum Senden
-4. Nachricht erscheint sofort beim Team
+**So funktioniert's:**
+1. Klick auf ein Team in der Liste
+2. Lies die Nachrichten
+3. Schreib eine Antwort
+4. Klick **"➤"** zum Senden
+5. Die Antwort erscheint sofort beim Team
 
 **Alle Nachrichten löschen:**
-- Button **"🗑 Alle löschen"** oben rechts
+- Klick auf **"🗑 Alle löschen"** oben rechts
 - Bestätigung erforderlich
 
 ---
 
-## 3️⃣ Control Board (für Admins)
+## 3️⃣ Control Board (Teilnehmer-Verwaltung)
 
-Das Control Board ist ein separates Dashboard für Admins zur Verwaltung von Teams und Teilnehmern.
+Das Control Board ist dein Verwaltungs-Dashboard für Teams und Teilnehmer.
 
-### Zugang zum Control Board
+**Zugang:**
+1. Öffne: `http://<server-ip>/control`
+2. Gib die PIN ein (`1234`)
+3. Klick **"Einloggen 🔑"**
 
-1. **URL:** `http://<server-ip>/control` (oder `https://fyw.tncg.de/control`)
-2. **PIN eingeben** (Standard: `1234`)
-3. **"Einloggen 🔑" drücken**
+**Was du hier siehst:**
 
-### Control Board Features
+**Oben: Die Uhr**
+- Verbleibende Spielzeit
+- Wird rot bei weniger als 5 Minuten
 
-**Header mit Live-Timer:**
-- ⏱️ Verbleibende Zeit in HH:MM:SS Format
-- ▶️ Läuft / ⏸️ Pausiert Status
-- Wird rot und pulsiert bei < 5 Minuten
-- **Logout Button:** Abmelden vom Control Board
+**Statistik-Boxen:**
+- 📊 Wie viele Teams spielen
+- 👥 Wie viele Teilnehmer insgesamt
+- ✅ Wie viele Teams fertig sind
+- 📈 Durchschnittlicher Fortschritt
 
-**Statistik-Karten:**
-- 📊 **Teams:** Anzahl registrierter Gruppen
-- 👥 **Teilnehmer:** Gesamtzahl aller Teilnehmer
-- ✅ **Fertig:** Anzahl abgeschlossener Teams
-- 📈 **Ø Fortschritt:** Durchschnittlicher Fortschritt aller Teams
+**Rangliste:**
+- Alle Teams sortiert nach Punkten
+- Klick auf ein Team zum Expandieren (▼)
 
-**Chat-Aktivität:**
-- 💬 **Nachrichten gesamt:** Alle Nachrichten
-- 🔴 **Ungelesen:** Ungelesene Nachrichten
-
-**Rangliste (Expandierbar):**
-- Alle Teams sortiert nach XP
-- **Übersicht zeigt:**
-  - Rang (1, 2, 3, ...)
-  - Team-Icon und Name
-  - Teilnehmer-Anzahl
-  - Stationen-Fortschritt (z.B. 5/12)
-  - ⚡ Aktive Stationen
-  - XP-Punkte
-  - Status-Badge (✅ Fertig / ⏳ Ausstehend / 🎮 Aktiv)
-
-- **Beim Expandieren (▼) sehen Sie:**
-  - **Zugangscode:** Der PIN des Teams (z.B. "A3KX") - zum Weitergeben an Teams
-  - **Aktive Stationen:** Anzahl der aktiven Stationen (z.B. "⚡ 5")
-  - **Angemeldete Teilnehmer:** 
-    - Liste der registrierten Teilnehmer
-    - ✏️ Bearbeiten: Namen ändern
-    - 🗑️ Löschen: Teilnehmer entfernen
-    - ➕ Hinzufügen: Neue Teilnehmer eintragen (max. 6)
-  - **Stats:** Erledigt/Ausstehend/XP
-
-**Zusammenfassung (unten):**
-- 📈 Gruppen gesamt
-- 👥 Teilnehmer gesamt
-- 📊 Abschlussquote (%)
-- ⚡ Durchschn. XP
-
-### Teilnehmer-Verwaltung im Control Board
+**Wenn du ein Team expandierst, siehst du:**
+- **Zugangscode:** Der Code des Teams (z.B. "A3KX")
+- **Aktive Stationen:** Wie viele aktive Stationen das Team hat
+- **Teilnehmer-Liste:** Alle Namen der Spieler
+  - ✏️ Namen bearbeiten
+  - 🗑️ Namen löschen
+  - ➕ Neue Namen hinzufügen (max. 6)
 
 **Teilnehmer hinzufügen:**
-1. Team expandieren (▼)
-2. Im Feld "Weitere Teilnehmer hinzufügen" Namen eingeben
+1. Team expandieren
+2. Namen eingeben
 3. ➕ Button drücken
-4. Teilnehmer wird sofort hinzugefügt (max. 6 pro Team)
+4. Fertig!
 
-**Teilnehmer bearbeiten:**
-1. Team expandieren (▼)
-2. ✏️ Button neben dem Namen drücken
-3. Namen ändern
-4. ✓ Button drücken zum Speichern
-5. ✕ Button zum Abbrechen
-
-**Teilnehmer löschen:**
-1. Team expandieren (▼)
-2. 🗑️ Button neben dem Namen drücken
-3. Bestätigung erforderlich
-4. Teilnehmer wird gelöscht
-
-### Workflow: Teilnehmer-Anmeldung
-
-1. **Team erstellt sich** mit Teamnamen + Icon (keine Teilnehmer erforderlich)
-2. **Team erhält Zugangscode** (z.B. "A3KX")
-3. **Team geht zum Caféstand** zur Anmeldung
-4. **Admin trägt Teilnehmer-Namen im Control Board ein:**
-   - Team expandieren
-   - Namen in "Weitere Teilnehmer hinzufügen" eingeben
-   - ➕ drücken
-5. **Anmeldung abgeschlossen** - Team kann spielen
+**Logout:**
+- Klick auf **"Logout"** oben rechts
 
 ---
 
-## 4️⃣ Spielablauf
+## 4️⃣ So läuft das Spiel ab
 
-### Vor dem Spiel
+### Vorbereitung
 
-1. **Codes ausdrucken** (Tab "📋 Codes")
-2. **Codes bei passiven Stationen auslegen**
-3. **Betreuer an aktiven Stationen positionieren**
-4. **PIN ändern** (optional, für Sicherheit)
+1. **Codes ausdrucken** (aus dem Codes-Tab)
+2. **Codes bei den Stationen auslegen** (bei den Stationen mit Codes)
+3. **Betreuer an den aktiven Stationen positionieren** (Stationen ohne Codes)
 
 ### Spiel starten
 
-1. **Teams registrieren sich** (App öffnen, Team erstellen)
-2. **Admin-Dashboard öffnen** → Alle Teams sehen
-3. **"▶ Start" drücken** → Timer läuft (2 Stunden)
+1. Öffne das Admin-Dashboard
+2. Klick auf **"▶ Start"**
+3. Die Uhr läuft (2 Stunden)
+4. Teams können jetzt spielen
 
 ### Während des Spiels
 
-**Aktive Stationen bestätigen:**
-- Gelbe Box mit "⏳ Wartet auf Bestätigung"
-- **✓ OK:** Team hat die Aufgabe richtig erledigt → XP gutgeschrieben
-- **✕ Nein:** Team hat nicht richtig erledigt → zurückgesetzt
+**Stationen bestätigen:**
+- Wenn ein Team eine aktive Station macht, siehst du eine gelbe Box
+- **✓ OK:** Team hat richtig gemacht → Punkte gutgeschrieben
+- **✕ Nein:** Team hat falsch gemacht → zurückgesetzt
 
-**Chat moderieren:**
-- Teams können Fragen stellen
-- Ihr antwortet im Chat
-- Nachrichten erscheinen sofort
+**Mit Teams kommunizieren:**
+- Geh zum Chat-Tab
+- Klick auf ein Team
+- Schreib eine Nachricht
+- Klick **"➤"** zum Senden
 
 **Probleme lösen:**
-- Team hat falschen Code eingegeben? → Im Chat helfen
-- Station versehentlich bestätigt? → "▼ Stationen anzeigen" → "✕ Zurücksetzen"
-- Team braucht Hinweis? → Im Chat schreiben
+- Team hat falschen Code? → Im Chat helfen
+- Station versehentlich bestätigt? → Expandiere das Team und klick auf die Station
+- Team braucht einen Hinweis? → Im Chat schreiben
 
 ### Nach 2 Stunden
 
-1. **Timer läuft ab** → Finale-Seite erscheint automatisch bei allen Teams
-2. **Rangliste ist final** → Gewinner steht fest
-3. **Optional:** Neue Runde starten → "🔄 Reset" drücken
+- Die Uhr läuft ab
+- Alle Teams sehen die Finale-Seite
+- Die Rangliste ist final
+- Der Gewinner steht fest!
 
 ---
 
-## 5️⃣ Häufige Admin-Aufgaben
+## 5️⃣ Häufige Aufgaben
 
 ### Station bestätigen
 
-1. **Gelbe Box sehen** mit "⏳ Wartet auf Bestätigung"
-2. **Team hat Aufgabe erledigt?** → **✓ OK** drücken
-3. **Team hat nicht erledigt?** → **✕ Nein** drücken
-
-### Team zurücksetzen
-
-1. **Team-Karte öffnen** → "▼ Stationen anzeigen"
-2. **Station anklicken** → "✕ Zurücksetzen"
-3. **Station ist wieder offen** → Team kann nochmal versuchen
+1. Sieh die gelbe Box mit "⏳ Wartet auf Bestätigung"
+2. Hat das Team richtig gemacht? → **✓ OK** drücken
+3. Hat das Team falsch gemacht? → **✕ Nein** drücken
 
 ### Team löschen
 
-1. **Team-Karte öffnen**
-2. **"Team löschen" drücken**
-3. **Bestätigung erforderlich**
-4. **Team ist weg** → Alle Daten gelöscht
+1. Expandiere das Team (▼)
+2. Klick auf **"Team löschen"**
+3. Bestätigung erforderlich
+4. Team ist weg
 
-### Chat-Nachricht beantworten
+### Mit einem Team chatten
 
-1. **Tab "💬 Chat"**
-2. **Team in der Liste anklicken**
-3. **Nachricht eingeben**
-4. **"➤" drücken**
-5. **Nachricht erscheint sofort beim Team**
+1. Geh zum **"💬 Chat"** Tab
+2. Klick auf das Team in der Liste
+3. Schreib eine Nachricht
+4. Klick **"➤"** zum Senden
 
 ### Alle Nachrichten löschen
 
-1. **Tab "💬 Chat"**
-2. **"🗑 Alle löschen" oben rechts**
-3. **Bestätigung erforderlich**
-4. **Alle Nachrichten sind weg**
+1. Geh zum **"💬 Chat"** Tab
+2. Klick auf **"🗑 Alle löschen"** oben rechts
+3. Bestätigung erforderlich
+4. Alle Nachrichten sind weg
 
 ---
 
-## 6️⃣ Technische Tipps
-
-### Codes ändern
-
-**Datei:** `find-your-way-backend/src/stations.js`
-
-```javascript
-{ id: 1, title: "Holymoji", code: "HM42" }  // Code hier ändern
-```
-
-Dann neu deployen:
-```bash
-git pull
-docker compose up --build -d
-```
-
-### Spielzeit ändern
-
-**Datei:** `find-your-way-backend/src/db.js`
-
-```javascript
-db.run(`INSERT OR IGNORE INTO game_state (key, value) VALUES ('timer_duration', '${2 * 60 * 60}')`);
-// 2 * 60 * 60 = 2 Stunden in Sekunden
-// Für 1 Stunde: 1 * 60 * 60
-// Für 3 Stunden: 3 * 60 * 60
-```
-
-### Stationen hinzufügen/ändern
-
-**Datei:** `find-your-way-backend/src/stations.js`
-
-```javascript
-{ id: 13, title: "Neue Station", type: "passiv", points: 20, emoji: "🎯", code: "NS99" }
-```
-
-Dann neu deployen.
-
----
-
-## 7️⃣ Problembehebung
-
-### Admin-Bereich lädt nicht
-
-- Browser neu laden (F5)
-- PIN überprüfen
-- Backend läuft? → `docker compose logs -f`
-
-### Teams sehen Bestätigung nicht sofort
-
-- Normalerweise sofort via WebSocket
-- Falls nicht: Team-Seite neu laden
-- Sollte nicht vorkommen — Backend-Logs prüfen
-
-### Chat-Nachrichten kommen nicht an
-
-- WebSocket-Verbindung prüfen
-- Backend-Logs: `docker compose logs -f`
-- Team-Seite neu laden
-
-### Timer läuft nicht
-
-- "▶ Start" drücken
-- Backend-Logs prüfen
-- Neu starten: `docker compose restart`
-
-### Datenbank-Fehler
-
-- Logs anschauen: `docker compose logs -f`
-- Neu starten: `docker compose restart`
-- Im Notfall: `docker compose down && docker compose up -d`
-
----
-
-## 8️⃣ Best Practices
-
-### Vor dem Event
-
-✅ Codes ausdrucken und laminieren  
-✅ Betreuer an aktiven Stationen einweisen  
-✅ PIN ändern (nicht `1234`)  
-✅ Test-Team erstellen und durchspielen  
-✅ Backup der Datenbank machen (optional)
-
-### Während des Events
-
-✅ Regelmäßig Dashboard checken  
-✅ Chat-Nachrichten zeitnah beantworten  
-✅ Aktive Stationen schnell bestätigen  
-✅ Bei Problemen: Team im Chat helfen  
-✅ Finale-Seite nicht zu früh schließen
-
-### Nach dem Event
-
-✅ Rangliste fotografieren/speichern  
-✅ Gewinner-Team ankündigen  
-✅ Optional: Datenbank exportieren  
-✅ Für nächstes Event: Codes/Stationen anpassen
-
----
-
-## 🆘 Support
-
-**Häufige Fehler:**
+## 6️⃣ Häufige Probleme
 
 | Problem | Lösung |
 |---------|--------|
-| PIN funktioniert nicht | In docker-compose.yml überprüfen |
-| Codes nicht sichtbar | Tab "📋 Codes" öffnen |
-| Team-Bestätigung funktioniert nicht | Backend-Logs prüfen, neu starten |
-| Chat-Nachrichten kommen nicht an | WebSocket-Verbindung prüfen |
-| Timer läuft nicht | "▶ Start" drücken, Backend-Logs prüfen |
+| Admin-Bereich lädt nicht | Browser neu laden (F5) |
+| PIN funktioniert nicht | PIN überprüfen (Standard: `1234`) |
+| Codes nicht sichtbar | Im Admin-Dashboard auf **"📋 Codes"** Tab klicken |
+| Team-Bestätigung funktioniert nicht | Seite neu laden, oder Backend neu starten |
+| Chat-Nachrichten kommen nicht an | Seite neu laden |
+| Timer läuft nicht | **"▶ Start"** drücken |
+
+---
+
+## 7️⃣ Best Practices
+
+✅ **Vor dem Event:**
+- Codes ausdrucken und laminieren
+- Betreuer an aktiven Stationen einweisen
+- Test-Team erstellen und durchspielen
+
+✅ **Während des Events:**
+- Regelmäßig das Dashboard checken
+- Chat-Nachrichten zeitnah beantworten
+- Aktive Stationen schnell bestätigen
+- Bei Problemen: Team im Chat helfen
+
+✅ **Nach dem Event:**
+- Rangliste fotografieren/speichern
+- Gewinner-Team ankündigen
+
+---
+
+## 🆘 Schnelle Hilfe
+
+**Etwas funktioniert nicht?**
+
+1. **Seite neu laden** (F5)
+2. **Browser neu starten**
+3. **Warten und nochmal versuchen**
+
+Wenn das nicht hilft, kontaktiere den technischen Support.
 
 ---
 
