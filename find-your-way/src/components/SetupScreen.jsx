@@ -15,6 +15,9 @@ export default function SetupScreen({ onStart, onLogin, error }) {
     // Filter out empty participant names
     const validParticipants = participants.filter(p => p.trim().length > 0);
     
+    // Require at least 1 participant
+    if (validParticipants.length === 0) return;
+    
     onStart({ name: name.trim(), icon, participants: validParticipants });
   }
 
@@ -97,16 +100,21 @@ export default function SetupScreen({ onStart, onLogin, error }) {
                     type="text"
                     value={participant}
                     onChange={e => handleParticipantChange(idx, e.target.value)}
-                    placeholder={`Teilnehmer ${idx + 1} (optional)`}
+                    placeholder={`Teilnehmer ${idx + 1} ${idx === 0 ? '(erforderlich)' : '(optional)'}`}
                     maxLength={20}
                     className="w-full border-2 border-blue-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                   />
                 ))}
               </div>
+              {filledParticipants === 0 && (
+                <p className="text-red-600 text-sm font-semibold mb-3 bg-red-50 p-2 rounded-lg">
+                  ⚠️ Mindestens 1 Teilnehmer erforderlich
+                </p>
+              )}
 
               <button
                 type="submit"
-                disabled={!name.trim()}
+                disabled={!name.trim() || filledParticipants === 0}
                 className="w-full bg-blue-600 disabled:bg-gray-300 text-white font-black text-xl py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
               >
                 Spiel starten 🌊
