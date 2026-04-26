@@ -3,9 +3,10 @@ import { registerTeam, fetchTeam, loginWithPin, completeStation as completeStati
 import { STATIONS } from '../data/stations';
 
 const STORAGE_KEY = 'fyw_team_id';
+const SCREEN_KEY = 'fyw_screen';
 
 export function useGameState() {
-  const [screen, setScreen] = useState('setup'); // setup | game | final
+  const [screen, setScreen] = useState('setup'); // setup | pin | game | final
   const [team, setTeam] = useState(null);
   const [timeLeft, setTimeLeft] = useState(7200);
   const [timerRunning, setTimerRunning] = useState(false);
@@ -17,17 +18,38 @@ export function useGameState() {
   // Restore from localStorage on mount
   useEffect(() => {
     const savedId = localStorage.getItem(STORAGE_KEY);
+    const savedScreen = localStorage.getItem(SCREEN_KEY);
+    
     if (savedId) {
       fetchTeam(savedId)
-        .then(t => { setTeam(t); setScreen('game'); })
-        .catch(() => localStorage.removeItem(STORAGE_KEY));
+        .then(t => { 
+          setTeam(t); 
+          // Restore screen, but skip 'pin' screen
+          if (savedScreen && savedScreen !== 'pin' && savedScreen !== 'setup') {
+            setScreen(savedScreen);
+          } else {
+            setScreen('game');
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(SCREEN_KEY);
+        });
     }
+    
     fetchGameState().then(state => {
       setTimeLeft(state.timeLeft);
       setTimerRunning(state.timerRunning);
       if (state.timeLeft === 0) setScreen('final');
     }).catch(() => {});
   }, []);
+
+  // Persist screen changes
+  useEffect(() => {
+    if (screen !== 'setup') {
+      localStorage.setItem(SCREEN_KEY, screen);
+    }
+  }, [screen]);
 
   // WebSocket
   useEffect(() => {
@@ -113,6 +135,7 @@ export function useGameState() {
 
   function resetGame() {
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(SCREEN_KEY);
     setTeam(null);
     setScreen('setup');
     setXpPopups([]);
