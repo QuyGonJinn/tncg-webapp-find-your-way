@@ -80,4 +80,25 @@ router.post('/:teamId/reply', (req, res) => {
   res.status(201).json(out);
 });
 
+// POST mark messages as read (team marks their own messages as read)
+router.post('/:teamId/mark-read', (req, res) => {
+  const { messageIds } = req.body;
+  if (!Array.isArray(messageIds) || messageIds.length === 0) {
+    return res.status(400).json({ error: 'messageIds array required' });
+  }
+
+  const team = db.get(`SELECT * FROM teams WHERE id = ?`, [req.params.teamId]);
+  if (!team) return res.status(404).json({ error: 'Team not found' });
+
+  const now = Date.now();
+  messageIds.forEach(msgId => {
+    db.run(
+      `UPDATE messages SET read_at = ? WHERE id = ? AND team_id = ?`,
+      [now, msgId, req.params.teamId]
+    );
+  });
+
+  res.json({ ok: true });
+});
+
 module.exports = router;

@@ -135,6 +135,15 @@ export async function sendAdminReply(teamId, text) {
   return res.json();
 }
 
+export async function markMessagesAsRead(teamId, messageIds) {
+  const res = await fetch(`${BASE}/chat/${teamId}/mark-read`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messageIds }),
+  });
+  return res.json();
+}
+
 export function createWebSocket(onMessage) {
   const ws = new WebSocket(WS_URL);
   ws.onmessage = (e) => {

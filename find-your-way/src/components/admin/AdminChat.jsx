@@ -59,10 +59,12 @@ export default function AdminChat({ teams }) {
     ? messages
     : messages.filter(m => m.team_id === selectedTeamId);
 
-  // Unread count per team (messages from teams, not admin)
+  // Unread count per team (messages from teams that haven't been read yet)
   const unreadByTeam = {};
   messages.forEach(m => {
-    if (!m.from_admin) unreadByTeam[m.team_id] = (unreadByTeam[m.team_id] || 0) + 1;
+    if (!m.from_admin && !m.read_at) {
+      unreadByTeam[m.team_id] = (unreadByTeam[m.team_id] || 0) + 1;
+    }
   });
 
   async function handleReply(e) {

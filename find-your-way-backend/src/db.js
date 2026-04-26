@@ -39,7 +39,8 @@ db.exec(`
     team_icon TEXT NOT NULL,
     text TEXT NOT NULL,
     from_admin INTEGER NOT NULL DEFAULT 0,
-    sent_at INTEGER NOT NULL
+    sent_at INTEGER NOT NULL,
+    read_at INTEGER
   );
 `);
 
@@ -47,6 +48,8 @@ db.exec(`
 try { db.exec(`ALTER TABLE teams ADD COLUMN pin TEXT NOT NULL DEFAULT '0000'`); } catch {}
 // Migration: add status column if missing
 try { db.exec(`ALTER TABLE completions ADD COLUMN status TEXT NOT NULL DEFAULT 'done'`); } catch {}
+// Migration: add read_at column if missing
+try { db.exec(`ALTER TABLE messages ADD COLUMN read_at INTEGER`); } catch {}
 
 // Init game state defaults
 const initState = db.prepare(`INSERT OR IGNORE INTO game_state (key, value) VALUES (?, ?)`);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { fetchMessages, sendMessage, createWebSocket } from '../api';
+import { fetchMessages, sendMessage, createWebSocket, markMessagesAsRead } from '../api';
 
 export default function ChatBox({ team }) {
   const [messages, setMessages] = useState([]);
@@ -10,6 +10,7 @@ export default function ChatBox({ team }) {
   const sentMessageIdsRef = useRef(new Set());
   const pollIntervalRef = useRef(null);
   const lastMessageIdRef = useRef(null);
+  const markedAsReadRef = useRef(new Set());
 
   // Load messages initially
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function ChatBox({ team }) {
       if (type === 'CHAT_CLEARED') {
         setMessages([]);
         sentMessageIdsRef.current.clear();
+        markedAsReadRef.current.clear();
         lastMessageIdRef.current = null;
       }
     });
@@ -51,6 +53,20 @@ export default function ChatBox({ team }) {
       bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 0);
   }, [messages]);
+
+  // Mark unread messages as read when viewing chat
+  useEffect(() => {
+    const unreadIds = messages
+      .filter(m => !m.read_at && !markedAsReadRef.current.has(m.id))
+      .map(m => m.id);
+
+    if (unreadIds.length > 0) {
+      markMessagesAsRead(team.id, unreadIds).catch(err => {
+        console.error('Fehler beim Markieren als gelesen', err);
+      });
+      unreadIds.forEach(id => markedAsReadRef.current.add(id));
+    }
+  }, [messages, team.id]);
 
   async function loadMessages() {
     try {
