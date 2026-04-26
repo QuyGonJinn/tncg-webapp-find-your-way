@@ -7,6 +7,8 @@ const { initWss } = require('./wss');
 async function main() {
   await getDb(); // init DB first
 
+  const ADMIN_PIN = process.env.ADMIN_PIN || '1234'; // Define first!
+
   const app = express();
   app.use(cors());
   app.use(express.json());
@@ -32,7 +34,6 @@ async function main() {
   initWss(server);
 
   const PORT = process.env.PORT || 3001;
-const ADMIN_PIN = process.env.ADMIN_PIN || '1234'; // Change in production!
   server.listen(PORT, () => {
     console.log(`✅ Backend running on http://localhost:${PORT}`);
     console.log(`🔌 WebSocket ready on ws://localhost:${PORT}`);
