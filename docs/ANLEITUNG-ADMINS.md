@@ -120,49 +120,7 @@ Das Control Board ist dein Verwaltungs-Dashboard für Teams und Teilnehmer.
 
 ---
 
-## 4️⃣ So läuft das Spiel ab
-
-### Vorbereitung
-
-1. **Codes ausdrucken** (aus dem Codes-Tab)
-2. **Codes bei den Stationen auslegen** (bei den Stationen mit Codes)
-3. **Betreuer an den aktiven Stationen positionieren** (Stationen ohne Codes)
-
-### Spiel starten
-
-1. Öffne das Admin-Dashboard
-2. Klick auf **"▶ Start"**
-3. Die Uhr läuft (2 Stunden)
-4. Teams können jetzt spielen
-
-### Während des Spiels
-
-**Stationen bestätigen:**
-- Wenn ein Team eine aktive Station macht, siehst du eine gelbe Box
-- **✓ OK:** Team hat richtig gemacht → Punkte gutgeschrieben
-- **✕ Nein:** Team hat falsch gemacht → zurückgesetzt
-
-**Mit Teams kommunizieren:**
-- Geh zum Chat-Tab
-- Klick auf ein Team
-- Schreib eine Nachricht
-- Klick **"➤"** zum Senden
-
-**Probleme lösen:**
-- Team hat falschen Code? → Im Chat helfen
-- Station versehentlich bestätigt? → Expandiere das Team und klick auf die Station
-- Team braucht einen Hinweis? → Im Chat schreiben
-
-### Nach 2 Stunden
-
-- Die Uhr läuft ab
-- Alle Teams sehen die Finale-Seite
-- Die Rangliste ist final
-- Der Gewinner steht fest!
-
----
-
-## 5️⃣ Häufige Aufgaben
+## 4️⃣ Häufige Aufgaben
 
 ### Station bestätigen
 
@@ -193,7 +151,7 @@ Das Control Board ist dein Verwaltungs-Dashboard für Teams und Teilnehmer.
 
 ---
 
-## 6️⃣ Häufige Probleme
+## 5️⃣ Häufige Probleme
 
 | Problem | Lösung |
 |---------|--------|
@@ -203,25 +161,6 @@ Das Control Board ist dein Verwaltungs-Dashboard für Teams und Teilnehmer.
 | Team-Bestätigung funktioniert nicht | Seite neu laden, oder Backend neu starten |
 | Chat-Nachrichten kommen nicht an | Seite neu laden |
 | Timer läuft nicht | **"▶ Start"** drücken |
-
----
-
-## 7️⃣ Best Practices
-
-✅ **Vor dem Event:**
-- Codes ausdrucken und laminieren
-- Betreuer an aktiven Stationen einweisen
-- Test-Team erstellen und durchspielen
-
-✅ **Während des Events:**
-- Regelmäßig das Dashboard checken
-- Chat-Nachrichten zeitnah beantworten
-- Aktive Stationen schnell bestätigen
-- Bei Problemen: Team im Chat helfen
-
-✅ **Nach dem Event:**
-- Rangliste fotografieren/speichern
-- Gewinner-Team ankündigen
 
 ---
 
