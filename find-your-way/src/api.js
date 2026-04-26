@@ -1,9 +1,5 @@
 const BASE = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
-const WS_URL = import.meta.env.VITE_WS_URL ?? (
-  import.meta.env.VITE_API_URL 
-    ? import.meta.env.VITE_API_URL.replace('https://', 'wss://').replace('http://', 'ws://')
-    : 'ws://localhost:3001'
-);
+const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:3001';
 
 export async function loginWithPin(pin) {
   const res = await fetch(`${BASE}/teams/login`, {
@@ -125,17 +121,9 @@ export async function sendAdminReply(teamId, text) {
 
 export function createWebSocket(onMessage) {
   const ws = new WebSocket(WS_URL);
-  ws.onopen = () => console.log('✅ WebSocket connected');
   ws.onmessage = (e) => {
-    try { 
-      const data = JSON.parse(e.data);
-      console.log('📨 WS message:', data.type, data.payload);
-      onMessage(data);
-    } catch (err) {
-      console.error('WS parse error:', err);
-    }
+    try { onMessage(JSON.parse(e.data)); } catch {}
   };
-  ws.onerror = (e) => console.error('❌ WS error:', e);
-  ws.onclose = () => console.log('🔌 WS closed');
+  ws.onerror = (e) => console.warn('WS error', e);
   return ws;
 }

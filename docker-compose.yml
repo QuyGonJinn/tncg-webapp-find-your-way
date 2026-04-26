@@ -15,6 +15,7 @@ services:
       context: ./find-your-way
       args:
         VITE_API_URL: https://fyw.tncg.de
+        VITE_WS_URL: wss://fyw.tncg.de
     container_name: fyw-frontend
     ports:
       - "80:80"
