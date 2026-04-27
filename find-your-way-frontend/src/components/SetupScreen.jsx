@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { TEAM_ICONS } from '../data/stations';
-import LanguageSwitcher from './LanguageSwitcher';
 
 export default function SetupScreen({ onStart, onLogin, error }) {
-  const { t } = useTranslation();
-  const [tab, setTab] = useState('new');
+  const [tab, setTab] = useState('new'); // new | login
   const [name, setName] = useState('');
   const [icon, setIcon] = useState(TEAM_ICONS[0]);
   const [pin, setPin] = useState('');
@@ -13,6 +10,8 @@ export default function SetupScreen({ onStart, onLogin, error }) {
   function handleCreate(e) {
     e.preventDefault();
     if (!name.trim()) return;
+    
+    // No participants required at team creation - they're added in control board
     onStart({ name: name.trim(), icon, participants: [] });
   }
 
@@ -25,9 +24,9 @@ export default function SetupScreen({ onStart, onLogin, error }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-600 to-blue-900 flex flex-col items-center justify-center p-6">
       <div className="text-center mb-8">
-        <div className="text-6xl mb-3">{t('anchor')}</div>
-        <h1 className="text-4xl font-black text-white tracking-tight">{t('app_title')}</h1>
-        <p className="text-blue-100 mt-2 text-lg">{t('app_subtitle')}</p>
+        <div className="text-6xl mb-3">⚓</div>
+        <h1 className="text-4xl font-black text-white tracking-tight">Find Your Way</h1>
+        <p className="text-blue-100 mt-2 text-lg">Die ultimative Glaubensjagd</p>
       </div>
 
       <div className="bg-white/95 backdrop-blur rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden">
@@ -37,30 +36,32 @@ export default function SetupScreen({ onStart, onLogin, error }) {
             onClick={() => setTab('new')}
             className={`flex-1 py-3 font-bold text-sm transition-all ${tab === 'new' ? 'text-blue-700 border-b-2 border-blue-600' : 'text-gray-400'}`}
           >
-            {t('new_team')}
+            🆕 Neues Team
           </button>
           <button
             onClick={() => setTab('login')}
             className={`flex-1 py-3 font-bold text-sm transition-all ${tab === 'login' ? 'text-blue-700 border-b-2 border-blue-600' : 'text-gray-400'}`}
           >
-            {t('login_code')}
+            🔑 Mit Code einloggen
           </button>
         </div>
 
         <div className="p-6 max-h-[80vh] overflow-y-auto">
           {tab === 'new' ? (
             <form onSubmit={handleCreate}>
-              <label className="block text-blue-900 font-bold mb-2 text-lg">{t('team_name')}</label>
+              {/* Team Name */}
+              <label className="block text-blue-900 font-bold mb-2 text-lg">Teamname</label>
               <input
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder={t('team_name_placeholder')}
+                placeholder="z.B. Die Wellen"
                 maxLength={20}
                 className="w-full border-2 border-blue-200 rounded-2xl px-4 py-3 text-xl font-semibold focus:outline-none focus:border-blue-500 mb-5"
               />
 
-              <label className="block text-blue-900 font-bold mb-3 text-lg">{t('team_icon')}</label>
+              {/* Team Icon */}
+              <label className="block text-blue-900 font-bold mb-3 text-lg">Team-Icon wählen</label>
               <div className="grid grid-cols-6 gap-3 mb-6">
                 {TEAM_ICONS.map(ic => (
                   <button
@@ -74,10 +75,11 @@ export default function SetupScreen({ onStart, onLogin, error }) {
                 ))}
               </div>
 
+              {/* Info Message */}
               <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-4 mb-6">
-                <p className="text-blue-900 font-bold text-sm">{t('registration_info')}</p>
+                <p className="text-blue-900 font-bold text-sm">ℹ️ Anmeldung</p>
                 <p className="text-gray-700 text-sm mt-2">
-                  {t('registration_description')}
+                  Die Anmeldung wird beim Caféstand abgeschlossen. Dort werden die Namen der Teilnehmer eingetragen.
                 </p>
               </div>
 
@@ -86,18 +88,18 @@ export default function SetupScreen({ onStart, onLogin, error }) {
                 disabled={!name.trim()}
                 className="w-full bg-blue-600 disabled:bg-gray-300 text-white font-black text-xl py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
               >
-                {t('start_game')}
+                Spiel starten 🌊
               </button>
             </form>
           ) : (
             <form onSubmit={handleLogin}>
-              <p className="text-slate-500 text-sm mb-4">{t('team_code_description')}</p>
-              <label className="block text-blue-900 font-bold mb-2 text-lg">{t('team_code')}</label>
+              <p className="text-slate-500 text-sm mb-4">Gebt euren 4-stelligen Team-Code ein, den ihr beim Erstellen bekommen habt.</p>
+              <label className="block text-blue-900 font-bold mb-2 text-lg">Team-Code</label>
               <input
                 type="text"
                 value={pin}
                 onChange={e => setPin(e.target.value.toUpperCase().slice(0, 4))}
-                placeholder={t('team_code_placeholder')}
+                placeholder="z.B. A3KX"
                 maxLength={4}
                 className="w-full border-2 border-blue-200 rounded-2xl px-4 py-4 text-3xl font-black text-center tracking-widest focus:outline-none focus:border-blue-500 mb-6"
               />
@@ -106,17 +108,12 @@ export default function SetupScreen({ onStart, onLogin, error }) {
                 disabled={pin.trim().length < 4}
                 className="w-full bg-blue-600 disabled:bg-gray-300 text-white font-black text-xl py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
               >
-                {t('login')}
+                Einloggen 🔑
               </button>
             </form>
           )}
 
           {error && <p className="text-red-500 text-sm text-center mt-3 font-semibold">{error}</p>}
-
-          {/* Language Switcher */}
-          <div className="mt-6 pt-6 border-t border-blue-100 flex justify-center">
-            <LanguageSwitcher />
-          </div>
         </div>
       </div>
     </div>

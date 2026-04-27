@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { fetchMessages, sendMessage, createWebSocket, markMessagesAsRead } from '../api';
 
 export default function ChatBox({ team }) {
-  const { t } = useTranslation();
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
@@ -21,6 +19,7 @@ export default function ChatBox({ team }) {
 
   // Setup WebSocket and polling
   useEffect(() => {
+    // WebSocket for real-time updates
     wsRef.current = createWebSocket(({ type, payload }) => {
       if (type === 'NEW_MESSAGE' && payload.team_id === team.id) {
         if (!sentMessageIdsRef.current.has(payload.id)) {
@@ -37,6 +36,7 @@ export default function ChatBox({ team }) {
       }
     });
 
+    // Polling fallback: refresh messages every 2 seconds
     pollIntervalRef.current = setInterval(() => {
       loadMessages();
     }, 2000);
@@ -47,12 +47,14 @@ export default function ChatBox({ team }) {
     };
   }, [team.id]);
 
+  // Auto-scroll to bottom when messages change
   useEffect(() => {
     setTimeout(() => {
       bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 0);
   }, [messages]);
 
+  // Mark unread messages as read when viewing chat
   useEffect(() => {
     const unreadIds = messages
       .filter(m => !m.read_at && !markedAsReadRef.current.has(m.id))
@@ -106,7 +108,7 @@ export default function ChatBox({ team }) {
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-2">
         {messages.length === 0 && (
-          <p className="text-center text-blue-300 text-sm mt-8">{t('no_messages')}</p>
+          <p className="text-center text-blue-300 text-sm mt-8">Noch keine Nachrichten. Schreibt dem Admin!</p>
         )}
         {messages.map(msg => (
           <div key={msg.id} className={`flex ${msg.from_admin ? 'justify-start' : 'justify-end'}`}>
@@ -116,7 +118,7 @@ export default function ChatBox({ team }) {
                 : 'bg-blue-600 text-white rounded-tr-sm'
             }`}>
               {msg.from_admin && (
-                <p className="text-xs font-bold text-blue-500 mb-0.5">{t('admin')}</p>
+                <p className="text-xs font-bold text-blue-500 mb-0.5">🛠️ Admin</p>
               )}
               <p className="text-sm leading-snug break-words">{msg.text}</p>
               <div className={`text-xs mt-1 flex items-center gap-1 ${msg.from_admin ? msg.read_at ? 'text-gray-400' : 'text-blue-400' : 'text-blue-200'}`}>
@@ -139,7 +141,7 @@ export default function ChatBox({ team }) {
           type="text"
           value={text}
           onChange={e => setText(e.target.value)}
-          placeholder={t('message_placeholder')}
+          placeholder="Nachricht schreiben..."
           maxLength={200}
           className="flex-1 border-2 border-blue-200 rounded-2xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500"
           disabled={sending}
@@ -149,7 +151,7 @@ export default function ChatBox({ team }) {
           disabled={!text.trim() || sending}
           className="bg-blue-600 disabled:bg-blue-200 text-white font-bold px-4 py-2 rounded-2xl active:scale-95 transition-transform"
         >
-          {sending ? '⏳' : t('send')}
+          {sending ? '⏳' : '➤'}
         </button>
       </form>
     </div>
