@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { fetchAllMessages, sendAdminReply, createWebSocket, clearAllMessages } from '../../api';
+import { fetchAllMessages, sendAdminReply, createWebSocket, clearAllMessages, markMessagesAsRead } from '../../api';
 
 export default function AdminChat({ teams }) {
   const [messages, setMessages] = useState([]);
@@ -67,6 +67,29 @@ export default function AdminChat({ teams }) {
     }
   });
 
+  async function handleSelectTeam(teamId) {
+    setSelectedTeamId(teamId);
+    
+    // Mark all unread messages from this team as read
+    if (teamId !== 'all') {
+      const unreadMessages = messages
+        .filter(m => m.team_id === teamId && !m.from_admin && !m.read_at)
+        .map(m => m.id);
+      
+      if (unreadMessages.length > 0) {
+        try {
+          await markMessagesAsRead(teamId, unreadMessages);
+          // Update local state to reflect read status
+          setMessages(prev => prev.map(m => 
+            unreadMessages.includes(m.id) ? { ...m, read_at: Date.now() } : m
+          ));
+        } catch (err) {
+          console.error('Fehler beim Markieren als gelesen', err);
+        }
+      }
+    }
+  }
+
   async function handleReply(e) {
     e.preventDefault();
     if (!replyText.trim() || sending || selectedTeamId === 'all') return;
@@ -109,7 +132,7 @@ export default function AdminChat({ teams }) {
         {/* Sidebar – Team list */}
         <div className="w-1/3 border-r border-blue-100 flex flex-col overflow-y-auto">
           <button
-            onClick={() => setSelectedTeamId('all')}
+            onClick={() => handleSelectTeam('all')}
             className={`px-3 py-3 text-left text-sm font-semibold border-b border-blue-50 ${
               selectedTeamId === 'all' ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-gray-50'
             }`}
@@ -124,7 +147,7 @@ export default function AdminChat({ teams }) {
           {teams.map(team => (
             <button
               key={team.id}
-              onClick={() => setSelectedTeamId(team.id)}
+              onClick={() => handleSelectTeam(team.id)}
               className={`px-3 py-3 text-left border-b border-blue-50 ${
                 selectedTeamId === team.id ? 'bg-blue-50' : 'hover:bg-gray-50'
               }`}
