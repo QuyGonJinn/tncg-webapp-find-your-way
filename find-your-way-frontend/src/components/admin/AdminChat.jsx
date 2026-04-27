@@ -6,11 +6,9 @@ export default function AdminChat({ teams }) {
   const [selectedTeamId, setSelectedTeamId] = useState('all');
   const [replyText, setReplyText] = useState('');
   const [sending, setSending] = useState(false);
-  const [notification, setNotification] = useState(null);
   const bottomRef = useRef(null);
   const wsRef = useRef(null);
   const pollIntervalRef = useRef(null);
-  const notificationTimeoutRef = useRef(null);
 
   // Load messages initially
   useEffect(() => {
@@ -22,14 +20,6 @@ export default function AdminChat({ teams }) {
     wsRef.current = createWebSocket(({ type, payload }) => {
       if (type === 'NEW_MESSAGE') {
         setMessages(prev => [...prev, payload]);
-        
-        // Show notification if message is from team (not admin) and unread
-        if (!payload.from_admin && !payload.read_at) {
-          const team = teams.find(t => t.id === payload.team_id);
-          if (team) {
-            showNotification(`📨 ${team.name}: ${payload.text.substring(0, 50)}${payload.text.length > 50 ? '...' : ''}`);
-          }
-        }
       }
       if (type === 'CHAT_CLEARED') {
         setMessages([]);
@@ -44,9 +34,8 @@ export default function AdminChat({ teams }) {
     return () => {
       wsRef.current?.close();
       clearInterval(pollIntervalRef.current);
-      if (notificationTimeoutRef.current) clearTimeout(notificationTimeoutRef.current);
     };
-  }, [teams]);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -63,37 +52,21 @@ export default function AdminChat({ teams }) {
     }
   }
 
-  function showNotification(message) {
-    setNotification(message);
-    if (notificationTimeoutRef.current) clearTimeout(notificationTimeoutRef.current);
-    notificationTimeoutRef.current = setTimeout(() => {
-      setNotification(null);
-    }, 4000);
-  }
-
   const filtered = selectedTeamId === 'all'
     ? messages
     : messages.filter(m => m.team_id === selectedTeamId);
 
-  // Calculate unread counts - ONLY count messages from teams (not admin)
+  // Calculate unread counts
   const unreadByTeam = {};
   const globalUnread = { count: 0 };
   
   messages.forEach(m => {
-    // Only count unread messages FROM TEAMS (from_admin = false/0)
-    // Ignore admin messages
+    // Unread = messages from teams (not from admin) that haven't been read
     if (!m.from_admin && !m.read_at) {
       unreadByTeam[m.team_id] = (unreadByTeam[m.team_id] || 0) + 1;
       globalUnread.count++;
     }
   });
-
-  // Debug: log unread counts
-  useEffect(() => {
-    console.log('Unread by team:', unreadByTeam);
-    console.log('Global unread:', globalUnread.count);
-    console.log('All messages:', messages);
-  }, [messages]);
 
   async function handleSelectTeam(teamId) {
     setSelectedTeamId(teamId);
@@ -141,13 +114,6 @@ export default function AdminChat({ teams }) {
 
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
-      {/* Notification Toast */}
-      {notification && (
-        <div className="fixed top-4 right-4 bg-red-500 text-white px-4 py-3 rounded-2xl shadow-lg font-semibold text-sm max-w-sm z-50 animate-bounce">
-          {notification}
-        </div>
-      )}
-
       <div className="bg-gradient-to-r from-blue-700 to-blue-500 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h2 className="text-white font-black text-lg">💬 Team-Chat</h2>
@@ -203,7 +169,7 @@ export default function AdminChat({ teams }) {
                     {team.name}
                   </p>
                 </div>
-                {(unreadByTeam[team.id] || 0) > 0 && (
+                {unreadByTeam[team.id] > 0 && (
                   <span className="bg-red-500 text-white text-xs rounded-full px-1.5 shrink-0 font-bold">
                     {unreadByTeam[team.id]}
                   </span>
