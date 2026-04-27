@@ -24,9 +24,6 @@ export default function AdminChat({ teams }) {
       if (type === 'CHAT_CLEARED') {
         setMessages([]);
       }
-      if (type === 'TEAM_JOINED') {
-        // new team available, no action needed
-      }
     });
 
     // Polling fallback: refresh messages every 2 seconds
@@ -59,11 +56,15 @@ export default function AdminChat({ teams }) {
     ? messages
     : messages.filter(m => m.team_id === selectedTeamId);
 
-  // Unread count per team (messages from teams that haven't been read yet)
+  // Calculate unread counts
   const unreadByTeam = {};
+  const globalUnread = { count: 0 };
+  
   messages.forEach(m => {
+    // Unread = messages from teams (not from admin) that haven't been read
     if (!m.from_admin && !m.read_at) {
       unreadByTeam[m.team_id] = (unreadByTeam[m.team_id] || 0) + 1;
+      globalUnread.count++;
     }
   });
 
@@ -79,7 +80,7 @@ export default function AdminChat({ teams }) {
       if (unreadMessages.length > 0) {
         try {
           await markMessagesAsRead(teamId, unreadMessages);
-          // Update local state to reflect read status
+          // Update local state
           setMessages(prev => prev.map(m => 
             unreadMessages.includes(m.id) ? { ...m, read_at: Date.now() } : m
           ));
@@ -114,7 +115,14 @@ export default function AdminChat({ teams }) {
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
       <div className="bg-gradient-to-r from-blue-700 to-blue-500 px-4 py-3 flex items-center justify-between">
-        <h2 className="text-white font-black text-lg">💬 Team-Chat</h2>
+        <div className="flex items-center gap-3">
+          <h2 className="text-white font-black text-lg">💬 Team-Chat</h2>
+          {globalUnread.count > 0 && (
+            <span className="bg-red-500 text-white text-xs rounded-full px-2 py-1 font-bold">
+              {globalUnread.count}
+            </span>
+          )}
+        </div>
         <button
           onClick={async () => {
             if (confirm('Alle Nachrichten wirklich löschen?')) {
@@ -137,18 +145,20 @@ export default function AdminChat({ teams }) {
               selectedTeamId === 'all' ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-gray-50'
             }`}
           >
-            🌊 Alle Nachrichten
-            {messages.filter(m => !m.from_admin).length > 0 && (
-              <span className="ml-1 bg-blue-500 text-white text-xs rounded-full px-1.5">
-                {messages.filter(m => !m.from_admin).length}
-              </span>
-            )}
+            <div className="flex items-center gap-2">
+              <span>🌊 Alle Nachrichten</span>
+              {globalUnread.count > 0 && (
+                <span className="bg-red-500 text-white text-xs rounded-full px-1.5 font-bold">
+                  {globalUnread.count}
+                </span>
+              )}
+            </div>
           </button>
           {teams.map(team => (
             <button
               key={team.id}
               onClick={() => handleSelectTeam(team.id)}
-              className={`px-3 py-3 text-left border-b border-blue-50 ${
+              className={`px-3 py-3 text-left border-b border-blue-50 transition-colors ${
                 selectedTeamId === team.id ? 'bg-blue-50' : 'hover:bg-gray-50'
               }`}
             >
@@ -189,13 +199,13 @@ export default function AdminChat({ teams }) {
                 <div className={`max-w-[85%] rounded-2xl px-3 py-2 shadow-sm text-sm ${
                   msg.from_admin
                     ? 'bg-blue-600 text-white rounded-tr-sm'
-                    : 'bg-blue-100 text-blue-900 rounded-tl-sm'
+                    : `${msg.read_at ? 'bg-gray-100 text-gray-700' : 'bg-blue-100 text-blue-900'} rounded-tl-sm`
                 }`}>
                   <p className="leading-snug break-words">{msg.text}</p>
-                  <div className={`text-xs mt-0.5 flex items-center gap-1 ${msg.from_admin ? 'text-blue-200' : 'text-blue-400'}`}>
+                  <div className={`text-xs mt-0.5 flex items-center gap-1 ${msg.from_admin ? 'text-blue-200' : msg.read_at ? 'text-gray-400' : 'text-blue-400'}`}>
                     <span>{formatTime(msg.sent_at)}</span>
                     {msg.from_admin && (
-                      <span className="ml-1">
+                      <span className="ml-1 font-bold">
                         {msg.read_at ? '✓✓' : '✓'}
                       </span>
                     )}
