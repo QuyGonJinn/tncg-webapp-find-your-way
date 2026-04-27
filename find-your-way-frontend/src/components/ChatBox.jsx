@@ -114,16 +114,21 @@ export default function ChatBox({ team }) {
           <div key={msg.id} className={`flex ${msg.from_admin ? 'justify-start' : 'justify-end'}`}>
             <div className={`max-w-[80%] rounded-2xl px-4 py-2 shadow-sm ${
               msg.from_admin
-                ? 'bg-blue-100 text-blue-900 rounded-tl-sm'
+                ? `${msg.read_at ? 'bg-gray-100 text-gray-700' : 'bg-blue-100 text-blue-900'} rounded-tl-sm`
                 : 'bg-blue-600 text-white rounded-tr-sm'
             }`}>
               {msg.from_admin && (
                 <p className="text-xs font-bold text-blue-500 mb-0.5">🛠️ Admin</p>
               )}
               <p className="text-sm leading-snug break-words">{msg.text}</p>
-              <p className={`text-xs mt-1 ${msg.from_admin ? 'text-blue-400' : 'text-blue-200'}`}>
-                {formatTime(msg.sent_at)}
-              </p>
+              <div className={`text-xs mt-1 flex items-center gap-1 ${msg.from_admin ? msg.read_at ? 'text-gray-400' : 'text-blue-400' : 'text-blue-200'}`}>
+                <span>{formatTime(msg.sent_at)}</span>
+                {!msg.from_admin && (
+                  <span className="ml-1 font-bold">
+                    {msg.read_at ? '✓✓' : '✓'}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         ))}
