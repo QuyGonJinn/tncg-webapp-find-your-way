@@ -109,6 +109,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
               <div className="mt-3 bg-green-50 border-2 border-green-200 rounded-xl p-3">
                 <p className="text-xs font-bold text-green-700 mb-1">🎯 Nächste Station:</p>
                 <p className="text-sm font-bold text-green-800">{nextStation.emoji} {nextStation.title}</p>
+                <p className="text-xs text-green-600 mt-1">{nextStation.description}</p>
               </div>
             )}
           </div>
