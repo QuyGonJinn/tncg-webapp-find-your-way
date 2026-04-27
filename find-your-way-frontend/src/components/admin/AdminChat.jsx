@@ -159,8 +159,8 @@ export default function AdminChat({ teams }) {
                     {team.name}
                   </p>
                 </div>
-                {unreadByTeam[team.id] && (
-                  <span className="bg-blue-500 text-white text-xs rounded-full px-1.5 shrink-0">
+                {unreadByTeam[team.id] > 0 && (
+                  <span className="bg-red-500 text-white text-xs rounded-full px-1.5 shrink-0 font-bold">
                     {unreadByTeam[team.id]}
                   </span>
                 )}
@@ -192,9 +192,14 @@ export default function AdminChat({ teams }) {
                     : 'bg-blue-100 text-blue-900 rounded-tl-sm'
                 }`}>
                   <p className="leading-snug break-words">{msg.text}</p>
-                  <p className={`text-xs mt-0.5 ${msg.from_admin ? 'text-blue-200' : 'text-blue-400'}`}>
-                    {formatTime(msg.sent_at)}
-                  </p>
+                  <div className={`text-xs mt-0.5 flex items-center gap-1 ${msg.from_admin ? 'text-blue-200' : 'text-blue-400'}`}>
+                    <span>{formatTime(msg.sent_at)}</span>
+                    {msg.from_admin && (
+                      <span className="ml-1">
+                        {msg.read_at ? '✓✓' : '✓'}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
