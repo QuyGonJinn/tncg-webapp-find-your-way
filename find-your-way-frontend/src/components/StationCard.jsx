@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { STATIONS } from '../data/stations';
 
 export default function StationCard({ station, done, pending, onComplete }) {
   const [showCode, setShowCode] = useState(false);
@@ -7,6 +8,9 @@ export default function StationCard({ station, done, pending, onComplete }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const isActive = station.type === 'aktiv';
+
+  // Get next station
+  const nextStation = STATIONS.find(s => s.id === station.id + 1);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -99,6 +103,15 @@ export default function StationCard({ station, done, pending, onComplete }) {
                 </div>
               </form>
             )}
+
+            {/* Next station hint when done */}
+            {done && nextStation && (
+              <div className="mt-3 bg-green-50 border-2 border-green-200 rounded-xl p-3">
+                <p className="text-xs font-bold text-green-700 mb-1">🎯 Nächste Station:</p>
+                <p className="text-sm font-bold text-green-800">{nextStation.emoji} {nextStation.title}</p>
+                <p className="text-xs text-green-600 mt-1">📍 {nextStation.location}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -128,6 +141,12 @@ export default function StationCard({ station, done, pending, onComplete }) {
               <div className="bg-blue-50 rounded-2xl p-4">
                 <p className="text-sm text-slate-600">
                   <span className="font-bold text-blue-700">Punkte:</span> +{station.points} XP
+                </p>
+              </div>
+
+              <div className="bg-blue-50 rounded-2xl p-4">
+                <p className="text-sm text-slate-600">
+                  <span className="font-bold text-blue-700">📍 Ort:</span> {station.location}
                 </p>
               </div>
 
