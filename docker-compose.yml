@@ -13,7 +13,7 @@ services:
 
   frontend:
     build:
-      context: ./find-your-way
+      context: ./find-your-way-frontend
       args:
         VITE_API_URL: https://fyw.tncg.de
         VITE_WS_URL: wss://fyw.tncg.de
