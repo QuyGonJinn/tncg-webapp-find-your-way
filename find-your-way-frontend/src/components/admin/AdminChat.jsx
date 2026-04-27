@@ -56,17 +56,25 @@ export default function AdminChat({ teams }) {
     ? messages
     : messages.filter(m => m.team_id === selectedTeamId);
 
-  // Calculate unread counts
+  // Calculate unread counts - ONLY count messages from teams (not admin)
   const unreadByTeam = {};
   const globalUnread = { count: 0 };
   
   messages.forEach(m => {
-    // Unread = messages from teams (not from admin) that haven't been read
+    // Only count unread messages FROM TEAMS (from_admin = false/0)
+    // Ignore admin messages
     if (!m.from_admin && !m.read_at) {
       unreadByTeam[m.team_id] = (unreadByTeam[m.team_id] || 0) + 1;
       globalUnread.count++;
     }
   });
+
+  // Debug: log unread counts
+  useEffect(() => {
+    console.log('Unread by team:', unreadByTeam);
+    console.log('Global unread:', globalUnread.count);
+    console.log('All messages:', messages);
+  }, [messages]);
 
   async function handleSelectTeam(teamId) {
     setSelectedTeamId(teamId);
@@ -169,7 +177,7 @@ export default function AdminChat({ teams }) {
                     {team.name}
                   </p>
                 </div>
-                {unreadByTeam[team.id] > 0 && (
+                {(unreadByTeam[team.id] || 0) > 0 && (
                   <span className="bg-red-500 text-white text-xs rounded-full px-1.5 shrink-0 font-bold">
                     {unreadByTeam[team.id]}
                   </span>
