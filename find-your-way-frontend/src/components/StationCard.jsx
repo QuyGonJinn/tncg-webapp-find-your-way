@@ -144,12 +144,6 @@ export default function StationCard({ station, done, pending, onComplete }) {
                 </p>
               </div>
 
-              <div className="bg-blue-50 rounded-2xl p-4">
-                <p className="text-sm text-slate-600">
-                  <span className="font-bold text-blue-700">📍 Ort:</span> {station.location}
-                </p>
-              </div>
-
               <button
                 onClick={() => setShowInfo(false)}
                 className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl active:scale-95 transition-transform"
