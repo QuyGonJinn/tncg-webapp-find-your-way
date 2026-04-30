@@ -10,6 +10,7 @@ export function useGameState() {
   const [timeLeft, setTimeLeft] = useState(7200);
   const [timerRunning, setTimerRunning] = useState(false);
   const [xpPopups, setXpPopups] = useState([]);
+  const [reminder, setReminder] = useState(null);
   const [error, setError] = useState(null);
   const wsRef = useRef(null);
   const timerRef = useRef(null);
@@ -59,6 +60,9 @@ export function useGameState() {
       setTimeLeft(payload.timeLeft);
       setTimerRunning(payload.timerRunning);
       if (payload.timeLeft === 0) setScreen('final');
+    }
+    if (type === 'REMINDER') {
+      setReminder(payload);
     }
   }
 
@@ -124,5 +128,5 @@ export function useGameState() {
   const completed = team?.completed ?? {};
   const pending = team?.pending ?? {};
 
-  return { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP };
+  return { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, reminder, error, startGame, loginGame, completeStation, resetGame, totalXP };
 }
