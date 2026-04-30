@@ -52,9 +52,9 @@ export default function ReminderSettings() {
           <div className="flex gap-2 items-center">
             <input
               type="number"
-              min="5"
+              min="1"
               max="60"
-              step="5"
+              step="1"
               value={reminderInterval}
               onChange={(e) => setReminderInterval(Number(e.target.value))}
               className="w-20 border-2 border-blue-200 rounded-xl px-3 py-2 font-bold text-center focus:outline-none focus:border-blue-500"

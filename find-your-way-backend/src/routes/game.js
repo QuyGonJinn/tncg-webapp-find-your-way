@@ -30,8 +30,8 @@ function setState(key, value) {
 
 router.post('/reminder-interval', (req, res) => {
   const { interval } = req.body;
-  if (!interval || interval < 5 || interval > 60) {
-    return res.status(400).json({ error: 'Interval muss zwischen 5 und 60 Minuten liegen' });
+  if (!interval || interval < 1 || interval > 60) {
+    return res.status(400).json({ error: 'Interval muss zwischen 1 und 60 Minuten liegen' });
   }
   setState('reminder_interval', interval);
   res.json({ ok: true, interval });
