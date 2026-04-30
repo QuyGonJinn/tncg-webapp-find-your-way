@@ -5,6 +5,7 @@ import AdminTimer from '../components/admin/AdminTimer';
 import TeamCard from '../components/admin/TeamCard';
 import AdminChat from '../components/admin/AdminChat';
 import StationCodes from '../components/admin/StationCodes';
+import AdminSettings from '../components/admin/AdminSettings';
 import { STATIONS } from '../data/stations';
 import { adminLogin } from '../api';
 
@@ -73,6 +74,12 @@ export default function AdminPage() {
           >
             💬 Chat
           </button>
+          <button
+            onClick={() => setAdminTab('settings')}
+            className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${adminTab === 'settings' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'}`}
+          >
+            ⚙️ Einstellungen
+          </button>
         </div>
       </div>
 
@@ -130,6 +137,7 @@ export default function AdminPage() {
 
         {adminTab === 'chat' && <AdminChat teams={teams} />}
         {adminTab === 'codes' && <StationCodes />}
+        {adminTab === 'settings' && <AdminSettings />}
       </div>
     </div>
   );

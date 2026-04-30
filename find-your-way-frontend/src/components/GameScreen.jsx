@@ -4,6 +4,7 @@ import StationCard from './StationCard';
 import Timer from './Timer';
 import HintBox from './HintBox';
 import ChatBox from './ChatBox';
+import ReminderNotification from './ReminderNotification';
 
 export default function GameScreen({ team, completed, pending, timeLeft, xpPopups, onComplete, onReset, totalXP }) {
   const [tab, setTab] = useState(() => {
@@ -23,6 +24,9 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col">
+      {/* Reminder Notifications */}
+      <ReminderNotification timeLeft={timeLeft} />
+
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 pt-6 pb-4 sticky top-0 z-10 shadow-lg">
         <div className="flex items-center justify-between mb-3">
