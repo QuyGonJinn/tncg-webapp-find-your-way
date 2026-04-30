@@ -5,30 +5,26 @@ import SetupScreen from './components/SetupScreen';
 import GameScreen from './components/GameScreen';
 import FinalScreen from './components/FinalScreen';
 import PinDisplay from './components/PinDisplay';
-import ReminderBox from './components/ReminderBox';
 import AdminPage from './pages/AdminPage';
 import ControlPage from './pages/ControlPage';
 
 function GameApp() {
-  const { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, reminder, error, startGame, loginGame, completeStation, resetGame, totalXP } = useGameState();
+  const { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP } = useGameState();
 
   if (screen === 'setup') return <SetupScreen onStart={startGame} onLogin={loginGame} error={error} />;
   if (screen === 'pin') return <PinDisplay pin={team?.pin} onContinue={() => setScreen('game')} />;
   if (screen === 'final') return <FinalScreen team={team} completed={completed} totalXP={totalXP} onReset={resetGame} />;
   return (
-    <>
-      <ReminderBox reminder={reminder} />
-      <GameScreen
-        team={team}
-        completed={completed}
-        pending={pending}
-        timeLeft={timeLeft}
-        xpPopups={xpPopups}
-        onComplete={completeStation}
-        onReset={resetGame}
-        totalXP={totalXP}
-      />
-    </>
+    <GameScreen
+      team={team}
+      completed={completed}
+      pending={pending}
+      timeLeft={timeLeft}
+      xpPopups={xpPopups}
+      onComplete={completeStation}
+      onReset={resetGame}
+      totalXP={totalXP}
+    />
   );
 }
 

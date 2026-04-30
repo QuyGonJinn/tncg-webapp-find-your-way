@@ -12,7 +12,6 @@ function getState() {
     timerStartedAt: Number(map.timer_started_at),
     timerDuration: Number(map.timer_duration),
     timerElapsed: Number(map.timer_elapsed),
-    reminderInterval: Number(map.reminder_interval) || 20,
   };
 }
 
@@ -27,15 +26,6 @@ function computeTimeLeft(state) {
 function setState(key, value) {
   db.run(`UPDATE game_state SET value = ? WHERE key = ?`, [String(value), key]);
 }
-
-router.post('/reminder-interval', (req, res) => {
-  const { interval } = req.body;
-  if (!interval || interval < 1 || interval > 60) {
-    return res.status(400).json({ error: 'Interval muss zwischen 1 und 60 Minuten liegen' });
-  }
-  setState('reminder_interval', interval);
-  res.json({ ok: true, interval });
-});
 
 router.get('/state', (req, res) => {
   const state = getState();
