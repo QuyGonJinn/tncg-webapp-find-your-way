@@ -5,7 +5,7 @@ const { getDb } = require('./db');
 const { initWss, broadcast } = require('./wss');
 
 async function main() {
-  await getDb(); // init DB first
+  const db = await getDb(); // init DB first
 
   const app = express();
   app.use(cors());
@@ -43,7 +43,6 @@ async function main() {
 
   // Reminder system - send time remaining every X minutes
   setInterval(() => {
-    const db = getDb();
     const gameState = db.all(`SELECT key, value FROM game_state`);
     const stateMap = {};
     gameState.forEach(r => { stateMap[r.key] = r.value; });

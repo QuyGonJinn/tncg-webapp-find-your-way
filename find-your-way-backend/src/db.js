@@ -92,6 +92,8 @@ initState.run('timer_running', 'false');
 initState.run('timer_started_at', '0');
 initState.run('timer_duration', String(2 * 60 * 60));
 initState.run('timer_elapsed', '0');
+initState.run('reminder_interval', '20');
+initState.run('last_reminder_time', '0');
 
 function all(sql, params = []) {
   return db.prepare(sql).all(...params);
