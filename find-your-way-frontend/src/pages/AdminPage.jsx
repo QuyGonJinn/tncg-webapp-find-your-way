@@ -78,7 +78,7 @@ export default function AdminPage() {
             onClick={() => setAdminTab('settings')}
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${adminTab === 'settings' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'}`}
           >
-            ⚙️ Einstellungen
+            ⚙️ Settings
           </button>
         </div>
       </div>
