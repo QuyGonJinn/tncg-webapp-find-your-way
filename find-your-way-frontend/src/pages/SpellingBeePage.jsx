@@ -5,57 +5,54 @@ const LETTERS = [
   'M','N','O','P','Q','R','S','T','U','V','W','X'
 ];
 
-// Fallback-Beschreibungen falls Medien fehlen
 const FALLBACK = {
-  A: { gebaerde: "Faust mit Daumen seitlich",         bild: "Apfel",     memo: "Langer A-Laut" },
-  B: { gebaerde: "Vier Finger gestreckt",              bild: "Buch",      memo: "Lippenlaut B" },
-  C: { gebaerde: "Hand zur C-Form gebogen",            bild: "Computer",  memo: "Zischlaut C" },
-  D: { gebaerde: "Zeigefinger oben, Kreis unten",      bild: "Drachen",   memo: "Zungenlaut D" },
-  E: { gebaerde: "Alle Finger gebogen",                bild: "Elefant",   memo: "Heller E-Laut" },
-  F: { gebaerde: "Daumen + Zeigefinger = Kreis",       bild: "Fisch",     memo: "Reibelaut F" },
-  G: { gebaerde: "Zeigefinger + Daumen seitlich",      bild: "Gitarre",   memo: "Gaumenlaut G" },
-  H: { gebaerde: "Zwei Finger seitlich gestreckt",     bild: "Haus",      memo: "Hauch-Laut H" },
-  I: { gebaerde: "Kleiner Finger gestreckt",           bild: "Igel",      memo: "Spitzer I-Laut" },
-  J: { gebaerde: "Kleiner Finger, J-Bewegung",         bild: "Jäger",     memo: "Weicher J-Laut" },
-  K: { gebaerde: "Zwei Finger oben, Daumen zwischen",  bild: "Krone",     memo: "Harter K-Laut" },
-  L: { gebaerde: "Daumen + Zeigefinger = L",           bild: "Löwe",      memo: "Zungenlaut L" },
-  M: { gebaerde: "Drei Finger über Daumen",            bild: "Mond",      memo: "Summton M" },
-  N: { gebaerde: "Zwei Finger über Daumen",            bild: "Nuss",      memo: "Nasenlaut N" },
-  O: { gebaerde: "Alle Finger = O-Form",               bild: "Orange",    memo: "Runder O-Laut" },
-  P: { gebaerde: "Wie K, nach unten zeigend",          bild: "Pferd",     memo: "Lippenlaut P" },
-  Q: { gebaerde: "Wie G, nach unten zeigend",          bild: "Quelle",    memo: "Kombilaut Q" },
-  R: { gebaerde: "Zwei Finger gekreuzt",               bild: "Regenbogen",memo: "Gerolltes R" },
-  S: { gebaerde: "Faust, Daumen über Fingern",         bild: "Sonne",     memo: "Zischlaut S" },
-  T: { gebaerde: "Daumen zwischen Fingern",            bild: "Taube",     memo: "Harter T-Laut" },
-  U: { gebaerde: "Zwei Finger zusammen gestreckt",     bild: "Uhr",       memo: "Tiefer U-Laut" },
-  V: { gebaerde: "Zwei Finger gespreizt (Victory)",    bild: "Vogel",     memo: "Wie F gesprochen" },
-  W: { gebaerde: "Drei Finger gespreizt",              bild: "Welle",     memo: "Weicher W-Laut" },
-  X: { gebaerde: "Zeigefinger gebogen wie Haken",      bild: "Xylophon",  memo: "Kombilaut X" },
+  A: { gebaerde: "Faust mit Daumen seitlich",         bild: "Apfel",      memo: "Langer A-Laut" },
+  B: { gebaerde: "Vier Finger gestreckt",              bild: "Buch",       memo: "Lippenlaut B" },
+  C: { gebaerde: "Hand zur C-Form gebogen",            bild: "Computer",   memo: "Zischlaut C" },
+  D: { gebaerde: "Zeigefinger oben, Kreis unten",      bild: "Drachen",    memo: "Zungenlaut D" },
+  E: { gebaerde: "Alle Finger gebogen",                bild: "Elefant",    memo: "Heller E-Laut" },
+  F: { gebaerde: "Daumen + Zeigefinger = Kreis",       bild: "Fisch",      memo: "Reibelaut F" },
+  G: { gebaerde: "Zeigefinger + Daumen seitlich",      bild: "Gitarre",    memo: "Gaumenlaut G" },
+  H: { gebaerde: "Zwei Finger seitlich gestreckt",     bild: "Haus",       memo: "Hauch-Laut H" },
+  I: { gebaerde: "Kleiner Finger gestreckt",           bild: "Igel",       memo: "Spitzer I-Laut" },
+  J: { gebaerde: "Kleiner Finger, J-Bewegung",         bild: "Jaeger",     memo: "Weicher J-Laut" },
+  K: { gebaerde: "Zwei Finger oben, Daumen zwischen",  bild: "Krone",      memo: "Harter K-Laut" },
+  L: { gebaerde: "Daumen + Zeigefinger = L",           bild: "Loewe",      memo: "Zungenlaut L" },
+  M: { gebaerde: "Drei Finger ueber Daumen",           bild: "Mond",       memo: "Summton M" },
+  N: { gebaerde: "Zwei Finger ueber Daumen",           bild: "Nuss",       memo: "Nasenlaut N" },
+  O: { gebaerde: "Alle Finger = O-Form",               bild: "Orange",     memo: "Runder O-Laut" },
+  P: { gebaerde: "Wie K, nach unten zeigend",          bild: "Pferd",      memo: "Lippenlaut P" },
+  Q: { gebaerde: "Wie G, nach unten zeigend",          bild: "Quelle",     memo: "Kombilaut Q" },
+  R: { gebaerde: "Zwei Finger gekreuzt",               bild: "Regenbogen", memo: "Gerolltes R" },
+  S: { gebaerde: "Faust, Daumen ueber Fingern",        bild: "Sonne",      memo: "Zischlaut S" },
+  T: { gebaerde: "Daumen zwischen Fingern",            bild: "Taube",      memo: "Harter T-Laut" },
+  U: { gebaerde: "Zwei Finger zusammen gestreckt",     bild: "Uhr",        memo: "Tiefer U-Laut" },
+  V: { gebaerde: "Zwei Finger gespreizt (Victory)",    bild: "Vogel",      memo: "Wie F gesprochen" },
+  W: { gebaerde: "Drei Finger gespreizt",              bild: "Welle",      memo: "Weicher W-Laut" },
+  X: { gebaerde: "Zeigefinger gebogen wie Haken",      bild: "Xylophon",   memo: "Kombilaut X" },
 };
 
 const TABS = [
-  { id: 'gebaerden', label: '🤟 Gebärden',    hint: 'Video',  ext: ['mp4','webm','mov'], folder: 'gebaerden' },
-  { id: 'bilder',    label: '�️ Bilder',      hint: 'Bild',   ext: ['jpg','jpeg','png','webp'], folder: 'bilder' },
-  { id: 'memos',     label: '🔊 Sprachmemos', hint: 'Audio',  ext: ['mp3','ogg','wav'], folder: 'memos' },
+  { id: 'gebaerden', label: 'Gebaerden' },
+  { id: 'bilder',    label: 'Bilder'    },
+  { id: 'memos',     label: 'Sprachmemos' },
 ];
 
-const COLORS = {
-  gebaerden: { header: 'from-stone-900 to-amber-900',   active: 'bg-amber-600',   badge: 'bg-amber-700',   card: 'bg-amber-50 border-amber-200',   text: 'text-amber-800',   ring: 'ring-amber-400' },
-  bilder:    { header: 'from-stone-900 to-amber-900',   active: 'bg-amber-600',   badge: 'bg-stone-700',   card: 'bg-stone-50 border-stone-200',   text: 'text-stone-800',   ring: 'ring-stone-400' },
-  memos:     { header: 'from-stone-900 to-amber-900',   active: 'bg-amber-600',   badge: 'bg-amber-800',   card: 'bg-amber-50 border-amber-300',   text: 'text-amber-900',   ring: 'ring-amber-500' },
-};
+// Amber/Stone Farbschema passend zum Teilnehmerbereich
+const BADGE = 'bg-amber-700';
+const CARD  = 'bg-amber-50 border-amber-200';
+const TEXT  = 'text-amber-900';
 
-function VideoCard({ letter, colors }) {
+function VideoCard({ letter }) {
   const [error, setError] = useState(false);
   const videoRef = useRef(null);
-  const src = `/spelling-bee-media/gebaerden/${letter}.mp4`;
 
   if (error) {
     return (
-      <div className="w-full aspect-video bg-gray-100 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300">
+      <div className="w-full aspect-video bg-amber-50 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-amber-300">
         <span className="text-4xl">🎬</span>
-        <p className="text-gray-500 text-sm font-semibold">Video noch nicht hochgeladen</p>
-        <p className="text-gray-400 text-xs">Datei: gebaerden/{letter}.mp4</p>
+        <p className="text-stone-500 text-sm font-semibold">Video noch nicht hochgeladen</p>
+        <p className="text-stone-400 text-xs">Datei: gebaerden/{letter}.mp4</p>
       </div>
     );
   }
@@ -63,7 +60,7 @@ function VideoCard({ letter, colors }) {
   return (
     <video
       ref={videoRef}
-      src={src}
+      src={`/spelling-bee-media/gebaerden/${letter}.mp4`}
       controls
       playsInline
       className="w-full rounded-2xl shadow-md bg-black"
@@ -72,17 +69,17 @@ function VideoCard({ letter, colors }) {
   );
 }
 
-function ImageCard({ letter, colors }) {
+function ImageCard({ letter }) {
   const [error, setError] = useState(false);
   const [tried, setTried] = useState(0);
   const exts = ['jpg', 'jpeg', 'png', 'webp'];
 
   if (error) {
     return (
-      <div className="w-full aspect-square bg-gray-100 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300">
-        <span className="text-4xl">�️</span>
-        <p className="text-gray-500 text-sm font-semibold">Bild noch nicht hochgeladen</p>
-        <p className="text-gray-400 text-xs">Datei: bilder/{letter}.jpg</p>
+      <div className="w-full aspect-square bg-amber-50 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-amber-300">
+        <span className="text-4xl">🖼</span>
+        <p className="text-stone-500 text-sm font-semibold">Bild noch nicht hochgeladen</p>
+        <p className="text-stone-400 text-xs">Datei: bilder/{letter}.jpg</p>
       </div>
     );
   }
@@ -90,7 +87,7 @@ function ImageCard({ letter, colors }) {
   return (
     <img
       src={`/spelling-bee-media/bilder/${letter}.${exts[tried]}`}
-      alt={`Bild für ${letter}`}
+      alt={`Bild fuer ${letter}`}
       className="w-full rounded-2xl shadow-md object-contain max-h-64"
       onError={() => {
         if (tried < exts.length - 1) setTried(tried + 1);
@@ -100,11 +97,10 @@ function ImageCard({ letter, colors }) {
   );
 }
 
-function AudioCard({ letter, colors }) {
+function AudioCard({ letter }) {
   const [error, setError] = useState(false);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef(null);
-  const src = `/spelling-bee-media/memos/${letter}.mp3`;
 
   function togglePlay() {
     if (!audioRef.current) return;
@@ -120,29 +116,29 @@ function AudioCard({ letter, colors }) {
 
   if (error) {
     return (
-      <div className="w-full py-8 bg-gray-100 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300">
+      <div className="w-full py-8 bg-amber-50 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-amber-300">
         <span className="text-4xl">🔊</span>
-        <p className="text-gray-500 text-sm font-semibold">Sprachmemo noch nicht hochgeladen</p>
-        <p className="text-gray-400 text-xs">Datei: memos/{letter}.mp3</p>
+        <p className="text-stone-500 text-sm font-semibold">Sprachmemo noch nicht hochgeladen</p>
+        <p className="text-stone-400 text-xs">Datei: memos/{letter}.mp3</p>
       </div>
     );
   }
 
   return (
-    <div className={`w-full py-6 ${colors.card} border-2 rounded-2xl flex flex-col items-center gap-4`}>
+    <div className="w-full py-6 bg-amber-50 border-2 border-amber-200 rounded-2xl flex flex-col items-center gap-4">
       <audio
         ref={audioRef}
-        src={src}
+        src={`/spelling-bee-media/memos/${letter}.mp3`}
         onEnded={() => setPlaying(false)}
         onError={() => setError(true)}
       />
       <button
         onClick={togglePlay}
-        className={`w-20 h-20 rounded-full ${colors.badge} text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform text-3xl`}
+        className="w-20 h-20 rounded-full bg-amber-700 text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform text-3xl"
       >
         {playing ? '⏹' : '▶️'}
       </button>
-      <p className={`text-sm font-bold ${colors.text}`}>
+      <p className="text-sm font-bold text-amber-900">
         {playing ? 'Spielt ab...' : 'Tippen zum Abspielen'}
       </p>
     </div>
@@ -152,16 +148,17 @@ function AudioCard({ letter, colors }) {
 export default function SpellingBeePage() {
   const [tab, setTab] = useState('gebaerden');
   const [selectedLetter, setSelectedLetter] = useState(null);
-  const colors = COLORS[tab];
 
-  function handleLetterClick(letter) {
-    setSelectedLetter(selectedLetter === letter ? null : letter);
-  }
+  const tabLabels = {
+    gebaerden: '🤟 Gebaerden',
+    bilder:    '🖼 Bilder',
+    memos:     '🔊 Sprachmemos',
+  };
 
   return (
     <div className="min-h-screen bg-amber-50">
-      {/* Header */}
-      <div className={`bg-gradient-to-r ${colors.header} text-amber-100 px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10`}>
+      {/* Header – gleicher Stil wie GameScreen */}
+      <div className="bg-gradient-to-r from-stone-900 to-amber-900 text-amber-100 px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10">
         <div className="flex items-center gap-3 mb-1">
           <span className="text-4xl">🐝</span>
           <div>
@@ -177,10 +174,12 @@ export default function SpellingBeePage() {
               key={t.id}
               onClick={() => { setTab(t.id); setSelectedLetter(null); }}
               className={`flex-1 py-2 rounded-xl font-bold text-xs transition-all ${
-                tab === t.id ? 'bg-amber-500 text-white ring-2 ring-amber-300' : 'bg-white/10 text-amber-200'
+                tab === t.id
+                  ? 'bg-amber-500 text-white'
+                  : 'bg-white/10 text-amber-200'
               }`}
             >
-              {t.label}
+              {tabLabels[t.id]}
             </button>
           ))}
         </div>
@@ -193,10 +192,10 @@ export default function SpellingBeePage() {
           {LETTERS.map(letter => (
             <button
               key={letter}
-              onClick={() => handleLetterClick(letter)}
+              onClick={() => setSelectedLetter(selectedLetter === letter ? null : letter)}
               className={`aspect-square rounded-2xl font-black text-xl flex items-center justify-center transition-all shadow-sm ${
                 selectedLetter === letter
-                  ? `${colors.badge} text-white scale-110 shadow-md`
+                  ? 'bg-amber-700 text-white scale-110 shadow-md'
                   : 'bg-white border-2 border-amber-200 text-stone-700 active:scale-95'
               }`}
             >
@@ -207,17 +206,16 @@ export default function SpellingBeePage() {
 
         {/* Detail Panel */}
         {selectedLetter && (
-          <div className={`${colors.card} border-2 rounded-3xl p-5 mb-4 shadow-md`}>
-            {/* Title */}
+          <div className="bg-amber-50 border-2 border-amber-200 rounded-3xl p-5 mb-4 shadow-md">
             <div className="flex items-center gap-3 mb-4">
-              <div className={`w-14 h-14 rounded-2xl ${colors.badge} flex items-center justify-center text-white font-black text-3xl shadow`}>
+              <div className="w-14 h-14 rounded-2xl bg-amber-700 flex items-center justify-center text-white font-black text-3xl shadow">
                 {selectedLetter}
               </div>
               <div>
                 <p className="text-xs text-stone-500 font-bold uppercase tracking-wide">
-                  {tab === 'gebaerden' ? 'Gebärde' : tab === 'bilder' ? 'Bild' : 'Sprachmemo'}
+                  {tab === 'gebaerden' ? 'Gebaerde' : tab === 'bilder' ? 'Bild' : 'Sprachmemo'}
                 </p>
-                <p className={`font-black text-lg ${colors.text}`}>
+                <p className="font-black text-lg text-amber-900">
                   {tab === 'gebaerden' && FALLBACK[selectedLetter].gebaerde}
                   {tab === 'bilder'    && FALLBACK[selectedLetter].bild}
                   {tab === 'memos'     && FALLBACK[selectedLetter].memo}
@@ -225,17 +223,15 @@ export default function SpellingBeePage() {
               </div>
             </div>
 
-            {/* Media */}
-            {tab === 'gebaerden' && <VideoCard letter={selectedLetter} colors={colors} />}
-            {tab === 'bilder'    && <ImageCard letter={selectedLetter} colors={colors} />}
-            {tab === 'memos'     && <AudioCard letter={selectedLetter} colors={colors} />}
+            {tab === 'gebaerden' && <VideoCard letter={selectedLetter} />}
+            {tab === 'bilder'    && <ImageCard letter={selectedLetter} />}
+            {tab === 'memos'     && <AudioCard letter={selectedLetter} />}
 
-            {/* Close */}
             <button
               onClick={() => setSelectedLetter(null)}
               className="w-full mt-4 py-2 rounded-xl border-2 border-amber-200 text-stone-500 font-bold text-sm"
             >
-              Schließen ✕
+              Schliessen
             </button>
           </div>
         )}
@@ -246,14 +242,14 @@ export default function SpellingBeePage() {
           {LETTERS.map(letter => (
             <button
               key={letter}
-              onClick={() => handleLetterClick(letter)}
+              onClick={() => setSelectedLetter(selectedLetter === letter ? null : letter)}
               className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 transition-all text-left ${
                 selectedLetter === letter
-                  ? `${colors.card} shadow-md`
+                  ? 'bg-amber-50 border-amber-300 shadow-md'
                   : 'bg-white border-amber-100 active:scale-[0.98]'
               }`}
             >
-              <div className={`w-10 h-10 rounded-xl ${colors.badge} flex items-center justify-center text-white font-black text-lg shrink-0`}>
+              <div className="w-10 h-10 rounded-xl bg-amber-700 flex items-center justify-center text-white font-black text-lg shrink-0">
                 {letter}
               </div>
               <p className="text-sm text-stone-700 font-medium flex-1 truncate">
