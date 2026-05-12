@@ -48,7 +48,7 @@ const COLORS = {
 function VideoCard({ letter, colors }) {
   const [error, setError] = useState(false);
   const videoRef = useRef(null);
-  const src = `/spelling-bee/gebaerden/${letter}.mp4`;
+  const src = `/spelling-bee-media/gebaerden/${letter}.mp4`;
 
   if (error) {
     return (
@@ -89,7 +89,7 @@ function ImageCard({ letter, colors }) {
 
   return (
     <img
-      src={`/spelling-bee/bilder/${letter}.${exts[tried]}`}
+      src={`/spelling-bee-media/bilder/${letter}.${exts[tried]}`}
       alt={`Bild für ${letter}`}
       className="w-full rounded-2xl shadow-md object-contain max-h-64"
       onError={() => {
@@ -104,7 +104,7 @@ function AudioCard({ letter, colors }) {
   const [error, setError] = useState(false);
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef(null);
-  const src = `/spelling-bee/memos/${letter}.mp3`;
+  const src = `/spelling-bee-media/memos/${letter}.mp3`;
 
   function togglePlay() {
     if (!audioRef.current) return;

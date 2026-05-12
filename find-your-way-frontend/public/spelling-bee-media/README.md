@@ -3,7 +3,7 @@
 ## Ordnerstruktur
 
 ```
-spelling-bee/
+spelling-bee-media/
 ├── gebaerden/     → Videos für Gebärden (MP4)
 ├── bilder/        → Bilder für Buchstaben (JPG oder PNG)
 └── memos/         → Sprachmemos (MP3)
@@ -17,7 +17,6 @@ Jede Datei wird nach dem Buchstaben benannt:
 |-----------|---------------|---------------|---------------|
 | A         | A.mp4         | A.jpg         | A.mp3         |
 | B         | B.mp4         | B.jpg         | B.mp3         |
-| C         | C.mp4         | C.jpg         | C.mp3         |
 | ...       | ...           | ...           | ...           |
 | X         | X.mp4         | X.jpg         | X.mp3         |
 
@@ -30,3 +29,4 @@ Jede Datei wird nach dem Buchstaben benannt:
 ## Hinweis
 
 Wenn eine Datei fehlt, wird ein Platzhalter angezeigt.
+Der Ordner heißt `spelling-bee-media` (nicht `spelling-bee`) um Konflikte mit der React-Route `/spelling-bee` zu vermeiden.
