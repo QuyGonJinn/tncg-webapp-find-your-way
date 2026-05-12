@@ -38,11 +38,6 @@ const TABS = [
   { id: 'memos',     label: 'Sprachmemos' },
 ];
 
-// Amber/Stone Farbschema passend zum Teilnehmerbereich
-const BADGE = 'bg-amber-700';
-const CARD  = 'bg-amber-50 border-amber-200';
-const TEXT  = 'text-amber-900';
-
 function VideoCard({ letter }) {
   const [error, setError] = useState(false);
   const videoRef = useRef(null);
@@ -235,34 +230,6 @@ export default function SpellingBeePage() {
             </button>
           </div>
         )}
-
-        {/* All Letters List */}
-        <div className="space-y-2">
-          <p className="text-stone-500 font-bold text-xs uppercase tracking-wide mb-2">Alle 24 Buchstaben</p>
-          {LETTERS.map(letter => (
-            <button
-              key={letter}
-              onClick={() => setSelectedLetter(selectedLetter === letter ? null : letter)}
-              className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 transition-all text-left ${
-                selectedLetter === letter
-                  ? 'bg-amber-50 border-amber-300 shadow-md'
-                  : 'bg-white border-amber-100 active:scale-[0.98]'
-              }`}
-            >
-              <div className="w-10 h-10 rounded-xl bg-amber-700 flex items-center justify-center text-white font-black text-lg shrink-0">
-                {letter}
-              </div>
-              <p className="text-sm text-stone-700 font-medium flex-1 truncate">
-                {tab === 'gebaerden' && FALLBACK[letter].gebaerde}
-                {tab === 'bilder'    && FALLBACK[letter].bild}
-                {tab === 'memos'     && FALLBACK[letter].memo}
-              </p>
-              <span className="text-stone-400 text-xs shrink-0">
-                {selectedLetter === letter ? '▲' : '▼'}
-              </span>
-            </button>
-          ))}
-        </div>
       </div>
     </div>
   );
