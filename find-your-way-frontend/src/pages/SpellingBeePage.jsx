@@ -40,9 +40,9 @@ const TABS = [
 ];
 
 const COLORS = {
-  gebaerden: { header: 'from-blue-700 to-blue-500',   active: 'bg-blue-600',   badge: 'bg-blue-600',   card: 'bg-blue-50 border-blue-200',   text: 'text-blue-700' },
-  bilder:    { header: 'from-purple-700 to-purple-500', active: 'bg-purple-600', badge: 'bg-purple-600', card: 'bg-purple-50 border-purple-200', text: 'text-purple-700' },
-  memos:     { header: 'from-green-700 to-green-500',  active: 'bg-green-600',  badge: 'bg-green-600',  card: 'bg-green-50 border-green-200',  text: 'text-green-700' },
+  gebaerden: { header: 'from-stone-900 to-amber-900',   active: 'bg-amber-600',   badge: 'bg-amber-700',   card: 'bg-amber-50 border-amber-200',   text: 'text-amber-800',   ring: 'ring-amber-400' },
+  bilder:    { header: 'from-stone-900 to-amber-900',   active: 'bg-amber-600',   badge: 'bg-stone-700',   card: 'bg-stone-50 border-stone-200',   text: 'text-stone-800',   ring: 'ring-stone-400' },
+  memos:     { header: 'from-stone-900 to-amber-900',   active: 'bg-amber-600',   badge: 'bg-amber-800',   card: 'bg-amber-50 border-amber-300',   text: 'text-amber-900',   ring: 'ring-amber-500' },
 };
 
 function VideoCard({ letter, colors }) {
@@ -159,14 +159,14 @@ export default function SpellingBeePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-amber-50">
       {/* Header */}
-      <div className={`bg-gradient-to-r ${colors.header} text-white px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10`}>
+      <div className={`bg-gradient-to-r ${colors.header} text-amber-100 px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10`}>
         <div className="flex items-center gap-3 mb-1">
           <span className="text-4xl">🐝</span>
           <div>
-            <h1 className="text-2xl font-black leading-tight">Spelling Bee</h1>
-            <p className="text-white/80 text-sm">Buchstaben-Alphabet · 24 Zeichen</p>
+            <h1 className="text-2xl font-black leading-tight text-amber-50">Spelling Bee</h1>
+            <p className="text-amber-300 text-sm">Buchstaben-Alphabet · 24 Zeichen</p>
           </div>
         </div>
 
@@ -177,7 +177,7 @@ export default function SpellingBeePage() {
               key={t.id}
               onClick={() => { setTab(t.id); setSelectedLetter(null); }}
               className={`flex-1 py-2 rounded-xl font-bold text-xs transition-all ${
-                tab === t.id ? 'bg-white/30 text-white ring-2 ring-white/50' : 'bg-white/10 text-white/70'
+                tab === t.id ? 'bg-amber-500 text-white ring-2 ring-amber-300' : 'bg-white/10 text-amber-200'
               }`}
             >
               {t.label}
@@ -197,7 +197,7 @@ export default function SpellingBeePage() {
               className={`aspect-square rounded-2xl font-black text-xl flex items-center justify-center transition-all shadow-sm ${
                 selectedLetter === letter
                   ? `${colors.badge} text-white scale-110 shadow-md`
-                  : 'bg-white border-2 border-gray-200 text-gray-700 active:scale-95'
+                  : 'bg-white border-2 border-amber-200 text-stone-700 active:scale-95'
               }`}
             >
               {letter}
@@ -214,7 +214,7 @@ export default function SpellingBeePage() {
                 {selectedLetter}
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-bold uppercase tracking-wide">
+                <p className="text-xs text-stone-500 font-bold uppercase tracking-wide">
                   {tab === 'gebaerden' ? 'Gebärde' : tab === 'bilder' ? 'Bild' : 'Sprachmemo'}
                 </p>
                 <p className={`font-black text-lg ${colors.text}`}>
@@ -233,7 +233,7 @@ export default function SpellingBeePage() {
             {/* Close */}
             <button
               onClick={() => setSelectedLetter(null)}
-              className="w-full mt-4 py-2 rounded-xl border-2 border-gray-200 text-gray-500 font-bold text-sm"
+              className="w-full mt-4 py-2 rounded-xl border-2 border-amber-200 text-stone-500 font-bold text-sm"
             >
               Schließen ✕
             </button>
@@ -242,7 +242,7 @@ export default function SpellingBeePage() {
 
         {/* All Letters List */}
         <div className="space-y-2">
-          <p className="text-gray-500 font-bold text-xs uppercase tracking-wide mb-2">Alle 24 Buchstaben</p>
+          <p className="text-stone-500 font-bold text-xs uppercase tracking-wide mb-2">Alle 24 Buchstaben</p>
           {LETTERS.map(letter => (
             <button
               key={letter}
@@ -250,18 +250,18 @@ export default function SpellingBeePage() {
               className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 transition-all text-left ${
                 selectedLetter === letter
                   ? `${colors.card} shadow-md`
-                  : 'bg-white border-gray-100 active:scale-[0.98]'
+                  : 'bg-white border-amber-100 active:scale-[0.98]'
               }`}
             >
               <div className={`w-10 h-10 rounded-xl ${colors.badge} flex items-center justify-center text-white font-black text-lg shrink-0`}>
                 {letter}
               </div>
-              <p className="text-sm text-gray-700 font-medium flex-1 truncate">
+              <p className="text-sm text-stone-700 font-medium flex-1 truncate">
                 {tab === 'gebaerden' && FALLBACK[letter].gebaerde}
                 {tab === 'bilder'    && FALLBACK[letter].bild}
                 {tab === 'memos'     && FALLBACK[letter].memo}
               </p>
-              <span className="text-gray-400 text-xs shrink-0">
+              <span className="text-stone-400 text-xs shrink-0">
                 {selectedLetter === letter ? '▲' : '▼'}
               </span>
             </button>
