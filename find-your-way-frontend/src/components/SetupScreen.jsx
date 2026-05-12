@@ -83,7 +83,7 @@ export default function SetupScreen({ onStart, onLogin, error }) {
                 disabled={!name.trim()}
                 className="w-full bg-amber-700 disabled:bg-stone-300 text-white font-black text-xl py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
               >
-                Auf zur Schatzsuche! 🗺️
+                Los gehts! 🗺️
               </button>
             </form>
           ) : (
