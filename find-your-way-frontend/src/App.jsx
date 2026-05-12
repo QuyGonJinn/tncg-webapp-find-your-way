@@ -6,7 +6,6 @@ import GameScreen from './components/GameScreen';
 import FinalScreen from './components/FinalScreen';
 import PinDisplay from './components/PinDisplay';
 import AdminPage from './pages/AdminPage';
-import ControlPage from './pages/ControlPage';
 
 function GameApp() {
   const { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP } = useGameState();
@@ -33,7 +32,6 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/control" element={<ControlPage />} />
         <Route path="*" element={<GameApp />} />
       </Routes>
     </BrowserRouter>
