@@ -6,7 +6,7 @@ export default function Timer({ timeLeft }) {
   const urgent = timeLeft < 600; // last 10 min
 
   return (
-    <div className={`flex items-center gap-1 font-mono font-black text-2xl ${urgent ? 'text-red-500 animate-pulse' : 'text-white'}`}>
+    <div className={`flex items-center gap-1 font-mono font-black text-2xl ${urgent ? 'text-red-400 animate-pulse' : 'text-yellow-400'}`}>
       ⏱ {pad(h)}:{pad(m)}:{pad(s)}
     </div>
   );

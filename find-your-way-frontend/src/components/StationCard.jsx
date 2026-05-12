@@ -9,7 +9,6 @@ export default function StationCard({ station, done, pending, onComplete }) {
   const [loading, setLoading] = useState(false);
   const isActive = station.type === 'aktiv';
 
-  // Get next station
   const nextStation = STATIONS.find(s => s.id === station.id + 1);
 
   async function handleSubmit(e) {
@@ -30,33 +29,33 @@ export default function StationCard({ station, done, pending, onComplete }) {
   return (
     <>
       <div className={`relative rounded-2xl p-4 shadow-md transition-all cursor-pointer hover:shadow-lg ${
-        done    ? 'bg-blue-50 border-2 border-blue-400 opacity-80' :
+        done    ? 'bg-amber-100 border-2 border-amber-400 opacity-90' :
         pending ? 'bg-yellow-50 border-2 border-yellow-400' :
-                  'bg-white border-2 border-blue-100'
+                  'bg-white border-2 border-amber-200'
       }`}
       onClick={() => !done && !pending && setShowInfo(true)}>
         <div className="flex items-start gap-3">
           <span className="text-3xl">{station.emoji}</span>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h3 className={`font-bold text-base leading-tight ${done ? 'text-blue-700' : pending ? 'text-yellow-700' : 'text-slate-800'}`}>
+              <h3 className={`font-bold text-base leading-tight ${done ? 'text-amber-800' : pending ? 'text-yellow-700' : 'text-stone-800'}`}>
                 {station.title}
               </h3>
               <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                isActive ? 'bg-orange-100 text-orange-600' : 'bg-blue-100 text-blue-600'
+                isActive ? 'bg-orange-100 text-orange-700' : 'bg-amber-100 text-amber-700'
               }`}>
-                {isActive ? '⚡ Aktiv' : '🌊 Passiv'}
+                {isActive ? '⚡ Aktiv' : '🗺️ Passiv'}
               </span>
             </div>
-            <p className="text-slate-500 text-sm mt-1 leading-snug">{station.description}</p>
+            <p className="text-stone-500 text-sm mt-1 leading-snug">{station.description}</p>
 
             <div className="flex items-center justify-between mt-3">
-              <span className={`font-black text-lg ${isActive ? 'text-orange-500' : 'text-blue-600'}`}>
+              <span className={`font-black text-lg ${isActive ? 'text-orange-600' : 'text-amber-700'}`}>
                 +{station.points} XP
               </span>
 
               {done ? (
-                <span className="text-blue-600 font-bold text-sm">✅ Erledigt</span>
+                <span className="text-green-700 font-bold text-sm">✅ Erledigt</span>
               ) : pending ? (
                 <span className="text-yellow-600 font-bold text-sm">⏳ Wartet auf Bestätigung</span>
               ) : showCode ? null : (
@@ -65,7 +64,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
                     e.stopPropagation();
                     isActive ? handleSubmit({ preventDefault: () => {} }) : setShowCode(true);
                   }}
-                  className="bg-blue-600 text-white font-bold text-sm px-4 py-2 rounded-xl active:scale-95 transition-transform shadow"
+                  className="bg-amber-700 text-amber-50 font-bold text-sm px-4 py-2 rounded-xl active:scale-95 transition-transform shadow"
                 >
                   {isActive ? 'Erledigt melden' : 'Code eingeben'}
                 </button>
@@ -81,22 +80,22 @@ export default function StationCard({ station, done, pending, onComplete }) {
                   onChange={e => setCode(e.target.value.toUpperCase().slice(0, 4))}
                   placeholder="Code eingeben"
                   maxLength={4}
-                  className="w-full border-2 border-blue-200 rounded-xl px-4 py-2 text-xl font-black text-center tracking-widest focus:outline-none focus:border-blue-500"
+                  className="w-full border-2 border-amber-300 rounded-xl px-4 py-2 text-xl font-black text-center tracking-widest focus:outline-none focus:border-amber-600 bg-amber-50"
                   autoFocus
                 />
-                {error && <p className="text-red-500 text-xs text-center font-semibold">{error}</p>}
+                {error && <p className="text-red-600 text-xs text-center font-semibold">{error}</p>}
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => { setShowCode(false); setCode(''); setError(''); }}
-                    className="flex-1 border-2 border-gray-200 text-gray-500 font-bold py-2 rounded-xl text-sm"
+                    className="flex-1 border-2 border-stone-200 text-stone-500 font-bold py-2 rounded-xl text-sm"
                   >
                     Abbrechen
                   </button>
                   <button
                     type="submit"
                     disabled={code.length < 4 || loading}
-                    className="flex-1 bg-blue-600 disabled:bg-blue-200 text-white font-bold py-2 rounded-xl text-sm active:scale-95 transition-transform"
+                    className="flex-1 bg-amber-700 disabled:bg-amber-200 text-white font-bold py-2 rounded-xl text-sm active:scale-95 transition-transform"
                   >
                     {loading ? '...' : 'Bestätigen'}
                   </button>
@@ -106,10 +105,10 @@ export default function StationCard({ station, done, pending, onComplete }) {
 
             {/* Next station hint when done */}
             {done && nextStation && (
-              <div className="mt-3 bg-green-50 border-2 border-green-200 rounded-xl p-3">
-                <p className="text-xs font-bold text-green-700 mb-1">🎯 Nächste Station:</p>
-                <p className="text-sm font-bold text-green-800">{nextStation.emoji} {nextStation.title}</p>
-                <p className="text-xs text-green-600 mt-1">{nextStation.description}</p>
+              <div className="mt-3 bg-green-50 border-2 border-green-300 rounded-xl p-3">
+                <p className="text-xs font-bold text-green-800 mb-1">🎯 Nächste Station:</p>
+                <p className="text-sm font-bold text-green-900">{nextStation.emoji} {nextStation.title}</p>
+                <p className="text-xs text-green-700 mt-1">{nextStation.description}</p>
               </div>
             )}
           </div>
@@ -118,37 +117,37 @@ export default function StationCard({ station, done, pending, onComplete }) {
 
       {/* Info Modal */}
       {showInfo && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowInfo(false)}>
-          <div className="bg-white rounded-3xl shadow-2xl max-w-sm w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 sticky top-0">
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4" onClick={() => setShowInfo(false)}>
+          <div className="bg-amber-50 rounded-3xl shadow-2xl max-w-sm w-full max-h-[80vh] overflow-y-auto border-2 border-amber-300" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-gradient-to-r from-stone-900 to-amber-900 text-amber-100 p-6 rounded-t-3xl sticky top-0">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-4xl">{station.emoji}</span>
                 <h2 className="text-2xl font-black">{station.title}</h2>
               </div>
               <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${
-                isActive ? 'bg-orange-100 text-orange-600' : 'bg-blue-100 text-blue-600'
+                isActive ? 'bg-orange-100 text-orange-700' : 'bg-amber-100 text-amber-800'
               }`}>
-                {isActive ? '⚡ Aktiv' : '🌊 Passiv'}
+                {isActive ? '⚡ Aktiv' : '🗺️ Passiv'}
               </span>
             </div>
 
             <div className="p-6 space-y-4">
               <div>
-                <h3 className="font-black text-blue-700 mb-2">📝 Aufgabe</h3>
-                <p className="text-slate-700 leading-relaxed">{station.instructions}</p>
+                <h3 className="font-black text-amber-800 mb-2">📜 Aufgabe</h3>
+                <p className="text-stone-700 leading-relaxed">{station.instructions}</p>
               </div>
 
-              <div className="bg-blue-50 rounded-2xl p-4">
-                <p className="text-sm text-slate-600">
-                  <span className="font-bold text-blue-700">Punkte:</span> +{station.points} XP
+              <div className="bg-amber-100 border border-amber-300 rounded-2xl p-4">
+                <p className="text-sm text-stone-600">
+                  <span className="font-bold text-amber-800">Punkte:</span> +{station.points} XP ⭐
                 </p>
               </div>
 
               <button
                 onClick={() => setShowInfo(false)}
-                className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl active:scale-95 transition-transform"
+                className="w-full bg-amber-700 text-white font-bold py-3 rounded-xl active:scale-95 transition-transform"
               >
-                Verstanden! 🚀
+                Verstanden! 🗺️
               </button>
             </div>
           </div>

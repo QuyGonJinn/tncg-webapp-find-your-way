@@ -12,14 +12,11 @@ export default function ChatBox({ team }) {
   const lastMessageIdRef = useRef(null);
   const markedAsReadRef = useRef(new Set());
 
-  // Load messages initially
   useEffect(() => {
     loadMessages();
   }, [team.id]);
 
-  // Setup WebSocket and polling
   useEffect(() => {
-    // WebSocket for real-time updates
     wsRef.current = createWebSocket(({ type, payload }) => {
       if (type === 'NEW_MESSAGE' && payload.team_id === team.id) {
         if (!sentMessageIdsRef.current.has(payload.id)) {
@@ -36,7 +33,6 @@ export default function ChatBox({ team }) {
       }
     });
 
-    // Polling fallback: refresh messages every 2 seconds
     pollIntervalRef.current = setInterval(() => {
       loadMessages();
     }, 2000);
@@ -47,23 +43,19 @@ export default function ChatBox({ team }) {
     };
   }, [team.id]);
 
-  // Auto-scroll to bottom when messages change
   useEffect(() => {
     setTimeout(() => {
       bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 0);
   }, [messages]);
 
-  // Mark unread messages as read when viewing chat
   useEffect(() => {
     const unreadIds = messages
       .filter(m => !m.read_at && !markedAsReadRef.current.has(m.id))
       .map(m => m.id);
 
     if (unreadIds.length > 0) {
-      markMessagesAsRead(team.id, unreadIds).catch(err => {
-        console.error('Fehler beim Markieren als gelesen', err);
-      });
+      markMessagesAsRead(team.id, unreadIds).catch(() => {});
       unreadIds.forEach(id => markedAsReadRef.current.add(id));
     }
   }, [messages, team.id]);
@@ -72,12 +64,8 @@ export default function ChatBox({ team }) {
     try {
       const msgs = await fetchMessages(team.id);
       setMessages(msgs);
-      if (msgs.length > 0) {
-        lastMessageIdRef.current = msgs[msgs.length - 1].id;
-      }
-    } catch (err) {
-      console.error('Fehler beim Laden der Nachrichten', err);
-    }
+      if (msgs.length > 0) lastMessageIdRef.current = msgs[msgs.length - 1].id;
+    } catch {}
   }
 
   async function handleSend(e) {
@@ -91,8 +79,7 @@ export default function ChatBox({ team }) {
       setMessages(prev => [...prev, newMsg]);
       sentMessageIdsRef.current.add(newMsg.id);
       lastMessageIdRef.current = newMsg.id;
-    } catch (err) {
-      console.error('Senden fehlgeschlagen', err);
+    } catch {
       setText(msgText);
     } finally {
       setSending(false);
@@ -104,24 +91,24 @@ export default function ChatBox({ team }) {
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-amber-50">
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-2">
         {messages.length === 0 && (
-          <p className="text-center text-blue-300 text-sm mt-8">Noch keine Nachrichten. Schreibt dem Admin!</p>
+          <p className="text-center text-amber-400 text-sm mt-8">Noch keine Nachrichten. Schreibt dem Admin!</p>
         )}
         {messages.map(msg => (
           <div key={msg.id} className={`flex ${msg.from_admin ? 'justify-start' : 'justify-end'}`}>
             <div className={`max-w-[80%] rounded-2xl px-4 py-2 shadow-sm ${
               msg.from_admin
-                ? `${msg.read_at ? 'bg-gray-100 text-gray-700' : 'bg-blue-100 text-blue-900'} rounded-tl-sm`
-                : 'bg-blue-600 text-white rounded-tr-sm'
+                ? `${msg.read_at ? 'bg-amber-100 text-stone-700' : 'bg-amber-200 text-stone-900'} rounded-tl-sm border border-amber-300`
+                : 'bg-amber-700 text-amber-50 rounded-tr-sm'
             }`}>
               {msg.from_admin && (
-                <p className="text-xs font-bold text-blue-500 mb-0.5">🛠️ Admin</p>
+                <p className="text-xs font-bold text-amber-700 mb-0.5">🛠️ Admin</p>
               )}
               <p className="text-sm leading-snug break-words">{msg.text}</p>
-              <div className={`text-xs mt-1 flex items-center gap-1 ${msg.from_admin ? msg.read_at ? 'text-gray-400' : 'text-blue-400' : 'text-blue-200'}`}>
+              <div className={`text-xs mt-1 flex items-center gap-1 ${msg.from_admin ? 'text-amber-500' : 'text-amber-300'}`}>
                 <span>{formatTime(msg.sent_at)}</span>
                 {!msg.from_admin && (
                   <span className="ml-1 font-bold">
@@ -136,20 +123,20 @@ export default function ChatBox({ team }) {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSend} className="px-4 pb-4 pt-2 border-t border-blue-100 flex gap-2">
+      <form onSubmit={handleSend} className="px-4 pb-4 pt-2 border-t border-amber-200 flex gap-2 bg-amber-50">
         <input
           type="text"
           value={text}
           onChange={e => setText(e.target.value)}
           placeholder="Nachricht schreiben..."
           maxLength={200}
-          className="flex-1 border-2 border-blue-200 rounded-2xl px-4 py-2 text-sm focus:outline-none focus:border-blue-500"
+          className="flex-1 border-2 border-amber-300 rounded-2xl px-4 py-2 text-sm focus:outline-none focus:border-amber-600 bg-white"
           disabled={sending}
         />
         <button
           type="submit"
           disabled={!text.trim() || sending}
-          className="bg-blue-600 disabled:bg-blue-200 text-white font-bold px-4 py-2 rounded-2xl active:scale-95 transition-transform"
+          className="bg-amber-700 disabled:bg-amber-200 text-white font-bold px-4 py-2 rounded-2xl active:scale-95 transition-transform"
         >
           {sending ? '⏳' : '➤'}
         </button>

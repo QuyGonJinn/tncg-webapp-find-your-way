@@ -36,13 +36,13 @@ export default function ReminderNotification({ timeLeft }) {
       {reminders.map(reminder => (
         <div
           key={reminder.id}
-          className="bg-orange-100 border-2 border-orange-400 rounded-xl p-4 shadow-lg max-w-xs animate-pulse"
+          className="bg-amber-100 border-2 border-amber-500 rounded-xl p-4 shadow-lg max-w-xs"
         >
           <div className="flex items-start justify-between gap-3">
-            <p className="text-orange-800 font-bold text-sm">{reminder.message}</p>
+            <p className="text-amber-900 font-bold text-sm">{reminder.message}</p>
             <button
               onClick={() => dismissReminder(reminder.id)}
-              className="text-orange-600 hover:text-orange-800 font-bold text-lg leading-none"
+              className="text-amber-700 hover:text-amber-900 font-bold text-lg leading-none"
             >
               ✕
             </button>

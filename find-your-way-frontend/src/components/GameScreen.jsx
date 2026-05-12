@@ -8,46 +8,44 @@ import ReminderNotification from './ReminderNotification';
 
 export default function GameScreen({ team, completed, pending, timeLeft, xpPopups, onComplete, onReset, totalXP }) {
   const [tab, setTab] = useState(() => {
-    // Restore tab from localStorage on mount
     return localStorage.getItem('fyw_active_tab') || 'stations';
   });
-  
+
   const completedCount = Object.keys(completed).length;
   const activeCompleted = STATIONS.filter(s => s.type === 'aktiv' && completed[s.id]).length;
   const progress = Math.round((completedCount / STATIONS.length) * 100);
 
-  // Save tab to localStorage whenever it changes
   const handleTabChange = (newTab) => {
     setTab(newTab);
     localStorage.setItem('fyw_active_tab', newTab);
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col">
+    <div className="min-h-screen bg-amber-50 flex flex-col">
       {/* Reminder Notifications */}
       <ReminderNotification timeLeft={timeLeft} />
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 pt-6 pb-4 sticky top-0 z-10 shadow-lg">
+      <div className="bg-gradient-to-r from-stone-900 to-amber-900 text-amber-100 px-4 pt-6 pb-4 sticky top-0 z-10 shadow-lg">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-3xl">{team.icon}</span>
             <div>
-              <p className="font-black text-lg leading-tight">{team.name}</p>
-              <p className="text-blue-200 text-sm font-bold">{totalXP} XP</p>
+              <p className="font-black text-lg leading-tight text-amber-50">{team.name}</p>
+              <p className="text-yellow-400 text-sm font-bold">⭐ {totalXP} XP</p>
             </div>
           </div>
           <Timer timeLeft={timeLeft} />
         </div>
 
         {/* Progress bar */}
-        <div className="bg-blue-900/50 rounded-full h-3 overflow-hidden">
+        <div className="bg-stone-800/60 rounded-full h-3 overflow-hidden">
           <div
-            className="bg-blue-300 h-3 rounded-full transition-all duration-500"
+            className="bg-yellow-400 h-3 rounded-full transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="flex justify-between text-xs text-blue-200 mt-1">
+        <div className="flex justify-between text-xs text-amber-300 mt-1">
           <span>{completedCount}/12 Stationen</span>
           <span>⚡ {activeCompleted} aktive</span>
           <span>{progress}%</span>
@@ -58,7 +56,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
           <button
             onClick={() => handleTabChange('stations')}
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${
-              tab === 'stations' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'
+              tab === 'stations' ? 'bg-amber-100 text-amber-900' : 'bg-stone-800/50 text-amber-300'
             }`}
           >
             🗺️ Stationen
@@ -66,7 +64,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
           <button
             onClick={() => handleTabChange('chat')}
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${
-              tab === 'chat' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'
+              tab === 'chat' ? 'bg-amber-100 text-amber-900' : 'bg-stone-800/50 text-amber-300'
             }`}
           >
             💬 Chat
@@ -77,8 +75,8 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
       {/* XP Popups */}
       <div className="fixed top-36 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
         {xpPopups.map(p => (
-          <div key={p.id} className="xp-pop text-center font-black text-3xl text-blue-400 drop-shadow-lg">
-            +{p.points} XP 🌊
+          <div key={p.id} className="xp-pop text-center font-black text-3xl text-yellow-500 drop-shadow-lg">
+            +{p.points} XP ⭐
           </div>
         ))}
       </div>
@@ -101,7 +99,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
           <div className="px-4 mt-6">
             <button
               onClick={onReset}
-              className="w-full border-2 border-blue-200 text-blue-400 font-bold py-3 rounded-2xl text-sm active:scale-95 transition-transform"
+              className="w-full border-2 border-amber-300 text-amber-700 font-bold py-3 rounded-2xl text-sm active:scale-95 transition-transform"
             >
               Spiel zurücksetzen
             </button>
