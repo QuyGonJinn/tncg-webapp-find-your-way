@@ -20,10 +20,14 @@
    - Gebt die Adresse ein: `https://fyw-tncg.de` 
    - Die Startseite sollte automatisch laden 
 
+   ![Login #0](./images/teilnehmer/login_0.png)
+
 2. **Tab "🆕 Neues Team" auswählen**
    - Oben seht ihr mehrere Tabs
    - Klickt auf den Tab mit dem Emoji "🆕 Neues Team"
    - Falls nicht sichtbar, scrollt nach links
+
+   ![Login #1](./images/teilnehmer/login_1.png)
 
 3. **Teamname eingeben und Team-Icon wählen**
    - Gebt einen kreativen Namen ein (z.B. "Die Wellen", "Glaubenskrieger", "Team Hoffnung")
@@ -31,10 +35,15 @@
    - Max. 20 Zeichen
    - Das Icon wird neben eurem Teamnamen angezeigt
 
+   ![Login #2](./images/teilnehmer/login_2.png)
+
 4. **"Spiel starten 🌊" drücken**
    - Klickt auf den großen Button
    - Die App lädt kurz
    - Ihr seht dann die Spieloberfläche
+
+   ![Login #3](./images/teilnehmer/login_2.png)
+
 
 ### ⚠️ WICHTIG: Team-Code merken!
 
@@ -47,7 +56,11 @@ Nach dem Erstellen seht ihr einen **4-stelligen Code** (z.B. `A3KX`).
 - **Falls der Browser geschlossen wird**, könnt ihr euch damit wieder einloggen
 - **Jedes Gerät kann sich mit diesem Code einloggen**
 
-**Beispiel:** Wenn euer Handy-Akku leer wird, könnt ihr euch auf einem anderen Gerät mit dem Code wieder anmelden. Alle eure Fortschritte sind noch da!
+   ![Login #4](./images/teilnehmer/login_4.png)
+
+**Beispiel:** Wenn euer Handy-Akku leer wird, könnt ihr euch auf einem anderen Gerät mit dem Code wieder anmelden. Alle eure Fortschritte sind noch da! 
+
+**Hinweis:** Falls ihr euren Code dennoch vergesst, nicht schlimm. Einfach auf die Admins zukommen, die können den euch geben.
 
 ---
 
@@ -152,22 +165,6 @@ Passive Stationen könnt ihr **ohne Betreuer** erledigen. Ihr löst die Aufgabe,
 | **Wer bin Ich / Standbild** | `WI54` | Erkenne die biblische Figur |
 | **Kennst du mich** | `KM91` | Beantworte Fragen zu Bibel-Charakteren |
 
-### ⚠️ Häufige Fehler
-
-**"Code funktioniert nicht"**
-- Großbuchstaben verwenden (z.B. `HM42` nicht `hm42`)
-- Keine Leerzeichen eingeben
-- Nochmal versuchen
-
-**"Ich habe den Code nicht gefunden"**
-- Schaut nochmal bei der Station nach
-- Fragt einen Betreuer vor Ort
-- Schreibt im Chat dem Admin
-
-**"Ich habe den Code falsch eingegeben"**
-- Ihr könnt es nochmal versuchen
-- Es gibt keine Strafe für falsche Versuche
-
 ---
 
 ## 3️⃣ Stationen erledigen – Aktive Stationen
@@ -245,36 +242,6 @@ Aktive Stationen haben einen **Betreuer vor Ort**, der euch bei der Aufgabe hilf
 
 ---
 
-## 4️⃣ XP & Fortschritt
-
-### Punkte sammeln
-
-| Stationstyp | Punkte | Anzahl | Gesamt |
-|-------------|--------|--------|--------|
-| Passive Stationen | +20 XP | 7 | 140 XP |
-| Aktive Stationen | +50 XP | 5 | 250 XP |
-| **Gesamt möglich** | — | **12** | **390 XP** |
-
-**Strategie-Tipp:** Aktive Stationen bringen 2,5x mehr Punkte! Wenn ihr wenig Zeit habt, konzentriert euch auf die aktiven Stationen.
-
-### Fortschrittsbalken
-
-Oben im Spiel seht ihr:
-- **Blauer Balken:** Wie viele Stationen ihr erledigt habt
-- **Prozent:** Euer Fortschritt (0-100%)
-- **Stationen-Zähler:** z.B. "5/12 Stationen"
-
-### Hinweise vom System
-
-Je nach Fortschritt bekommt ihr **Tipps und Motivations-Nachrichten**:
-- **Bei 0-2 Stationen:** "Gut gemacht! Aktive Stationen bringen mehr Punkte"
-- **Bei 6 Stationen:** "Halbzeit! Plant eure Route"
-- **Bei 10+ Stationen:** "Fast geschafft! Nur noch wenige Stationen!"
-
-Diese Hinweise helfen euch, eure Strategie anzupassen.
-
----
-
 ## 5️⃣ Timer & Zeitlimit
 
 ### ⏱ 2 Stunden Spielzeit
@@ -328,32 +295,6 @@ Der Chat ist eure direkte Verbindung zum Admin. Ihr könnt jederzeit Fragen stel
    - Der Admin sieht eure Nachricht sofort
    - Die Antwort erscheint im Chat
    - Ihr werdet benachrichtigt
-
-### Wann solltet ihr chatten?
-
-**Fragen zur Aufgabe:**
-- "Was bedeutet 'Holymoji'?"
-- "Wo finden wir die Station 'Krüge von Kana'?"
-
-**Technische Probleme:**
-- "Der Code funktioniert nicht!"
-- "Die App lädt nicht!"
-
-**Hinweise anfordern:**
-- "Wir brauchen einen Hinweis bei Station 5"
-- "Können wir einen Tipp bekommen?"
-
-**Andere Fragen:**
-- "Wie viel Zeit ist noch übrig?"
-- "Können wir eine Station zurücksetzen?"
-
-### 💡 Chat-Tipps
-
-- **Seid höflich:** Der Admin hilft euch gerne!
-- **Seid konkret:** Schreibt, welche Station gemeint ist
-- **Wartet nicht zu lange:** Wenn etwas nicht funktioniert, fragt sofort
-- **Keine Spam-Nachrichten:** Eine Nachricht reicht aus
-
 ---
 
 ## 7️⃣ Finale-Seite & Ränge
@@ -382,18 +323,6 @@ Ihr seht:
 - **Aktive Stationen:** z.B. "4/5 erledigt"
 - **Passive Stationen:** z.B. "6/7 erledigt"
 - **Spielzeit:** z.B. "1:45 Stunden"
-
-### Was danach?
-
-**Option 1: Nochmal spielen**
-- Klickt auf **"Nochmal spielen 🔄"**
-- Ein neues Spiel startet
-- Ihr könnt einen neuen Teamnamen wählen
-
-**Option 2: Ergebnisse anschauen**
-- Bleibt auf der Finale-Seite
-- Seht die Rangliste aller Teams
-- Vergleicht eure Punkte mit anderen Teams
 
 ---
 
@@ -432,200 +361,6 @@ Wenn euer Handy-Akku leer wird oder der Browser versehentlich geschlossen wird, 
 - **Jedes Gerät kann sich mit dem Code anmelden**
 - **Der Code ändert sich nicht** während des Spiels
 - **Falls ihr den Code verliert:** Der Admin kann ihn euch im Dashboard zeigen
-
----
-
-## ❓ Häufige Fragen & Antworten
-
-### Stationen & Codes
-
-**F: Kann ich eine Station rückgängig machen?**
-A: Nein, aber der Admin kann sie zurücksetzen. Schreibt im Chat: "Können wir Station X zurücksetzen?"
-
-**F: Was passiert wenn ich den Code falsch eingebe?**
-A: Ihr seht eine Fehlermeldung. Versucht es nochmal. Es gibt keine Strafe für falsche Versuche.
-
-**F: Kann ich mehrere Codes gleichzeitig eingeben?**
-A: Nein, eine Station nach der anderen. Aber ihr könnt so schnell eingeben, wie ihr wollt.
-
-**F: Der Code funktioniert nicht – was tun?**
-A: Überprüft:
-- Großbuchstaben verwenden (z.B. `HM42` nicht `hm42`)
-- Keine Leerzeichen eingeben
-- Den Code nochmal lesen (manchmal ähneln sich Buchstaben)
-- Im Chat den Admin fragen
-
-**F: Ich habe den Code nicht gefunden – was tun?**
-A: 
-- Schaut nochmal bei der Station nach (unter Steinen, Bäumen, etc.)
-- Fragt einen Betreuer vor Ort
-- Schreibt im Chat dem Admin
-
-### Timer & Zeit
-
-**F: Was ist wenn der Timer abläuft während ich eine Station erledige?**
-A: Die Finale-Seite erscheint sofort. Ihr könnt nicht mehr spielen. Versucht, vor Ablauf des Timers fertig zu sein!
-
-**F: Kann der Admin den Timer pausieren?**
-A: Ja, der Admin kann den Timer pausieren, wenn es ein Problem gibt. Fragt im Chat!
-
-**F: Wie viel Zeit ist noch übrig?**
-A: Der Timer wird oben im Spiel angezeigt. Ihr könnt auch im Chat fragen: "Wie viel Zeit ist noch übrig?"
-
-### Geräte & Verbindung
-
-**F: Kann ich mit meinem Handy und Tablet gleichzeitig spielen?**
-A: Ja, mit dem gleichen Team-Code. Aber nur ein Gerät sollte aktiv sein. Wenn ihr auf beiden Geräten gleichzeitig spielt, kann es zu Problemen kommen.
-
-**F: Funktioniert es offline?**
-A: Nein, ihr braucht eine stabile Verbindung zum Server. Wenn die Verbindung unterbrochen wird, könnt ihr euch mit dem Team-Code wieder anmelden.
-
-**F: Was passiert wenn die Verbindung unterbrochen wird?**
-A: 
-- Die App zeigt eine Fehlermeldung
-- Öffnet die App neu
-- Meldet euch mit eurem Team-Code wieder an
-- Alle eure Fortschritte sind noch da
-
-**F: Kann ich die App auf mehreren Geräten gleichzeitig öffnen?**
-A: Ja, aber nur ein Gerät sollte aktiv sein. Wenn ihr auf mehreren Geräten gleichzeitig Codes eingebt, kann es zu Problemen kommen.
-
-### Punkte & Ränge
-
-**F: Wie viele Punkte brauche ich für einen bestimmten Rang?**
-A: 
-- 🏆 Legendär: 351+ XP (90%+)
-- 🥇 Meister: 273+ XP (70%+)
-- 🥈 Fortgeschritten: 195+ XP (50%+)
-- 🥉 Einsteiger: <195 XP (<50%)
-
-**F: Kann ich meine Punkte sehen?**
-A: Ja, auf der Finale-Seite. Während des Spiels seht ihr den Fortschrittsbalken und die Stationen-Zähler.
-
-**F: Warum bringen aktive Stationen mehr Punkte?**
-A: Weil sie schwieriger sind und einen Betreuer brauchen. Aktive Stationen sind strategisch wichtiger!
-
-### Chat & Admin
-
-**F: Wie lange dauert es, bis der Admin antwortet?**
-A: Normalerweise ein paar Sekunden. Der Admin überwacht den Chat ständig.
-
-**F: Kann ich den Admin fragen, ob ich eine Station richtig gelöst habe?**
-A: Ja, aber bei passiven Stationen überprüft die App den Code automatisch. Bei aktiven Stationen überprüft der Admin eure Lösung.
-
-**F: Was ist wenn der Admin meine Station ablehnt?**
-A: Das bedeutet, die Lösung war nicht ganz richtig. Geht zurück zur Station und versucht es nochmal. Der Betreuer hilft euch!
-
-### Sonstiges
-
-**F: Gibt es Hinweise bei den Stationen?**
-A: Ja! Wenn ihr nicht weiterkommt, fragt im Chat: "Können wir einen Hinweis bekommen?" Der Admin hilft euch gerne.
-
-**F: Kann ich mit anderen Teams zusammenarbeiten?**
-A: Nein, jedes Team spielt für sich. Aber ihr könnt euch natürlich unterhalten!
-
-**F: Was ist wenn wir alle Stationen erledigt haben?**
-A: Glückwunsch! Ihr bekommt den Rang "Legendär" 🏆 und die maximale Punktzahl (390 XP). Ihr könnt dann auf der Finale-Seite warten oder nochmal spielen.
-
----
-
-## 🎯 Tipps zum Gewinnen
-
-1. **Aktive Stationen priorisieren:** +50 XP statt +20
-2. **Codes schnell finden:** Passive Stationen sind schnell erledigt
-3. **Zusammenarbeiten:** Teilt euch auf, um schneller zu sein
-4. **Admin fragen:** Wenn ihr nicht weiterkommt
-5. **Zeit nutzen:** 2 Stunden sind nicht viel!
-
----
-
-## 🆘 Probleme & Lösungen
-
-### App lädt nicht
-
-**Problem:** Die App zeigt eine leere Seite oder lädt ewig.
-
-**Lösungen:**
-1. **Browser neu laden** (F5 oder Refresh-Button)
-2. **Cache leeren:** Browser-Einstellungen → Cache löschen
-3. **Anderen Browser versuchen** (Chrome, Firefox, Safari)
-4. **Handy neu starten**
-5. **Im Chat den Admin fragen**
-
-### Code funktioniert nicht
-
-**Problem:** "Code ungültig" oder "Code nicht erkannt"
-
-**Überprüft:**
-- Großbuchstaben verwenden (z.B. `HM42` nicht `hm42`)
-- Keine Leerzeichen eingeben
-- Den Code nochmal lesen (manchmal ähneln sich Buchstaben wie O und 0)
-- Den Code nochmal bei der Station überprüfen
-
-**Falls immer noch nicht funktioniert:**
-- Seite neu laden (F5)
-- Im Chat den Admin fragen
-
-### Station wird nicht freigeschaltet
-
-**Problem:** Ich habe den Code eingegeben, aber die Station wird nicht grün.
-
-**Lösungen:**
-1. **Warten Sie ein paar Sekunden** (die App überprüft den Code)
-2. **Seite neu laden** (F5)
-3. **Im Chat den Admin fragen:** "Station X wird nicht freigeschaltet"
-
-**Bei aktiven Stationen:**
-- Der Admin muss die Station bestätigen
-- Das dauert normalerweise ein paar Sekunden
-- Falls es länger dauert, fragt im Chat
-
-### Verbindung unterbrochen
-
-**Problem:** "Verbindung zum Server verloren" oder die App friert ein.
-
-**Lösungen:**
-1. **Warten Sie ein paar Sekunden** (die Verbindung wird automatisch wiederhergestellt)
-2. **App neu öffnen**
-3. **Mit Team-Code wieder einloggen** (alle Fortschritte bleiben!)
-4. **Handy neu starten**
-5. **Im Chat den Admin fragen**
-
-### Chat funktioniert nicht
-
-**Problem:** Meine Nachricht wird nicht gesendet oder ich sehe keine Antwort.
-
-**Lösungen:**
-1. **Seite neu laden** (F5)
-2. **Verbindung überprüfen** (WLAN oder Mobilfunk)
-3. **Nochmal versuchen**
-4. **Handy neu starten**
-
-### Fortschrittsbalken aktualisiert sich nicht
-
-**Problem:** Der Fortschrittsbalken zeigt nicht die richtige Anzahl von Stationen.
-
-**Lösungen:**
-1. **Seite neu laden** (F5)
-2. **Warten Sie ein paar Sekunden** (die App aktualisiert sich automatisch)
-3. **Im Chat den Admin fragen**
-
-### Handy-Akku leer
-
-**Problem:** Mein Handy-Akku ist leer und ich bin mitten im Spiel!
-
-**Lösungen:**
-1. **Handy aufladen**
-2. **Mit Team-Code wieder anmelden** (alle Fortschritte bleiben!)
-3. **Auf einem anderen Gerät weiterspielen** (mit dem gleichen Team-Code)
-
-### Allgemeine Tipps
-
-- **Immer den Team-Code merken!** (Foto machen oder aufschreiben)
-- **Regelmäßig die Seite neu laden** (verhindert viele Probleme)
-- **Im Chat fragen, wenn etwas nicht funktioniert** (der Admin hilft gerne!)
-- **Handy-Akku im Auge behalten** (2 Stunden sind lang!)
-- **Stabile Verbindung nutzen** (WLAN ist besser als Mobilfunk)
 
 ---
 
