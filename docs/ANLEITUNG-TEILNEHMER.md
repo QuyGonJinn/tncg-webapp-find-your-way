@@ -17,25 +17,21 @@
 
 1. **App öffnen**
    - Öffnet einen Browser auf eurem Smartphone/Tablet
-   - Gebt die Adresse ein: `http://<server-ip>` (oder `https://fyw.tncg.de`)
-   - Die Startseite sollte automatisch laden
+   - Gebt die Adresse ein: `https://fyw-tncg.de` 
+   - Die Startseite sollte automatisch laden 
 
 2. **Tab "🆕 Neues Team" auswählen**
    - Oben seht ihr mehrere Tabs
    - Klickt auf den Tab mit dem Emoji "🆕 Neues Team"
    - Falls nicht sichtbar, scrollt nach links
 
-3. **Teamname eingeben**
+3. **Teamname eingeben und Team-Icon wählen**
    - Gebt einen kreativen Namen ein (z.B. "Die Wellen", "Glaubenskrieger", "Team Hoffnung")
    - Der Name wird auf der Rangliste angezeigt
    - Max. 20 Zeichen
-
-4. **Team-Icon wählen**
-   - Wählt eines von 18 verschiedenen Emojis
    - Das Icon wird neben eurem Teamnamen angezeigt
-   - Ihr könnt es später nicht mehr ändern
 
-5. **"Spiel starten 🌊" drücken**
+4. **"Spiel starten 🌊" drücken**
    - Klickt auf den großen Button
    - Die App lädt kurz
    - Ihr seht dann die Spieloberfläche

@@ -46,7 +46,6 @@ Als Admin seid ihr die **Kontrollzentrale** des Spiels. Ihr verwaltet Teams, bes
 
 - **PIN schützen:** Teilt die PIN nicht mit Teilnehmern!
 - **Admin-Bereich sperren:** Wenn ihr nicht am Computer seid, loggt euch aus
-- **Nur ein Admin:** Idealerweise sollte nur eine Person den Admin-Bereich nutzen
 
 ---
 
