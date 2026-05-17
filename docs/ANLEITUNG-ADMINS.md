@@ -155,9 +155,7 @@ Das Wartezimmer ist ein **Kontrollmechanismus**, um den Spielstart zu steuern:
 
 ### Wartezimmer-Kontrolle im Admin-Dashboard
 
-<div align="center">
-  <img src="./images/admin/waitingroom_1.png" alt="Wartezimmer-Kontrolle" width="600" />
-</div>
+![Waitingroom #1](./images/admin/waitingroom_1.png)
 
 **Die Wartezimmer-Kontrolle zeigt:**
 
@@ -180,9 +178,7 @@ Das Wartezimmer ist ein **Kontrollmechanismus**, um den Spielstart zu steuern:
 
 ### Schritt-für-Schritt: Spiel starten
 
-<div align="center">
-  <img src="./images/admin/waitingroom_2.png" alt="Spiel starten" width="600" />
-</div>
+![Waitingroom #2](./images/admin/waitingroom_2.png)
 
 **So startet ihr das Spiel:**
 
