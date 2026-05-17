@@ -16,8 +16,16 @@ function buildTeamPayload(team) {
   );
   const completed = {};
   const pending = {};
+  let fastestCompletionTime = null; // Track when first station was completed
+  
   completions.forEach(c => {
-    if (c.status === 'done') completed[c.station_id] = c.completed_at;
+    if (c.status === 'done') {
+      completed[c.station_id] = c.completed_at;
+      // Track the earliest completion time
+      if (fastestCompletionTime === null || c.completed_at < fastestCompletionTime) {
+        fastestCompletionTime = c.completed_at;
+      }
+    }
     if (c.status === 'pending') pending[c.station_id] = c.completed_at;
   });
 
@@ -34,7 +42,7 @@ function buildTeamPayload(team) {
     [team.id]
   );
 
-  return { ...team, completed, pending, totalXP, participants };
+  return { ...team, completed, pending, totalXP, participants, fastestCompletionTime };
 }
 
 // POST login with PIN

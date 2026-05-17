@@ -12,6 +12,12 @@ import { adminLogin } from '../api';
 
 const MAX_XP = STATIONS.reduce((s, st) => s + st.points, 0);
 
+function formatTime(timestamp) {
+  if (!timestamp) return '—';
+  const date = new Date(timestamp);
+  return date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+
 export default function AdminPage() {
   const { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam, handleApprove, handleReject } = useAdmin();
   const [adminTab, setAdminTab] = useState('overview');
@@ -20,7 +26,16 @@ export default function AdminPage() {
     return localStorage.getItem('fyw_admin_authenticated') === 'true';
   });
   const [loginError, setLoginError] = useState('');
-  const sorted = [...teams].sort((a, b) => b.totalXP - a.totalXP);
+  const sorted = [...teams].sort((a, b) => {
+    // Primary: Sort by XP (descending)
+    if (b.totalXP !== a.totalXP) {
+      return b.totalXP - a.totalXP;
+    }
+    // Tie-breaker: Sort by fastest completion time (ascending - earlier is better)
+    const aTime = a.fastestCompletionTime || Infinity;
+    const bTime = b.fastestCompletionTime || Infinity;
+    return aTime - bTime;
+  });
 
   async function handleAdminLogin(pin) {
     try {
@@ -109,7 +124,10 @@ export default function AdminPage() {
                         <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: `${Math.round((team.totalXP / MAX_XP) * 100)}%` }} />
                       </div>
                     </div>
-                    <span className="font-black text-blue-600 text-sm">{team.totalXP} XP</span>
+                    <div className="text-right">
+                      <span className="font-black text-blue-600 text-sm block">{team.totalXP} XP</span>
+                      <span className="text-xs text-gray-500">{formatTime(team.fastestCompletionTime)}</span>
+                    </div>
                   </div>
                 ))}
               </div>

@@ -147,6 +147,18 @@
 
 **Strategie-Tipp:** Aktive Stationen bringen 2,5x mehr Punkte! Wenn Zeit knapp wird, konzentriert euch auf die aktiven Stationen.
 
+### Ranking: Wie werden Teams sortiert?
+
+**Primär:** Nach XP (absteigend)
+- Team mit meisten XP = Platz 1 🥇
+- Team mit wenigsten XP = Letzter Platz
+
+**Tie-Breaker:** Wenn zwei Teams gleich viele XP haben
+- Das Team, das schneller die erste Station erledigt hat, gewinnt
+- Beispiel: Team A (250 XP in 45 Min) vor Team B (250 XP in 90 Min)
+
+**Wichtig:** Die Zeit ist nur relevant, wenn Teams gleich viele Punkte haben!
+
 ---
 
 ## 🔑 Team-Codes & Login
