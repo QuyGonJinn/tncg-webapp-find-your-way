@@ -137,7 +137,105 @@ Punkte: 90/390 XP
 
 ---
 
-## 3️⃣ Aktive Stationen bestätigen
+## 3️⃣ Wartezimmer – Spielstart kontrollieren
+
+### Was ist das Wartezimmer?
+
+Das Wartezimmer ist ein **Kontrollmechanismus**, um den Spielstart zu steuern:
+
+- **Wartezimmer aktiv:** Teams sehen einen Wartebildschirm, können sich anmelden, aber nicht spielen
+- **Wartezimmer inaktiv:** Teams können sofort spielen
+- **Automatische Deaktivierung:** Wenn ihr den Timer startet, wird das Wartezimmer automatisch deaktiviert
+
+### Wann nutzen?
+
+- ✅ **Vor dem Event:** Alle Teams melden sich an, während ihr noch vorbereitet
+- ✅ **Synchroner Start:** Alle Teams starten gleichzeitig
+- ✅ **Ordnung:** Verhindert, dass Teams zu früh spielen
+
+### Wartezimmer-Kontrolle im Admin-Dashboard
+
+<div align="center">
+  <img src="./images/admin/waitingroom_1.png" alt="Wartezimmer-Kontrolle" width="600" />
+</div>
+
+**Die Wartezimmer-Kontrolle zeigt:**
+
+1. **Status-Anzeige**
+   - 🟡 **Wartend:** Wartezimmer ist aktiv
+   - 🟢 **Läuft:** Spiel hat gestartet
+
+2. **Wartende Teams**
+   - Live-Zähler der angemeldeten Teams
+   - Aktualisiert sich alle 2 Sekunden
+
+3. **Aktivitäts-Log**
+   - Zeigt die letzten 3 Aktionen
+   - Mit Timestamps
+   - Farbcodiert (Grün = Erfolg, Gelb = Warnung, Rot = Fehler)
+
+4. **Spiel starten Button**
+   - 🟡 **"⏸ Wartezimmer aktiv"** – Klick zum Deaktivieren
+   - 🟢 **"▶ Spiel starten"** – Klick zum Aktivieren
+
+### Schritt-für-Schritt: Spiel starten
+
+<div align="center">
+  <img src="./images/admin/waitingroom_2.png" alt="Spiel starten" width="600" />
+</div>
+
+**So startet ihr das Spiel:**
+
+1. **Teams warten lassen**
+   - Wartezimmer ist standardmäßig **aktiv**
+   - Teams sehen den Wartebildschirm
+   - Ihr seht die Anzahl der Teams
+
+2. **Alle Teams sind angemeldet?**
+   - Überprüft die Anzahl im Aktivitäts-Log
+   - Wartet, bis alle Teams da sind
+
+3. **"Spiel starten" drücken**
+   - Klickt auf den grünen Button
+   - Das Wartezimmer wird deaktiviert
+   - Alle Teams sehen sofort den Spielbereich
+
+4. **Timer starten**
+   - Klickt auf "▶ Start" beim Timer
+   - Das Spiel läuft jetzt
+   - Alle Teams können Stationen erledigen
+
+### Aktivitäts-Log verstehen
+
+Das Log zeigt die letzten 3 Aktionen:
+
+| Aktion | Bedeutung |
+|--------|-----------|
+| ✅ Wartezimmer aktiviert | Wartezimmer wurde eingeschaltet |
+| 🎮 Spiel gestartet - Wartezimmer deaktiviert | Spiel wurde gestartet |
+| ❌ Fehler beim Umschalten | Technisches Problem |
+| 5 Team(s) warten | Aktuelle Anzahl Teams |
+
+### Teilnehmer-Perspektive: Wartebildschirm
+
+Während das Wartezimmer aktiv ist, sehen die Teams:
+
+- **Team-Name + Icon**
+- **Team-Code** (zum Merken!)
+- **Anzahl wartender Teams**
+- **Warteanimation** (animierte Punkte)
+- **Tipps** (Akku überprüfen, WLAN testen, etc.)
+
+### ⚠️ Wichtig
+
+- **Wartezimmer ist standardmäßig aktiv** – Ihr müsst es deaktivieren, um das Spiel zu starten
+- **Auto-Deaktivierung:** Wenn ihr den Timer startet, wird das Wartezimmer automatisch deaktiviert
+- **Keine Punkte im Wartezimmer:** Teams können keine Stationen erledigen, während sie warten
+- **Logs sind lokal:** Die Logs werden nicht gespeichert, nur während der Session angezeigt
+
+---
+
+## 4️⃣ Aktive Stationen bestätigen
 
 ### Die gelbe Box
 
@@ -174,7 +272,7 @@ Das bedeutet: Das Team hat die Aufgabe erledigt und wartet auf eure Bestätigung
 
 ---
 
-## 4️⃣ Codes-Tab – Station-Codes ausdrucken
+## 5️⃣ Codes-Tab – Station-Codes ausdrucken
 
 ### Zugang zum Codes-Tab
 
@@ -203,7 +301,7 @@ Diese Stationen haben **keinen Code** – ein Betreuer steht vor Ort:
 
 ---
 
-## 5️⃣ Chat-Tab – Mit Teams kommunizieren
+## 6️⃣ Chat-Tab – Mit Teams kommunizieren
 
 ### Zugang zum Chat
 
@@ -248,7 +346,7 @@ Diese Stationen haben **keinen Code** – ein Betreuer steht vor Ort:
 
 ---
 
-## 6️⃣ Häufige Aufgaben
+## 7️⃣ Häufige Aufgaben
 
 ### Spiel starten
 
