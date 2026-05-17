@@ -5,7 +5,7 @@ import { STATIONS } from '../data/stations';
 const STORAGE_KEY = 'fyw_team_id';
 
 export function useGameState() {
-  const [screen, setScreen] = useState('setup'); // setup | game | final | waiting
+  const [screen, setScreen] = useState('welcome'); // welcome | setup | game | final | waiting
   const [team, setTeam] = useState(null);
   const [timeLeft, setTimeLeft] = useState(7200);
   const [timerRunning, setTimerRunning] = useState(false);
@@ -148,7 +148,7 @@ export function useGameState() {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem('fyw_active_tab');
     setTeam(null);
-    setScreen('setup');
+    setScreen('welcome');
     setXpPopups([]);
     setError(null);
   }

@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useGameState } from './hooks/useGameState';
+import WelcomeScreen from './components/WelcomeScreen';
 import SetupScreen from './components/SetupScreen';
 import GameScreen from './components/GameScreen';
 import FinalScreen from './components/FinalScreen';
@@ -13,6 +14,7 @@ import SpellingBeePage from './pages/SpellingBeePage';
 function GameApp() {
   const { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP, waitingRoomEnabled } = useGameState();
 
+  if (screen === 'welcome') return <WelcomeScreen onContinue={() => setScreen('setup')} />;
   if (screen === 'setup') return <SetupScreen onStart={startGame} onLogin={loginGame} error={error} />;
   if (screen === 'pin') return <PinDisplay pin={team?.pin} onContinue={() => setScreen('game')} />;
   if (screen === 'waiting' || (waitingRoomEnabled && screen === 'game')) return <WaitingRoom team={team} onGameStart={() => setScreen('game')} />;
