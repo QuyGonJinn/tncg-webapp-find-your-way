@@ -5,10 +5,11 @@ import { STATIONS } from '../data/stations';
 const STORAGE_KEY = 'fyw_team_id';
 
 export function useGameState() {
-  const [screen, setScreen] = useState('setup'); // setup | game | final
+  const [screen, setScreen] = useState('setup'); // setup | game | final | waiting
   const [team, setTeam] = useState(null);
   const [timeLeft, setTimeLeft] = useState(7200);
   const [timerRunning, setTimerRunning] = useState(false);
+  const [waitingRoomEnabled, setWaitingRoomEnabled] = useState(true);
   const [xpPopups, setXpPopups] = useState([]);
   const [error, setError] = useState(null);
   const wsRef = useRef(null);
@@ -19,12 +20,25 @@ export function useGameState() {
     const savedId = localStorage.getItem(STORAGE_KEY);
     if (savedId) {
       fetchTeam(savedId)
-        .then(t => { setTeam(t); setScreen('game'); })
+        .then(t => { 
+          setTeam(t); 
+          // Check if waiting room is enabled
+          fetchGameState().then(state => {
+            if (state.waiting_room_enabled === 'true') {
+              setWaitingRoomEnabled(true);
+              setScreen('waiting');
+            } else {
+              setWaitingRoomEnabled(false);
+              setScreen('game');
+            }
+          });
+        })
         .catch(() => localStorage.removeItem(STORAGE_KEY));
     }
     fetchGameState().then(state => {
       setTimeLeft(state.timeLeft);
       setTimerRunning(state.timerRunning);
+      setWaitingRoomEnabled(state.waiting_room_enabled === 'true');
       if (state.timeLeft === 0) setScreen('final');
     }).catch(() => {});
   }, []);
@@ -58,7 +72,12 @@ export function useGameState() {
     if (type === 'GAME_STATE') {
       setTimeLeft(payload.timeLeft);
       setTimerRunning(payload.timerRunning);
+      setWaitingRoomEnabled(payload.waiting_room_enabled === 'true');
       if (payload.timeLeft === 0) setScreen('final');
+      // If waiting room is disabled, move to game
+      if (payload.waiting_room_enabled === 'false' && screen === 'waiting') {
+        setScreen('game');
+      }
     }
   }
 
@@ -81,7 +100,14 @@ export function useGameState() {
       const t = await registerTeam(teamData.name, teamData.icon);
       localStorage.setItem(STORAGE_KEY, t.id);
       setTeam(t);
-      setScreen('pin'); // show PIN before game
+      // Check if waiting room is enabled
+      const state = await fetchGameState();
+      if (state.waiting_room_enabled === 'true') {
+        setWaitingRoomEnabled(true);
+        setScreen('waiting');
+      } else {
+        setScreen('pin'); // show PIN before game
+      }
     } catch (e) {
       setError(e.message || 'Server nicht erreichbar. Läuft das Backend?');
     }
@@ -93,7 +119,14 @@ export function useGameState() {
       const t = await loginWithPin(pin);
       localStorage.setItem(STORAGE_KEY, t.id);
       setTeam(t);
-      setScreen('game');
+      // Check if waiting room is enabled
+      const state = await fetchGameState();
+      if (state.waiting_room_enabled === 'true') {
+        setWaitingRoomEnabled(true);
+        setScreen('waiting');
+      } else {
+        setScreen('game');
+      }
     } catch (e) {
       setError(e.message || 'Ungültiger Code');
     }
@@ -124,5 +157,5 @@ export function useGameState() {
   const completed = team?.completed ?? {};
   const pending = team?.pending ?? {};
 
-  return { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP };
+  return { screen, setScreen, team, completed, pending, timeLeft, timerRunning, waitingRoomEnabled, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP };
 }

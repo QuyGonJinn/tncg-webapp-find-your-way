@@ -12,6 +12,7 @@ function getState() {
     timerStartedAt: Number(map.timer_started_at),
     timerDuration: Number(map.timer_duration),
     timerElapsed: Number(map.timer_elapsed),
+    waiting_room_enabled: map.waiting_room_enabled || 'true',
   };
 }
 
@@ -29,7 +30,11 @@ function setState(key, value) {
 
 router.get('/state', (req, res) => {
   const state = getState();
-  res.json({ ...state, timeLeft: computeTimeLeft(state) });
+  res.json({ 
+    ...state, 
+    timeLeft: computeTimeLeft(state),
+    waiting_room_enabled: state.waiting_room_enabled
+  });
 });
 
 router.post('/timer/start', (req, res) => {
@@ -38,6 +43,8 @@ router.post('/timer/start', (req, res) => {
 
   setState('timer_running', 'true');
   setState('timer_started_at', Date.now());
+  // Auto-disable waiting room when timer starts
+  setState('waiting_room_enabled', 'false');
 
   const newState = getState();
   const payload = { ...newState, timeLeft: computeTimeLeft(newState) };
@@ -63,6 +70,17 @@ router.post('/timer/reset', (req, res) => {
   setState('timer_running', 'false');
   setState('timer_started_at', '0');
   setState('timer_elapsed', '0');
+
+  const newState = getState();
+  const payload = { ...newState, timeLeft: computeTimeLeft(newState) };
+  broadcast('GAME_STATE', payload);
+  res.json(payload);
+});
+
+// Waiting Room Control
+router.post('/waiting-room', (req, res) => {
+  const { enabled } = req.body;
+  setState('waiting_room_enabled', enabled ? 'true' : 'false');
 
   const newState = getState();
   const payload = { ...newState, timeLeft: computeTimeLeft(newState) };

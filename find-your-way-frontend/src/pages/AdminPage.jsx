@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAdmin } from '../hooks/useAdmin';
 import AdminLogin from '../components/admin/AdminLogin';
 import AdminTimer from '../components/admin/AdminTimer';
+import WaitingRoomControl from '../components/admin/WaitingRoomControl';
 import TeamCard from '../components/admin/TeamCard';
 import AdminChat from '../components/admin/AdminChat';
 import StationCodes from '../components/admin/StationCodes';
@@ -86,6 +87,8 @@ export default function AdminPage() {
       <div className="px-4 mt-4">
         {adminTab === 'overview' && (
           <>
+            <WaitingRoomControl onToggle={() => {}} />
+
             <AdminTimer
               gameState={gameState}
               onStart={handleTimerStart}

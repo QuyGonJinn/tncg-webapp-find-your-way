@@ -92,6 +92,18 @@ initState.run('timer_running', 'false');
 initState.run('timer_started_at', '0');
 initState.run('timer_duration', String(2 * 60 * 60));
 initState.run('timer_elapsed', '0');
+initState.run('waiting_room_enabled', 'true');
+
+// Migration: add waiting_room_enabled if missing
+try {
+  const hasWaitingRoom = db.prepare(`SELECT value FROM game_state WHERE key = 'waiting_room_enabled'`).get();
+  if (!hasWaitingRoom) {
+    db.prepare(`INSERT INTO game_state (key, value) VALUES (?, ?)`).run('waiting_room_enabled', 'true');
+    console.log('✅ Added waiting_room_enabled to game_state');
+  }
+} catch (e) {
+  console.log('waiting_room_enabled already exists or error:', e.message);
+}
 
 function all(sql, params = []) {
   return db.prepare(sql).all(...params);
