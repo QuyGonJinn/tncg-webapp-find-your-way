@@ -118,11 +118,11 @@ export default function WaitingRoomControl({ onToggle }) {
       {/* Logs */}
       <div className="bg-stone-50 rounded-xl p-4">
         <p className="text-xs text-stone-600 font-bold uppercase tracking-wide mb-3">📋 Aktivitäts-Log</p>
-        <div className="space-y-2 max-h-40 overflow-y-auto">
+        <div className="space-y-2">
           {logs.length === 0 ? (
             <p className="text-sm text-stone-500 italic">Keine Aktivitäten</p>
           ) : (
-            logs.map(log => (
+            logs.slice(0, 3).map(log => (
               <div key={log.id} className="flex items-start gap-2 text-sm">
                 <span className="text-xs text-stone-500 font-mono whitespace-nowrap">{log.timestamp}</span>
                 <span className={`flex-1 ${
