@@ -40,6 +40,12 @@
     "error": "Server not reachable. Is the backend running?",
     "invalidPin": "Invalid code"
   },
+  "pinDisplay": {
+    "title": "Your Team Code",
+    "description": "Remember this code! You can use it to login on any device if the browser is closed.",
+    "tip": "Tip: Take a photo of this code 📸",
+    "button": "Let's go treasure hunting! 🗺️"
+  },
   "game": {
     "stations": "🗺️ Stations",
     "chat": "💬 Chat",

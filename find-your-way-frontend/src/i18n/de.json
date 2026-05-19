@@ -40,6 +40,12 @@
     "error": "Server nicht erreichbar. Läuft das Backend?",
     "invalidPin": "Ungültiger Code"
   },
+  "pinDisplay": {
+    "title": "Euer Team-Code",
+    "description": "Merkt euch diesen Code! Damit könnt ihr euch auf jedem Gerät wieder einloggen, falls der Browser geschlossen wird.",
+    "tip": "Tipp: Macht ein Foto von diesem Code 📸",
+    "button": "Auf zur Schatzsuche! 🗺️"
+  },
   "game": {
     "stations": "🗺️ Stationen",
     "chat": "💬 Chat",
