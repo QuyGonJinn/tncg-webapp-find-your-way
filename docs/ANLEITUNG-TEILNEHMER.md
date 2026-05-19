@@ -142,6 +142,7 @@ Passive Stationen könnt ihr **ohne Betreuer** erledigen. Ihr löst die Aufgabe,
    - Gebt den 4-stelligen Code ein (z.B. `HM42`)
    - **Wichtig:** Großbuchstaben verwenden!
    - Keine Leerzeichen oder Sonderzeichen
+   - **Hinweis:** Der Admin kann die Codes jederzeit ändern – schaut auf den Zettel bei der Station!
 
 7. **"Bestätigen" drücken**
    - Klickt auf "Bestätigen"
@@ -153,6 +154,29 @@ Passive Stationen könnt ihr **ohne Betreuer** erledigen. Ihr löst die Aufgabe,
    - Der Fortschrittsbalken aktualisiert sich
    - Die Station ist erledigt!
 
+### ⚠️ Fehlerbehandlung: "Falscher Code"
+
+**Falls die App sagt "Falscher Code":**
+
+1. **Überprüft den Zettel bei der Station**
+   - Der Code auf dem Zettel ist der aktuelle Code
+   - Schreibt ihn genau ab (Großbuchstaben!)
+
+2. **Überprüft eure Eingabe**
+   - Keine Leerzeichen vor oder nach dem Code
+   - Keine Sonderzeichen
+   - Großbuchstaben verwenden (z.B. `HM42` statt `hm42`)
+
+3. **Versucht es nochmal**
+   - Löscht die Eingabe
+   - Gebt den Code nochmal ein
+   - Klickt auf "Bestätigen"
+
+4. **Falls es immer noch nicht funktioniert**
+   - Fragt den Admin im Chat
+   - Der Admin kann den Code überprüfen
+   - Möglicherweise wurde der Code gerade geändert
+
 ### Passive Stationen – Die Liste
 
 | Station | Code | Aufgabe |
@@ -160,10 +184,29 @@ Passive Stationen könnt ihr **ohne Betreuer** erledigen. Ihr löst die Aufgabe,
 | **Holymoji** | `HM42` | Finde Emojis zum Thema Glaube |
 | **Geoguesser** | `GG17` | Erkenne biblische Orte |
 | **Anchor of Hope** | `AH85` | Finde das Hoffnungs-Symbol |
-| **Lochkarte** | `LK63` | Löse das Lochkarten-Rätsel |
+| **Die versteckte Botschaft** | `LK63` | Löse das Lochkarten-Rätsel |
 | **Heilige Buchstabenjagd** | `BJ29` | Finde versteckte Buchstaben |
 | **Wer bin Ich / Standbild** | `WI54` | Erkenne die biblische Figur |
-| **Kennst du mich** | `KM91` | Beantworte Fragen zu Bibel-Charakteren |
+| **Spelling Bee** | `SB95` | Gebärden-Rätsel: Erkenne die 5 Wörter |
+
+### ⚠️ Wichtig: Codes können sich ändern!
+
+Der Admin kann die Codes jederzeit ändern. Das bedeutet:
+- **Der Code bei der Station kann anders sein** als in dieser Anleitung
+- **Schaut immer auf den Zettel bei der Station** – das ist der aktuelle Code
+- **Falls der Code nicht funktioniert:** Überprüft, ob ihr ihn richtig eingegeben habt (Großbuchstaben, keine Leerzeichen)
+
+### 📖 Spelling Bee – Separate Anleitung
+
+Für die **Spelling Bee Station** gibt es eine ausführliche separate Anleitung:
+
+👉 **[ANLEITUNG-SPELLING-BEE.md](./ANLEITUNG-SPELLING-BEE.md)**
+
+Diese erklärt Teilnehmern:
+- Wie die Gebärden-Videos funktionieren
+- Wie man die 5 Wörter errät
+- Tipps & Tricks zum Lösen
+- Häufige Fragen & Probleme
 
 ---
 
@@ -239,6 +282,31 @@ Aktive Stationen haben einen **Betreuer vor Ort**, der euch bei der Aufgabe hilf
 - Das bedeutet, die Lösung war nicht ganz richtig
 - Geht zurück zur Station und versucht es nochmal
 - Der Betreuer hilft euch
+
+---
+
+## 4️⃣ Spelling Bee – Die spezielle Gebärden-Station
+
+### Was ist Spelling Bee?
+
+**Spelling Bee** ist eine besondere passive Station, bei der ihr **Gebärden-Videos** anschauen und Wörter erraten müsst.
+
+**Punkte:** +20 XP  
+**Besonderheit:** Separate Webseite mit Videos  
+**Dauer:** ca. 10-15 Minuten
+
+### 📖 Detaillierte Anleitung
+
+Für eine **ausführliche Schritt-für-Schritt Anleitung** zu Spelling Bee, siehe:
+
+👉 **[ANLEITUNG-SPELLING-BEE.md](./ANLEITUNG-SPELLING-BEE.md)**
+
+Diese separate Anleitung erklärt:
+- Wie ihr die Spelling Bee Seite öffnet
+- Wie ihr die Gebärden-Videos versteht
+- Wie ihr die 5 Wörter erratet
+- Wie ihr den Code in der Hauptapp eingebt
+- Tipps & Tricks zum Lösen
 
 ---
 

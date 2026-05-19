@@ -268,7 +268,7 @@ Das bedeutet: Das Team hat die Aufgabe erledigt und wartet auf eure Bestätigung
 
 ---
 
-## 5️⃣ Codes-Tab – Station-Codes ausdrucken
+## 5️⃣ Codes-Tab – Station-Codes verwalten & ausdrucken
 
 ### Zugang zum Codes-Tab
 
@@ -283,6 +283,34 @@ Diese Codes können **ausgedruckt und bei den Stationen ausgelegt** oder **in de
 
 ![codes #2](./images/admin/codes_2.png)
 
+### Codes bearbeiten – Neue Codes vergeben
+
+**Warum Codes ändern?**
+- Ihr wollt schwierigere Codes verwenden
+- Ihr wollt Codes personalisieren (z.B. mit Initialen)
+- Ihr wollt Codes für mehrere Events unterschiedlich machen
+
+**So ändert ihr einen Code:**
+
+1. **Auf eine Code-Karte klicken**
+   - Klickt auf die Karte einer passiven Station (z.B. "Holymoji")
+   - Ein Modal-Fenster öffnet sich
+
+2. **Neuen Code eingeben**
+   - Das Eingabefeld zeigt den aktuellen Code
+   - Löscht den alten Code
+   - Gebt einen neuen 4-stelligen Code ein
+   - Beispiel: `HM99` oder `HOPE`
+
+3. **"✓ Speichern" drücken**
+   - Klickt auf den grünen Button
+   - Der Code wird in der Datenbank gespeichert
+   - Eine Bestätigungsmeldung erscheint: "✅ Code gespeichert!"
+
+4. **"✕ Abbrechen" drücken** (falls ihr es nicht speichern wollt)
+   - Das Modal schließt sich
+   - Der Code wird nicht geändert
+
 ### Codes für aktive Stationen
 
 Diese Stationen haben **keinen Code** – ein Betreuer steht vor Ort:
@@ -294,6 +322,24 @@ Diese Stationen haben **keinen Code** – ein Betreuer steht vor Ort:
 - Der Gute Hirte
 
 ![codes #3](./images/admin/codes_3.png)
+
+### ⚠️ Wichtig bei Code-Änderungen
+
+- **Codes müssen 4 Zeichen lang sein** (Buchstaben oder Zahlen)
+- **Großbuchstaben verwenden** (z.B. `HM99` statt `hm99`)
+- **Keine Leerzeichen oder Sonderzeichen**
+- **Codes sollten eindeutig sein** (nicht zweimal der gleiche Code)
+- **Codes ausdrucken:** Nach dem Ändern solltet ihr die neuen Codes ausdrucken und bei den Stationen auslegen
+- **Teams sehen die neuen Codes sofort:** Wenn ein Team die Station besucht, sieht es den neuen Code
+
+### Tipps für gute Codes
+
+| Typ | Beispiel | Vorteil |
+|-----|----------|---------|
+| **Kurz & einfach** | `HM42` | Leicht zu merken |
+| **Thematisch** | `HOPE` | Passt zum Thema |
+| **Mit Zahlen** | `HM99` | Schwieriger zu erraten |
+| **Personalisiert** | `TEAM` | Lustig und einprägsam |
 
 ---
 
@@ -393,10 +439,13 @@ Diese Stationen haben **keinen Code** – ein Betreuer steht vor Ort:
 | Admin-Bereich lädt nicht | Verbindungsproblem | Browser neu laden (F5) |
 | PIN funktioniert nicht | Falsche PIN | PIN überprüfen (Standard: `1234`) |
 | Codes nicht sichtbar | Falscher Tab | Auf "📋 Codes" Tab klicken |
+| Code-Änderung funktioniert nicht | Fehler beim Speichern | Seite neu laden und nochmal versuchen |
+| Team gibt Code ein, aber "Falscher Code" Fehler | Code wurde geändert | Überprüfen, ob der neue Code korrekt eingegeben wurde |
 | Chat-Nachrichten kommen nicht an | Verbindungsproblem | Seite neu laden |
 | Timer läuft nicht | Timer nicht gestartet | "▶ Start" drücken |
 | Gelbe Box verschwindet nicht | Bestätigung nicht registriert | Seite neu laden |
 | Team wird nicht angezeigt | Team hat sich nicht angemeldet | Warten oder Team-Code überprüfen bei einem Admin |
+| Spelling Bee Code funktioniert nicht | Code wurde geändert | Neuen Code im Codes-Tab überprüfen |
 
 ### Schnelle Hilfe
 
