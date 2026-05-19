@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { getStations } from '../data/stations';
 import { useI18n } from '../hooks/useI18n';
+import LanguageSwitcher from './LanguageSwitcher';
 import StationCard from './StationCard';
 import Timer from './Timer';
 import HintBox from './HintBox';
@@ -38,7 +39,10 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
               <p className="text-yellow-400 text-sm font-bold">⭐ {totalXP} XP</p>
             </div>
           </div>
-          <Timer timeLeft={timeLeft} />
+          <div className="flex items-center gap-3">
+            <Timer timeLeft={timeLeft} />
+            <LanguageSwitcher />
+          </div>
         </div>
 
         {/* Progress bar */}
