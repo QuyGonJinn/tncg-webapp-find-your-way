@@ -1,43 +1,17 @@
 import { useState, useRef } from 'react';
 
-const LETTERS = [
-  'A','B','C','D','E','F','G','H','I','J','K','L',
-  'M','N','O','P','Q','R','S','T','U','V','W','X'
+// 5 Gebärden-Videos mit den korrekten Wörtern
+const SPELLING_BEE_WORDS = [
+  { id: 1, word: 'GLAUBE', hint: 'Video 1' },
+  { id: 2, word: 'HOFFNUNG', hint: 'Video 2' },
+  { id: 3, word: 'LIEBE', hint: 'Video 3' },
+  { id: 4, word: 'FREUDE', hint: 'Video 4' },
+  { id: 5, word: 'FRIEDE', hint: 'Video 5' },
 ];
 
-const FALLBACK = {
-  A: { gebaerde: "Faust mit Daumen seitlich",         bild: "Apfel" },
-  B: { gebaerde: "Vier Finger gestreckt",              bild: "Buch" },
-  C: { gebaerde: "Hand zur C-Form gebogen",            bild: "Computer" },
-  D: { gebaerde: "Zeigefinger oben, Kreis unten",      bild: "Drachen" },
-  E: { gebaerde: "Alle Finger gebogen",                bild: "Elefant" },
-  F: { gebaerde: "Daumen + Zeigefinger = Kreis",       bild: "Fisch" },
-  G: { gebaerde: "Zeigefinger + Daumen seitlich",      bild: "Gitarre" },
-  H: { gebaerde: "Zwei Finger seitlich gestreckt",     bild: "Haus" },
-  I: { gebaerde: "Kleiner Finger gestreckt",           bild: "Igel" },
-  J: { gebaerde: "Kleiner Finger, J-Bewegung",         bild: "Jaeger" },
-  K: { gebaerde: "Zwei Finger oben, Daumen zwischen",  bild: "Krone" },
-  L: { gebaerde: "Daumen + Zeigefinger = L",           bild: "Loewe" },
-  M: { gebaerde: "Drei Finger ueber Daumen",           bild: "Mond" },
-  N: { gebaerde: "Zwei Finger ueber Daumen",           bild: "Nuss" },
-  O: { gebaerde: "Alle Finger = O-Form",               bild: "Orange" },
-  P: { gebaerde: "Wie K, nach unten zeigend",          bild: "Pferd" },
-  Q: { gebaerde: "Wie G, nach unten zeigend",          bild: "Quelle" },
-  R: { gebaerde: "Zwei Finger gekreuzt",               bild: "Regenbogen" },
-  S: { gebaerde: "Faust, Daumen ueber Fingern",        bild: "Sonne" },
-  T: { gebaerde: "Daumen zwischen Fingern",            bild: "Taube" },
-  U: { gebaerde: "Zwei Finger zusammen gestreckt",     bild: "Uhr" },
-  V: { gebaerde: "Zwei Finger gespreizt (Victory)",    bild: "Vogel" },
-  W: { gebaerde: "Drei Finger gespreizt",              bild: "Welle" },
-  X: { gebaerde: "Zeigefinger gebogen wie Haken",      bild: "Xylophon" },
-};
+const CORRECT_CODE = '12345'; // Code der angezeigt wird wenn alle 5 Wörter richtig sind
 
-const TABS = [
-  { id: 'gebaerden', label: 'Gebaerden' },
-  { id: 'bilder',    label: 'Bilder'    },
-];
-
-function VideoCard({ letter }) {
+function VideoCard({ videoId, onVideoLoad }) {
   const [error, setError] = useState(false);
   const videoRef = useRef(null);
 
@@ -46,7 +20,7 @@ function VideoCard({ letter }) {
       <div className="w-full aspect-video bg-amber-50 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-amber-300">
         <span className="text-4xl">🎬</span>
         <p className="text-stone-500 text-sm font-semibold">Video noch nicht hochgeladen</p>
-        <p className="text-stone-400 text-xs">Datei: gebaerden/{letter}.mp4</p>
+        <p className="text-stone-400 text-xs">Datei: gebaerden/{videoId}.mp4</p>
       </div>
     );
   }
@@ -54,128 +28,161 @@ function VideoCard({ letter }) {
   return (
     <video
       ref={videoRef}
-      src={`/spelling-bee-media/gebaerden/${letter}.mp4`}
+      src={`/spelling-bee-media/gebaerden/${videoId}.mp4`}
       controls
       playsInline
       className="w-full rounded-2xl shadow-md bg-black"
       onError={() => setError(true)}
+      onLoadedMetadata={() => onVideoLoad?.(videoId)}
     />
   );
 }
 
-function ImageCard({ letter }) {
-  const [error, setError] = useState(false);
-  const [tried, setTried] = useState(0);
-  const exts = ['jpg', 'jpeg', 'png', 'webp'];
-
-  if (error) {
-    return (
-      <div className="w-full aspect-square bg-amber-50 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-amber-300">
-        <span className="text-4xl">🖼</span>
-        <p className="text-stone-500 text-sm font-semibold">Bild noch nicht hochgeladen</p>
-        <p className="text-stone-400 text-xs">Datei: bilder/{letter}.jpg</p>
-      </div>
-    );
-  }
+function WordInput({ wordData, value, onChange, feedback }) {
+  const isCorrect = feedback === 'correct';
+  const isWrong = feedback === 'wrong';
 
   return (
-    <img
-      src={`/spelling-bee-media/bilder/${letter}.${exts[tried]}`}
-      alt={`Bild fuer ${letter}`}
-      className="w-full rounded-2xl shadow-md object-contain max-h-64"
-      onError={() => {
-        if (tried < exts.length - 1) setTried(tried + 1);
-        else setError(true);
-      }}
-    />
+    <div className="space-y-2">
+      <label className="block text-sm font-bold text-stone-700">
+        {wordData.hint}
+      </label>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value.toUpperCase())}
+          placeholder="Wort eingeben..."
+          className={`flex-1 border-2 rounded-xl px-4 py-2 font-bold text-lg focus:outline-none transition-all ${
+            isCorrect
+              ? 'border-green-500 bg-green-50 text-green-900'
+              : isWrong
+              ? 'border-red-500 bg-red-50 text-red-900'
+              : 'border-amber-200 focus:border-amber-500'
+          }`}
+        />
+        {feedback && (
+          <div className={`flex items-center justify-center px-4 rounded-xl font-bold text-lg ${
+            isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+          }`}>
+            {isCorrect ? '✅' : '❌'}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
 export default function SpellingBeePage() {
-  const [tab, setTab] = useState('gebaerden');
-  const [selectedLetter, setSelectedLetter] = useState(null);
+  const [answers, setAnswers] = useState({
+    1: '',
+    2: '',
+    3: '',
+    4: '',
+    5: '',
+  });
+  const [feedback, setFeedback] = useState({
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+  });
+  const [showCode, setShowCode] = useState(false);
 
-  const tabLabels = {
-    gebaerden: '🤟 Gebaerden',
-    bilder:    '🖼 Bilder',
-  };
+  function handleAnswerChange(id, value) {
+    setAnswers(prev => ({ ...prev, [id]: value }));
+    
+    // Prüfe ob das Wort richtig ist
+    const wordData = SPELLING_BEE_WORDS.find(w => w.id === id);
+    if (value.length > 0) {
+      if (value === wordData.word) {
+        setFeedback(prev => ({ ...prev, [id]: 'correct' }));
+      } else {
+        setFeedback(prev => ({ ...prev, [id]: 'wrong' }));
+      }
+    } else {
+      setFeedback(prev => ({ ...prev, [id]: null }));
+    }
+  }
+
+  // Prüfe ob alle 5 Wörter richtig sind
+  const allCorrect = SPELLING_BEE_WORDS.every(w => answers[w.id] === w.word);
 
   return (
     <div className="min-h-screen bg-amber-50">
-      {/* Header – gleicher Stil wie GameScreen */}
+      {/* Header */}
       <div className="bg-gradient-to-r from-stone-900 to-amber-900 text-amber-100 px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10">
         <div className="flex items-center gap-3 mb-1">
           <span className="text-4xl">🐝</span>
           <div>
             <h1 className="text-2xl font-black leading-tight text-amber-50">Spelling Bee</h1>
-            <p className="text-amber-300 text-sm">Buchstaben-Alphabet · 24 Zeichen</p>
+            <p className="text-amber-300 text-sm">Gebärden-Rätsel · 5 Videos</p>
           </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="flex gap-2 mt-4">
-          {TABS.map(t => (
-            <button
-              key={t.id}
-              onClick={() => { setTab(t.id); setSelectedLetter(null); }}
-              className={`flex-1 py-2 rounded-xl font-bold text-xs transition-all ${
-                tab === t.id
-                  ? 'bg-amber-500 text-white'
-                  : 'bg-white/10 text-amber-200'
-              }`}
-            >
-              {tabLabels[t.id]}
-            </button>
-          ))}
         </div>
       </div>
 
-      <div className="px-4 py-4 max-w-lg mx-auto">
+      <div className="px-4 py-6 max-w-2xl mx-auto">
+        {/* Instructions */}
+        <div className="bg-amber-100 border-2 border-amber-300 rounded-2xl p-4 mb-6">
+          <p className="text-amber-900 font-bold text-sm mb-2">📋 Anleitung:</p>
+          <ol className="text-amber-900 text-sm space-y-1 list-decimal list-inside">
+            <li>Schau dir die 5 Videos an</li>
+            <li>Erkenne die Gebärden mit Hilfe des ausgedruckten Alphabets</li>
+            <li>Trage die 5 Wörter ein</li>
+            <li>Wenn alle richtig sind, erscheint der Code</li>
+          </ol>
+        </div>
 
-        {/* Letter Grid */}
-        <div className="grid grid-cols-6 gap-2 mb-4">
-          {LETTERS.map(letter => (
-            <button
-              key={letter}
-              onClick={() => setSelectedLetter(selectedLetter === letter ? null : letter)}
-              className={`aspect-square rounded-2xl font-black text-xl flex items-center justify-center transition-all shadow-sm ${
-                selectedLetter === letter
-                  ? 'bg-amber-700 text-white scale-110 shadow-md'
-                  : 'bg-white border-2 border-amber-200 text-stone-700 active:scale-95'
-              }`}
-            >
-              {letter}
-            </button>
+        {/* Videos Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          {SPELLING_BEE_WORDS.map(wordData => (
+            <div key={wordData.id} className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-black text-amber-700">{wordData.id}</span>
+                <p className="text-sm font-bold text-stone-600">{wordData.hint}</p>
+              </div>
+              <VideoCard videoId={wordData.id} />
+            </div>
           ))}
         </div>
 
-        {/* Detail Panel */}
-        {selectedLetter && (
-          <div className="bg-amber-50 border-2 border-amber-200 rounded-3xl p-5 mb-4 shadow-md">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-14 h-14 rounded-2xl bg-amber-700 flex items-center justify-center text-white font-black text-3xl shadow">
-                {selectedLetter}
+        {/* Word Input Section */}
+        <div className="bg-white rounded-2xl shadow p-6 mb-6">
+          <h2 className="text-amber-900 font-black text-lg mb-4">🎯 Wörter eingeben</h2>
+          <div className="space-y-4">
+            {SPELLING_BEE_WORDS.map(wordData => (
+              <WordInput
+                key={wordData.id}
+                wordData={wordData}
+                value={answers[wordData.id]}
+                onChange={(value) => handleAnswerChange(wordData.id, value)}
+                feedback={feedback[wordData.id]}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Code Display */}
+        {allCorrect && (
+          <div className="bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-6 shadow-lg animate-pulse">
+            <div className="text-center">
+              <p className="text-green-700 font-bold text-sm mb-2">🎉 Alle Wörter richtig!</p>
+              <p className="text-stone-600 text-xs mb-3">Hier ist dein Code:</p>
+              <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-3">
+                <p className="text-4xl font-black text-green-700 tracking-widest">{CORRECT_CODE}</p>
               </div>
-              <div>
-                <p className="text-xs text-stone-500 font-bold uppercase tracking-wide">
-                  {tab === 'gebaerden' ? 'Gebaerde' : 'Bild'}
-                </p>
-                <p className="font-black text-lg text-amber-900">
-                  {tab === 'gebaerden' && FALLBACK[selectedLetter].gebaerde}
-                  {tab === 'bilder'    && FALLBACK[selectedLetter].bild}
-                </p>
-              </div>
+              <p className="text-green-700 text-xs font-bold">Trage diesen Code in die App ein!</p>
             </div>
+          </div>
+        )}
 
-            {tab === 'gebaerden' && <VideoCard letter={selectedLetter} />}
-            {tab === 'bilder'    && <ImageCard letter={selectedLetter} />}
-
-            <button
-              onClick={() => setSelectedLetter(null)}
-              className="w-full mt-4 py-2 rounded-xl border-2 border-amber-200 text-stone-500 font-bold text-sm"
-            >
-              Schliessen
-            </button>
+        {/* Progress Indicator */}
+        {!allCorrect && (
+          <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center">
+            <p className="text-amber-900 font-bold text-sm">
+              ✓ {Object.values(feedback).filter(f => f === 'correct').length} / 5 Wörter richtig
+            </p>
           </div>
         )}
       </div>
