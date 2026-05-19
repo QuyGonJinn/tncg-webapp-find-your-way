@@ -12,6 +12,15 @@ export default function LanguageSwitcherDropdown() {
 
   const currentLang = languages.find(l => l.code === language);
 
+  function handleLanguageChange(langCode) {
+    switchLanguage(langCode);
+    setIsOpen(false);
+    // Refresh the page after a short delay to ensure language is saved
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+  }
+
   return (
     <div className="relative">
       <button
@@ -27,10 +36,7 @@ export default function LanguageSwitcherDropdown() {
           {languages.map(lang => (
             <button
               key={lang.code}
-              onClick={() => {
-                switchLanguage(lang.code);
-                setIsOpen(false);
-              }}
+              onClick={() => handleLanguageChange(lang.code)}
               className={`w-full text-left px-4 py-2 font-bold text-sm transition-all ${
                 language === lang.code
                   ? 'bg-amber-600 text-white'
