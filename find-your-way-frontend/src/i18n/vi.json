@@ -193,7 +193,18 @@
     "save": "💾 Lưu",
     "loadingSettings": "Đang tải cài đặt..."
   },
-  "final": {
+  "waitingRoom": {
+    "title": "Phòng chờ",
+    "status": "⏳ Phòng chờ",
+    "teamsWaiting": "Đội đang chờ",
+    "gameStartsShortly": "⏳ Trò chơi sẽ bắt đầu ngay...",
+    "adminActivatesGame": "Quản trị viên kích hoạt trò chơi",
+    "tipsWhileWaiting": "💡 Mẹo trong khi chờ đợi:",
+    "tip1": "✓ Kiểm tra pin thiết bị của bạn",
+    "tip2": "✓ Kiểm tra kết nối WiFi",
+    "tip3": "✓ Ghi nhớ mã đội của bạn",
+    "tip4": "✓ Lên kế hoạch tuyến đường đến các trạm"
+  },
     "title": "🏆 Trò chơi kết thúc!",
     "yourRank": "Xếp hạng của bạn:",
     "totalXP": "Tổng XP:",

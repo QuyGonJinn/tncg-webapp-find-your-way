@@ -193,7 +193,18 @@
     "save": "💾 Save",
     "loadingSettings": "Loading settings..."
   },
-  "final": {
+  "waitingRoom": {
+    "title": "Waiting Room",
+    "status": "⏳ Waiting Room",
+    "teamsWaiting": "Teams waiting",
+    "gameStartsShortly": "⏳ The game will start shortly...",
+    "adminActivatesGame": "The admin activates the game",
+    "tipsWhileWaiting": "💡 Tips while you wait:",
+    "tip1": "✓ Check your device batteries",
+    "tip2": "✓ Test your WiFi connection",
+    "tip3": "✓ Remember your team code",
+    "tip4": "✓ Plan your route to the stations"
+  },
     "title": "🏆 Game Over!",
     "yourRank": "Your Rank:",
     "totalXP": "Total XP:",

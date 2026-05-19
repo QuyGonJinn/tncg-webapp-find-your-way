@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useI18n } from '../hooks/useI18n';
+import LanguageSwitcherDropdown from './LanguageSwitcherDropdown';
 
 export default function WaitingRoom({ team, onGameStart }) {
+  const { t } = useI18n();
   const [participantCount, setParticipantCount] = useState(0);
   const [allTeams, setAllTeams] = useState([]);
 
@@ -44,6 +47,11 @@ export default function WaitingRoom({ team, onGameStart }) {
 
   return (
     <div className="min-h-screen bg-amber-50 flex flex-col">
+      {/* Language Switcher - Top Right */}
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageSwitcherDropdown />
+      </div>
+
       {/* Header - gleich wie GameScreen */}
       <div className="bg-gradient-to-r from-stone-900 to-amber-900 text-amber-100 px-4 pt-6 pb-4 sticky top-0 z-10 shadow-lg">
         <div className="flex items-center justify-between mb-3">
@@ -51,12 +59,12 @@ export default function WaitingRoom({ team, onGameStart }) {
             <span className="text-3xl">{team?.icon}</span>
             <div>
               <p className="font-black text-lg leading-tight text-amber-50">{team?.name}</p>
-              <p className="text-yellow-400 text-sm font-bold">⏳ Wartezimmer</p>
+              <p className="text-yellow-400 text-sm font-bold">{t('waitingRoom.status')}</p>
             </div>
           </div>
           <div className="text-right">
             <p className="text-2xl font-black text-yellow-400">{participantCount}</p>
-            <p className="text-xs text-amber-300">Teams warten</p>
+            <p className="text-xs text-amber-300">{t('waitingRoom.teamsWaiting')}</p>
           </div>
         </div>
       </div>
@@ -73,8 +81,8 @@ export default function WaitingRoom({ team, onGameStart }) {
 
           {/* Status Message */}
           <div className="bg-yellow-50 border-2 border-yellow-400 rounded-2xl p-4 text-center">
-            <p className="text-sm text-yellow-900 font-bold">⏳ Das Spiel startet in Kürze...</p>
-            <p className="text-xs text-yellow-800 mt-2">Der Admin aktiviert das Spiel</p>
+            <p className="text-sm text-yellow-900 font-bold">{t('waitingRoom.gameStartsShortly')}</p>
+            <p className="text-xs text-yellow-800 mt-2">{t('waitingRoom.adminActivatesGame')}</p>
           </div>
         </div>
 
@@ -87,12 +95,12 @@ export default function WaitingRoom({ team, onGameStart }) {
 
         {/* Tips */}
         <div className="bg-amber-100 rounded-2xl p-6 max-w-md w-full border-2 border-amber-200">
-          <p className="text-sm text-amber-900 font-bold mb-3">💡 Tipps während du wartest:</p>
+          <p className="text-sm text-amber-900 font-bold mb-3">{t('waitingRoom.tipsWhileWaiting')}</p>
           <ul className="text-sm text-amber-800 space-y-2">
-            <li>✓ Überprüft eure Geräte-Akkus</li>
-            <li>✓ Testet die WLAN-Verbindung</li>
-            <li>✓ Merkt euch euren Team-Code</li>
-            <li>✓ Plant eure Route zu den Stationen</li>
+            <li>{t('waitingRoom.tip1')}</li>
+            <li>{t('waitingRoom.tip2')}</li>
+            <li>{t('waitingRoom.tip3')}</li>
+            <li>{t('waitingRoom.tip4')}</li>
           </ul>
         </div>
       </div>

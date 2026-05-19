@@ -193,7 +193,18 @@
     "save": "💾 Speichern",
     "loadingSettings": "Einstellungen werden geladen..."
   },
-  "final": {
+  "waitingRoom": {
+    "title": "Wartezimmer",
+    "status": "⏳ Wartezimmer",
+    "teamsWaiting": "Teams warten",
+    "gameStartsShortly": "⏳ Das Spiel startet in Kürze...",
+    "adminActivatesGame": "Der Admin aktiviert das Spiel",
+    "tipsWhileWaiting": "💡 Tipps während du wartest:",
+    "tip1": "✓ Überprüft eure Geräte-Akkus",
+    "tip2": "✓ Testet die WLAN-Verbindung",
+    "tip3": "✓ Merkt euch euren Team-Code",
+    "tip4": "✓ Plant eure Route zu den Stationen"
+  },
     "title": "🏆 Spiel vorbei!",
     "yourRank": "Euer Rang:",
     "totalXP": "Gesamt XP:",
