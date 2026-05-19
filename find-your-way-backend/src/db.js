@@ -128,4 +128,4 @@ function run(sql, params = []) {
 
 async function getDb() { return db; }
 
-module.exports = { getDb, all, get, run };
+module.exports = { getDb, all, get, run, prepare: (sql) => db.prepare(sql) };

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const { prepare } = require('../db');
 const STATIONS = require('../stations');
 
 // GET all station codes
 router.get('/codes', (req, res) => {
   try {
-    const codes = db.prepare(`
+    const codes = prepare(`
       SELECT station_id, code FROM station_codes
     `).all();
     
@@ -39,16 +39,16 @@ router.post('/codes', (req, res) => {
     }
     
     // Check if code already exists for this station
-    const existing = db.prepare(`
+    const existing = prepare(`
       SELECT id FROM station_codes WHERE station_id = ?
     `).get(stationId);
     
     if (existing) {
-      db.prepare(`
+      prepare(`
         UPDATE station_codes SET code = ? WHERE station_id = ?
       `).run(code, stationId);
     } else {
-      db.prepare(`
+      prepare(`
         INSERT INTO station_codes (station_id, code) VALUES (?, ?)
       `).run(stationId, code);
     }

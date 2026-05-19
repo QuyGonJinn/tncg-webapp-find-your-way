@@ -11,6 +11,9 @@ async function main() {
   app.use(cors());
   app.use(express.json());
 
+  const PORT = process.env.PORT || 3001;
+  const ADMIN_PIN = process.env.ADMIN_PIN || '1234'; // Change in production!
+
   app.use('/api/teams', require('./routes/teams'));
   app.use('/api/game',  require('./routes/game'));
   app.use('/api/chat',  require('./routes/chat'));
@@ -34,8 +37,6 @@ async function main() {
   const server = http.createServer(app);
   initWss(server);
 
-  const PORT = process.env.PORT || 3001;
-const ADMIN_PIN = process.env.ADMIN_PIN || '1234'; // Change in production!
   server.listen(PORT, () => {
     console.log(`✅ Backend running on http://localhost:${PORT}`);
     console.log(`🔌 WebSocket ready on ws://localhost:${PORT}`);

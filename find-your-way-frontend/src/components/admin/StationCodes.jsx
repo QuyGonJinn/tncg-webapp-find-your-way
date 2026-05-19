@@ -41,11 +41,16 @@ export default function StationCodes() {
   const handleSave = async () => {
     try {
       const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+      console.log('Saving code to:', `${apiBase}/stations/codes`, { stationId: editingId, code: editValue.toUpperCase() });
+      
       const response = await fetch(`${apiBase}/stations/codes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stationId: editingId, code: editValue.toUpperCase() }),
       });
+      
+      const responseData = await response.json();
+      console.log('Response:', response.status, responseData);
       
       if (response.ok) {
         setCodes(prev => ({ ...prev, [editingId]: editValue.toUpperCase() }));
@@ -54,10 +59,12 @@ export default function StationCodes() {
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
       } else {
-        console.error('Save failed:', response.status);
+        console.error('Save failed:', response.status, responseData);
+        alert('Fehler beim Speichern: ' + (responseData.error || 'Unbekannter Fehler'));
       }
     } catch (error) {
       console.error('Error saving code:', error);
+      alert('Fehler beim Speichern: ' + error.message);
     }
   };
 
