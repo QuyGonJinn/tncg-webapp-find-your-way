@@ -17,7 +17,7 @@ export function loadGameSettings() {
   return DEFAULT_GAME_SETTINGS;
 }
 
-// Einstellungen speichern
+// Einstellungen speichern (nur localStorage - Backend wird in AdminSettings.jsx aufgerufen)
 export function saveGameSettings(settings) {
   localStorage.setItem('fyw_game_settings', JSON.stringify(settings));
 }

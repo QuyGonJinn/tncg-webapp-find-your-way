@@ -77,6 +77,34 @@ router.post('/timer/reset', (req, res) => {
   res.json(payload);
 });
 
+// Settings endpoints
+router.get('/settings', (req, res) => {
+  const gameDuration = db.get(`SELECT value FROM game_state WHERE key = 'game_duration'`);
+  const reminderInterval = db.get(`SELECT value FROM game_state WHERE key = 'reminder_interval'`);
+  
+  res.json({
+    gameDuration: gameDuration ? Number(gameDuration.value) : 120,
+    reminderInterval: reminderInterval ? Number(reminderInterval.value) : 15,
+  });
+});
+
+router.post('/settings', (req, res) => {
+  const { gameDuration, reminderInterval } = req.body;
+  
+  if (gameDuration) {
+    setState('game_duration', String(gameDuration));
+    setState('timer_duration', String(gameDuration * 60)); // Convert minutes to seconds
+  }
+  if (reminderInterval) {
+    setState('reminder_interval', String(reminderInterval));
+  }
+
+  const newState = getState();
+  const payload = { ...newState, timeLeft: computeTimeLeft(newState) };
+  broadcast('GAME_STATE', payload);
+  res.json(payload);
+});
+
 // Waiting Room Control
 router.post('/waiting-room', (req, res) => {
   const { enabled } = req.body;

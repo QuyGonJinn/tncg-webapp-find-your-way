@@ -1,30 +1,76 @@
 import { useState, useEffect } from 'react';
-import { loadGameSettings, saveGameSettings, DEFAULT_GAME_SETTINGS } from '../../data/gameSettings';
+import { loadGameSettings, saveGameSettings as saveLocalSettings, DEFAULT_GAME_SETTINGS } from '../../data/gameSettings';
+import { saveGameSettings as saveBackendSettings, fetchGameSettings } from '../../api';
 
 export default function AdminSettings() {
   const [settings, setSettings] = useState(DEFAULT_GAME_SETTINGS);
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setSettings(loadGameSettings());
+    // Try to load from backend first, fall back to localStorage
+    fetchGameSettings()
+      .then(backendSettings => {
+        setSettings(backendSettings);
+        saveLocalSettings(backendSettings);
+        setError(null);
+      })
+      .catch(() => {
+        setSettings(loadGameSettings());
+        setError('Konnte Settings vom Backend nicht laden, verwende lokale Einstellungen');
+      })
+      .finally(() => setLoading(false));
   }, []);
 
-  function handleSave() {
-    saveGameSettings(settings);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  async function handleSave() {
+    try {
+      // Save to backend
+      await saveBackendSettings(settings);
+      // Also save to localStorage as backup
+      saveLocalSettings(settings);
+      setSaved(true);
+      setError(null);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (e) {
+      console.error('Error saving settings:', e);
+      setError('Fehler beim Speichern der Einstellungen');
+    }
   }
 
-  function handleReset() {
-    setSettings(DEFAULT_GAME_SETTINGS);
-    saveGameSettings(DEFAULT_GAME_SETTINGS);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  async function handleReset() {
+    try {
+      // Reset to defaults on backend
+      await saveBackendSettings(DEFAULT_GAME_SETTINGS);
+      // Also reset localStorage
+      saveLocalSettings(DEFAULT_GAME_SETTINGS);
+      setSettings(DEFAULT_GAME_SETTINGS);
+      setSaved(true);
+      setError(null);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (e) {
+      console.error('Error resetting settings:', e);
+      setError('Fehler beim Zurücksetzen der Einstellungen');
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="bg-white rounded-2xl shadow p-6">
+        <p className="text-gray-500">Einstellungen werden geladen...</p>
+      </div>
+    );
   }
 
   return (
     <div className="bg-white rounded-2xl shadow p-6">
       <h2 className="text-blue-700 font-black text-lg mb-4">⚙️ Spieleinstellungen</h2>
+
+      {error && (
+        <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 mb-4">
+          <p className="text-red-700 text-sm font-bold">⚠️ {error}</p>
+        </div>
+      )}
 
       <div className="space-y-4">
         {/* Game Duration */}

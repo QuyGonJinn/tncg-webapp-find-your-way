@@ -6,36 +6,35 @@ const LETTERS = [
 ];
 
 const FALLBACK = {
-  A: { gebaerde: "Faust mit Daumen seitlich",         bild: "Apfel",      memo: "Langer A-Laut" },
-  B: { gebaerde: "Vier Finger gestreckt",              bild: "Buch",       memo: "Lippenlaut B" },
-  C: { gebaerde: "Hand zur C-Form gebogen",            bild: "Computer",   memo: "Zischlaut C" },
-  D: { gebaerde: "Zeigefinger oben, Kreis unten",      bild: "Drachen",    memo: "Zungenlaut D" },
-  E: { gebaerde: "Alle Finger gebogen",                bild: "Elefant",    memo: "Heller E-Laut" },
-  F: { gebaerde: "Daumen + Zeigefinger = Kreis",       bild: "Fisch",      memo: "Reibelaut F" },
-  G: { gebaerde: "Zeigefinger + Daumen seitlich",      bild: "Gitarre",    memo: "Gaumenlaut G" },
-  H: { gebaerde: "Zwei Finger seitlich gestreckt",     bild: "Haus",       memo: "Hauch-Laut H" },
-  I: { gebaerde: "Kleiner Finger gestreckt",           bild: "Igel",       memo: "Spitzer I-Laut" },
-  J: { gebaerde: "Kleiner Finger, J-Bewegung",         bild: "Jaeger",     memo: "Weicher J-Laut" },
-  K: { gebaerde: "Zwei Finger oben, Daumen zwischen",  bild: "Krone",      memo: "Harter K-Laut" },
-  L: { gebaerde: "Daumen + Zeigefinger = L",           bild: "Loewe",      memo: "Zungenlaut L" },
-  M: { gebaerde: "Drei Finger ueber Daumen",           bild: "Mond",       memo: "Summton M" },
-  N: { gebaerde: "Zwei Finger ueber Daumen",           bild: "Nuss",       memo: "Nasenlaut N" },
-  O: { gebaerde: "Alle Finger = O-Form",               bild: "Orange",     memo: "Runder O-Laut" },
-  P: { gebaerde: "Wie K, nach unten zeigend",          bild: "Pferd",      memo: "Lippenlaut P" },
-  Q: { gebaerde: "Wie G, nach unten zeigend",          bild: "Quelle",     memo: "Kombilaut Q" },
-  R: { gebaerde: "Zwei Finger gekreuzt",               bild: "Regenbogen", memo: "Gerolltes R" },
-  S: { gebaerde: "Faust, Daumen ueber Fingern",        bild: "Sonne",      memo: "Zischlaut S" },
-  T: { gebaerde: "Daumen zwischen Fingern",            bild: "Taube",      memo: "Harter T-Laut" },
-  U: { gebaerde: "Zwei Finger zusammen gestreckt",     bild: "Uhr",        memo: "Tiefer U-Laut" },
-  V: { gebaerde: "Zwei Finger gespreizt (Victory)",    bild: "Vogel",      memo: "Wie F gesprochen" },
-  W: { gebaerde: "Drei Finger gespreizt",              bild: "Welle",      memo: "Weicher W-Laut" },
-  X: { gebaerde: "Zeigefinger gebogen wie Haken",      bild: "Xylophon",   memo: "Kombilaut X" },
+  A: { gebaerde: "Faust mit Daumen seitlich",         bild: "Apfel" },
+  B: { gebaerde: "Vier Finger gestreckt",              bild: "Buch" },
+  C: { gebaerde: "Hand zur C-Form gebogen",            bild: "Computer" },
+  D: { gebaerde: "Zeigefinger oben, Kreis unten",      bild: "Drachen" },
+  E: { gebaerde: "Alle Finger gebogen",                bild: "Elefant" },
+  F: { gebaerde: "Daumen + Zeigefinger = Kreis",       bild: "Fisch" },
+  G: { gebaerde: "Zeigefinger + Daumen seitlich",      bild: "Gitarre" },
+  H: { gebaerde: "Zwei Finger seitlich gestreckt",     bild: "Haus" },
+  I: { gebaerde: "Kleiner Finger gestreckt",           bild: "Igel" },
+  J: { gebaerde: "Kleiner Finger, J-Bewegung",         bild: "Jaeger" },
+  K: { gebaerde: "Zwei Finger oben, Daumen zwischen",  bild: "Krone" },
+  L: { gebaerde: "Daumen + Zeigefinger = L",           bild: "Loewe" },
+  M: { gebaerde: "Drei Finger ueber Daumen",           bild: "Mond" },
+  N: { gebaerde: "Zwei Finger ueber Daumen",           bild: "Nuss" },
+  O: { gebaerde: "Alle Finger = O-Form",               bild: "Orange" },
+  P: { gebaerde: "Wie K, nach unten zeigend",          bild: "Pferd" },
+  Q: { gebaerde: "Wie G, nach unten zeigend",          bild: "Quelle" },
+  R: { gebaerde: "Zwei Finger gekreuzt",               bild: "Regenbogen" },
+  S: { gebaerde: "Faust, Daumen ueber Fingern",        bild: "Sonne" },
+  T: { gebaerde: "Daumen zwischen Fingern",            bild: "Taube" },
+  U: { gebaerde: "Zwei Finger zusammen gestreckt",     bild: "Uhr" },
+  V: { gebaerde: "Zwei Finger gespreizt (Victory)",    bild: "Vogel" },
+  W: { gebaerde: "Drei Finger gespreizt",              bild: "Welle" },
+  X: { gebaerde: "Zeigefinger gebogen wie Haken",      bild: "Xylophon" },
 };
 
 const TABS = [
   { id: 'gebaerden', label: 'Gebaerden' },
   { id: 'bilder',    label: 'Bilder'    },
-  { id: 'memos',     label: 'Sprachmemos' },
 ];
 
 function VideoCard({ letter }) {
@@ -92,54 +91,6 @@ function ImageCard({ letter }) {
   );
 }
 
-function AudioCard({ letter }) {
-  const [error, setError] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const audioRef = useRef(null);
-
-  function togglePlay() {
-    if (!audioRef.current) return;
-    if (playing) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      setPlaying(false);
-    } else {
-      audioRef.current.play();
-      setPlaying(true);
-    }
-  }
-
-  if (error) {
-    return (
-      <div className="w-full py-8 bg-amber-50 rounded-2xl flex flex-col items-center justify-center gap-2 border-2 border-dashed border-amber-300">
-        <span className="text-4xl">🔊</span>
-        <p className="text-stone-500 text-sm font-semibold">Sprachmemo noch nicht hochgeladen</p>
-        <p className="text-stone-400 text-xs">Datei: memos/{letter}.mp3</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="w-full py-6 bg-amber-50 border-2 border-amber-200 rounded-2xl flex flex-col items-center gap-4">
-      <audio
-        ref={audioRef}
-        src={`/spelling-bee-media/memos/${letter}.mp3`}
-        onEnded={() => setPlaying(false)}
-        onError={() => setError(true)}
-      />
-      <button
-        onClick={togglePlay}
-        className="w-20 h-20 rounded-full bg-amber-700 text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform text-3xl"
-      >
-        {playing ? '⏹' : '▶️'}
-      </button>
-      <p className="text-sm font-bold text-amber-900">
-        {playing ? 'Spielt ab...' : 'Tippen zum Abspielen'}
-      </p>
-    </div>
-  );
-}
-
 export default function SpellingBeePage() {
   const [tab, setTab] = useState('gebaerden');
   const [selectedLetter, setSelectedLetter] = useState(null);
@@ -147,7 +98,6 @@ export default function SpellingBeePage() {
   const tabLabels = {
     gebaerden: '🤟 Gebaerden',
     bilder:    '🖼 Bilder',
-    memos:     '🔊 Sprachmemos',
   };
 
   return (
@@ -208,19 +158,17 @@ export default function SpellingBeePage() {
               </div>
               <div>
                 <p className="text-xs text-stone-500 font-bold uppercase tracking-wide">
-                  {tab === 'gebaerden' ? 'Gebaerde' : tab === 'bilder' ? 'Bild' : 'Sprachmemo'}
+                  {tab === 'gebaerden' ? 'Gebaerde' : 'Bild'}
                 </p>
                 <p className="font-black text-lg text-amber-900">
                   {tab === 'gebaerden' && FALLBACK[selectedLetter].gebaerde}
                   {tab === 'bilder'    && FALLBACK[selectedLetter].bild}
-                  {tab === 'memos'     && FALLBACK[selectedLetter].memo}
                 </p>
               </div>
             </div>
 
             {tab === 'gebaerden' && <VideoCard letter={selectedLetter} />}
             {tab === 'bilder'    && <ImageCard letter={selectedLetter} />}
-            {tab === 'memos'     && <AudioCard letter={selectedLetter} />}
 
             <button
               onClick={() => setSelectedLetter(null)}

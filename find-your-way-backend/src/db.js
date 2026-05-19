@@ -93,6 +93,8 @@ initState.run('timer_started_at', '0');
 initState.run('timer_duration', String(2 * 60 * 60));
 initState.run('timer_elapsed', '0');
 initState.run('waiting_room_enabled', 'true');
+initState.run('game_duration', '120'); // in minutes
+initState.run('reminder_interval', '15'); // in minutes
 
 // Migration: add waiting_room_enabled if missing
 try {

@@ -103,6 +103,20 @@ export async function timerReset() {
   return res.json();
 }
 
+export async function fetchGameSettings() {
+  const res = await fetch(`${BASE}/game/settings`);
+  return res.json();
+}
+
+export async function saveGameSettings(settings) {
+  const res = await fetch(`${BASE}/game/settings`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(settings),
+  });
+  return res.json();
+}
+
 export async function clearAllMessages() {
   await fetch(`${BASE}/chat`, { method: 'DELETE' });
 }
