@@ -1,0 +1,202 @@
+{
+  "common": {
+    "logout": "Đăng xuất",
+    "login": "Đăng nhập",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "reset": "Đặt lại",
+    "close": "Đóng"
+  },
+  "welcome": {
+    "title": "Find Your Way",
+    "subtitle": "Cuộc Săn Tìm Đức Tin Tối Thượng",
+    "description": "Hãy tham gia một cuộc săn tìm kho báu thú vị với chủ đề đức tin. Làm việc cùng nhau như một đội, giải quyết các nhiệm vụ và thu thập điểm!",
+    "howItWorks": "📋 Cách thức hoạt động:",
+    "step1": "Tạo đội: Nhập tên và chọn một biểu tượng",
+    "step2": "Hoàn thành các trạm: Giải quyết các nhiệm vụ và thu thập điểm",
+    "step3": "Bảng xếp hạng: Cạnh tranh với các đội khác",
+    "step4": "Chung kết: Sau 2 giờ, bạn sẽ thấy xếp hạng của mình",
+    "important": "⚡ Quan trọng:",
+    "passiveStations": "Trạm thụ động: Nhập mã → +20 XP",
+    "activeStations": "Trạm hoạt động: Với người hướng dẫn → +50 XP",
+    "rememberCode": "Ghi nhớ mã đội: Để đăng nhập trên các thiết bị khác",
+    "useChat": "Sử dụng trò chuyện: Hỏi quản trị viên nếu có câu hỏi",
+    "button": "Bắt đầu ngay! 🚀",
+    "footer": "Chúc bạn chơi vui vẻ! Nếu có câu hỏi, hãy hỏi quản trị viên trong trò chuyện."
+  },
+  "setup": {
+    "title": "Tạo đội",
+    "teamName": "Tên đội",
+    "teamNamePlaceholder": "Đặt tên cho đội của bạn",
+    "selectIcon": "Chọn biểu tượng",
+    "createTeam": "Tạo đội mới",
+    "loginWithPin": "Đăng nhập bằng mã",
+    "pin": "Mã đội",
+    "pinPlaceholder": "Nhập mã đội",
+    "login": "Đăng nhập",
+    "error": "Không thể kết nối máy chủ. Backend có đang chạy không?",
+    "invalidPin": "Mã không hợp lệ",
+    "registration": "Đăng ký",
+    "registrationDescription": "Đăng ký sẽ được hoàn thành tại quầy cà phê. Tên của những người tham gia sẽ được nhập vào đó."
+  },
+  "pinDisplay": {
+    "title": "Mã đội của bạn",
+    "description": "Ghi nhớ mã này! Bạn có thể sử dụng nó để đăng nhập trên bất kỳ thiết bị nào nếu trình duyệt bị đóng.",
+    "tip": "Mẹo: Chụp ảnh mã này 📸",
+    "button": "Hãy đi tìm kho báu! 🗺️"
+  },
+  "game": {
+    "stations": "🗺️ Trạm",
+    "chat": "💬 Trò chuyện",
+    "xp": "XP",
+    "progress": "Trạm",
+    "active": "hoạt động",
+    "resetGame": "Đặt lại trò chơi",
+    "hint": "💡 Gợi ý",
+    "enterCode": "Nhập mã",
+    "reportDone": "Báo cáo hoàn thành",
+    "done": "✅ Hoàn thành",
+    "pending": "⏳ Chờ xác nhận",
+    "confirm": "Xác nhận",
+    "nextStation": "🎯 Trạm tiếp theo:",
+    "points": "Điểm:",
+    "understood": "Hiểu rồi! 🗺️",
+    "task": "📜 Nhiệm vụ"
+  },
+  "hints": {
+    "start": "Bạn ở điểm bắt đầu – hãy bắt đầu! Tìm các trạm dễ nhất trước.",
+    "progress1": "Làm tốt lắm! Mẹo: Các trạm hoạt động mang lại nhiều điểm hơn – hãy dám thử!",
+    "progress2": "Nửa chừng rồi! Kiểm tra xem những trạm nào vẫn còn mở và lên kế hoạch tuyến đường của bạn.",
+    "progress3": "Gần xong rồi! Chỉ còn một vài trạm – hãy cố gắng hết sức!",
+    "progress4": "Không thể tin được! Chỉ còn một trạm – bạn là những nhà vô địch thực sự!"
+  },
+  "stations": {
+    "holymoji": {
+      "title": "Holymoji",
+      "description": "Đoán các thuật ngữ và câu chuyện tính cách – chỉ được hiển thị bằng emoji.",
+      "instructions": "Nhìn vào các chuỗi emoji và đoán câu chuyện tính cách hoặc thuật ngữ nào được dùng. Bạn có 5 phút. Tìm ít nhất 8 trong 10 câu đúng để nhận mã."
+    },
+    "geoguesser": {
+      "title": "Geoguesser",
+      "description": "Nhận biết những nơi tính cách này nằm ở đâu trên thế giới dựa trên hình ảnh.",
+      "instructions": "Bạn sẽ được xem 6 hình ảnh của những nơi tính cách. Gán chúng cho các quốc gia/khu vực chính xác. Ít nhất 5 câu đúng = Mã!"
+    },
+    "fakeOrFact": {
+      "title": "Fake or Fact",
+      "description": "Đúng hay sai? Đánh giá các tuyên bố điên rồ về Kinh Thánh cùng nhau.",
+      "instructions": "Người hướng dẫn sẽ đọc cho bạn 10 tuyên bố. Quyết định như một đội: Đúng hay Sai? Ít nhất 7 câu đúng = Xác nhận!"
+    },
+    "davidAndGoliath": {
+      "title": "David và Goliath",
+      "description": "Đối mặt với thử thách: Nhỏ so với Lớn – ai có can đảm?",
+      "instructions": "Một thành viên đội (David) phải ném 3 quả bóng vào một cái xô cách 5 mét. Ít nhất 2 lần trúng = Xác nhận!"
+    },
+    "anchorOfHope": {
+      "title": "Anchor of Hope",
+      "description": "Tìm chiếc neo ẩn giấu và giải mã thông điệp hy vọng.",
+      "instructions": "Tìm kiếm một chiếc neo ẩn giấu tại trạm này. Khi bạn tìm thấy nó, bạn có thể đọc thông điệp bên dưới và nhận mã."
+    },
+    "krugeOfKana": {
+      "title": "Những chiếc bình của Cana",
+      "description": "Lấp đầy những chiếc bình cùng nhau – một nhiệm vụ đòi hỏi làm việc nhóm và đức tin.",
+      "instructions": "Bạn có 3 chiếc bình và phải lấp đầy chúng bằng nước – nhưng chỉ bằng làm việc nhóm! Người hướng dẫn sẽ giải thích nhiệm vụ chính xác tại chỗ."
+    },
+    "lochkarte": {
+      "title": "Thẻ đục lỗ",
+      "description": "Giữ thẻ đục lỗ lên ánh sáng và đọc thông điệp ẩn giấu.",
+      "instructions": "Lấy thẻ đục lỗ và giữ nó lên ánh sáng. Những lỗ cho bạn thấy các chữ cái – ghép chúng lại và nhận mã."
+    },
+    "heiligeBuchstabenjagd": {
+      "title": "Cuộc săn tìm chữ cái thiêng liêng",
+      "description": "Tìm kiếm các chữ cái ẩn giấu và ghép chúng thành câu Kinh Thánh chính xác.",
+      "instructions": "Tại trạm này có các chữ cái ẩn giấu. Tìm tất cả 8 chữ cái và ghép chúng thành câu Kinh Thánh chính xác. Mã là từ giải pháp!"
+    },
+    "glaubenssprung": {
+      "title": "Bước nhảy đức tin",
+      "description": "Tin tưởng lẫn nhau một cách mù quáng – một thành viên đội nhảy, những người khác bắt.",
+      "instructions": "Một thành viên đội bị bịt mắt và nhảy từ một nền tảng cao 1m. Những người khác phải bắt anh ta. Hạ cánh an toàn = Xác nhận!"
+    },
+    "guterHirte": {
+      "title": "Người ch牧dân tốt",
+      "description": "Dẫn 'cừu' của bạn (bịt mắt) an toàn qua khóa học.",
+      "instructions": "Một thành viên đội bị bịt mắt (cừu). Những người khác chỉ dẫn anh ta bằng giọng nói qua một khóa học. Đạt mục tiêu = Xác nhận!"
+    },
+    "werBinIch": {
+      "title": "Tôi là ai / Bảng",
+      "description": "Đại diện cho một nhân vật tính cách dưới dạng bảng – những người khác đoán ai.",
+      "instructions": "Đội của bạn đại diện cho một nhân vật tính cách dưới dạng bảng (không có lời nói!). Người hướng dẫn đoán – nếu anh ta đoán đúng, bạn sẽ nhận được mã."
+    },
+    "spellingBee": {
+      "title": "Spelling Bee",
+      "description": "Câu đố ngôn ngữ ký hiệu: Xem video và đoán 5 từ.",
+      "instructions": "Mở trang Spelling Bee, đăng nhập bằng PIN của bạn và đoán 5 từ từ các video ngôn ngữ ký hiệu. Khi tất cả đều đúng, bạn sẽ nhận được mã!"
+    }
+  },
+  "spellingBee": {
+    "title": "Spelling Bee",
+    "subtitle": "Câu đố ngôn ngữ ký hiệu · 5 video",
+    "instructions": "📋 Hướng dẫn:",
+    "step1": "Xem 5 video",
+    "step2": "Nhận biết các ký hiệu bằng cách sử dụng bảng chữ cái in",
+    "step3": "Nhập 5 từ",
+    "step4": "Khi tất cả đều đúng, mã sẽ xuất hiện",
+    "enterWords": "🎯 Nhập từ",
+    "wordPlaceholder": "Nhập từ...",
+    "allCorrect": "🎉 Tất cả từ đều đúng!",
+    "hereIsCode": "Đây là mã của bạn:",
+    "enterInApp": "Nhập mã này vào ứng dụng!",
+    "progress": "✓ {correct} / 5 từ đúng",
+    "loginTitle": "Spelling Bee",
+    "loginSubtitle": "Câu đố ngôn ngữ ký hiệu",
+    "loginDescription": "Đăng nhập bằng PIN đội của bạn để chơi Spelling Bee.",
+    "loginButton": "🚀 Đăng nhập",
+    "loginLoading": "⏳ Đang đăng nhập...",
+    "loginError": "Đăng nhập thất bại",
+    "pinReminder": "PIN đội của bạn được cung cấp cho bạn khi đăng ký.",
+    "teamInfo": "{icon} {name}"
+  },
+  "admin": {
+    "title": "Quản trị viên – Find Your Way",
+    "teams": "Đội đã đăng ký",
+    "overview": "📊 Tổng quan",
+    "codes": "📋 Mã",
+    "chat": "💬 Trò chuyện",
+    "settings": "⚙️ Cài đặt",
+    "ranking": "🏆 Bảng xếp hạng",
+    "teamsList": "Đội",
+    "noTeams": "Chưa có đội nào đăng ký.",
+    "timer": "⏱ Bộ đếm thời gian",
+    "start": "▶ Bắt đầu",
+    "pause": "⏸ Tạm dừng",
+    "reset": "🔄 Đặt lại",
+    "status": "Trạng thái:",
+    "running": "🟢 Đang chạy",
+    "stopped": "🔴 Đã dừng",
+    "waitingRoom": "Phòng chờ",
+    "enable": "Bật",
+    "disable": "Tắt",
+    "teamCount": "Đội trong phòng chờ:",
+    "activityLog": "Nhật ký hoạt động",
+    "gameSettings": "⚙️ Cài đặt trò chơi",
+    "gameDuration": "⏱️ Thời lượng trò chơi (Phút)",
+    "gameDurationHelp": "Trò chơi sẽ kéo dài bao lâu?",
+    "reminderInterval": "🔔 Khoảng thời gian nhắc nhở (Phút)",
+    "reminderIntervalHelp": "Bao lâu thì nhắc nhở được hiển thị?",
+    "preview": "📋 Xem trước:",
+    "remindersAt": "Nhắc nhở sẽ được hiển thị tại:",
+    "minutesRemaining": "⏰ Còn {minutes} phút!",
+    "saved": "✅ Đã lưu!",
+    "save": "💾 Lưu",
+    "loadingSettings": "Đang tải cài đặt..."
+  },
+  "final": {
+    "title": "🏆 Trò chơi kết thúc!",
+    "yourRank": "Xếp hạng của bạn:",
+    "totalXP": "Tổng XP:",
+    "completed": "Trạm hoàn thành:",
+    "playAgain": "Chơi lại"
+  }
+}

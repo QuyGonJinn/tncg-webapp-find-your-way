@@ -8,6 +8,7 @@ export default function LanguageSwitcherDropdown() {
   const languages = [
     { code: 'de', name: '🇩🇪 Deutsch', label: 'Deutsch' },
     { code: 'en', name: '🇬🇧 English', label: 'English' },
+    { code: 'vi', name: '🇻🇳 Tiếng Việt', label: 'Tiếng Việt' },
   ];
 
   const currentLang = languages.find(l => l.code === language);
@@ -33,7 +34,7 @@ export default function LanguageSwitcherDropdown() {
 
       {isOpen && (
         <div className="absolute top-full right-0 mt-1 bg-stone-900 border-2 border-amber-300 rounded-xl shadow-lg z-50 min-w-max">
-          {languages.map(lang => (
+          {languages.map((lang, index) => (
             <button
               key={lang.code}
               onClick={() => handleLanguageChange(lang.code)}
@@ -41,7 +42,7 @@ export default function LanguageSwitcherDropdown() {
                 language === lang.code
                   ? 'bg-amber-600 text-white'
                   : 'text-amber-200 hover:bg-stone-800'
-              } ${lang.code === 'de' ? 'rounded-t-lg' : 'rounded-b-lg'}`}
+              } ${index === 0 ? 'rounded-t-lg' : ''} ${index === languages.length - 1 ? 'rounded-b-lg' : ''}`}
             >
               {lang.name}
             </button>

@@ -25,6 +25,16 @@ export default function LanguageSwitcher() {
       >
         🇬🇧 English
       </button>
+      <button
+        onClick={() => switchLanguage('vi')}
+        className={`px-3 py-1 rounded-lg font-bold text-sm transition-all ${
+          language === 'vi'
+            ? 'bg-white text-blue-700'
+            : 'bg-blue-700/50 text-blue-200 hover:bg-blue-700/70'
+        }`}
+      >
+        🇻🇳 Tiếng Việt
+      </button>
     </div>
   );
 }
