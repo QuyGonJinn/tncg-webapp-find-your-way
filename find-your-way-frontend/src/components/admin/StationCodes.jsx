@@ -6,6 +6,7 @@ export default function StationCodes() {
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState('');
   const [saved, setSaved] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const passiveStations = STATIONS.filter(s => s.type === 'passiv');
   const activeStations = STATIONS.filter(s => s.type === 'aktiv');
@@ -33,18 +34,20 @@ export default function StationCodes() {
   const handleEdit = (stationId, currentCode) => {
     setEditingId(stationId);
     setEditValue(currentCode || '');
+    setModalOpen(true);
   };
 
-  const handleSave = async (stationId) => {
+  const handleSave = async () => {
     try {
       const response = await fetch('/api/stations/codes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ stationId, code: editValue.toUpperCase() }),
+        body: JSON.stringify({ stationId: editingId, code: editValue.toUpperCase() }),
       });
       
       if (response.ok) {
-        setCodes(prev => ({ ...prev, [stationId]: editValue.toUpperCase() }));
+        setCodes(prev => ({ ...prev, [editingId]: editValue.toUpperCase() }));
+        setModalOpen(false);
         setEditingId(null);
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
@@ -55,84 +58,122 @@ export default function StationCodes() {
   };
 
   const handleCancel = () => {
+    setModalOpen(false);
     setEditingId(null);
     setEditValue('');
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') handleSave();
+    if (e.key === 'Escape') handleCancel();
+  };
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {saved && (
-        <div className="bg-green-50 border-2 border-green-300 rounded-2xl p-4">
-          <p className="text-green-800 font-bold">✅ Code gespeichert!</p>
+        <div className="bg-green-50 border-2 border-green-400 rounded-2xl p-4 animate-pulse">
+          <p className="text-green-800 font-bold text-center">✅ Code gespeichert!</p>
         </div>
       )}
 
-      <div className="bg-white rounded-2xl shadow p-4">
-        <h2 className="text-blue-700 font-black text-lg mb-3">🌊 Passive Stationen (Code-Eingabe)</h2>
-        <p className="text-slate-500 text-sm mb-4">Diese Codes müssen an den Stationen ausgelegt werden. Teams geben sie in der App ein. Klick auf einen Code um ihn zu bearbeiten.</p>
-        <div className="grid gap-2">
+      {/* Passive Stationen */}
+      <div>
+        <h2 className="text-amber-900 font-black text-xl mb-2">🌊 Passive Stationen</h2>
+        <p className="text-stone-600 text-sm mb-4">Klick auf einen Code um ihn zu bearbeiten</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {passiveStations.map(s => (
-            <div key={s.id} className="flex items-center justify-between bg-blue-50 rounded-xl px-4 py-3">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">{s.emoji}</span>
-                <span className="font-bold text-slate-800">{s.title}</span>
+            <div
+              key={s.id}
+              className="bg-gradient-to-br from-amber-50 to-stone-50 border-2 border-amber-200 rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-4xl">{s.emoji}</span>
+                  <div>
+                    <h3 className="font-black text-amber-900 text-lg">{s.title}</h3>
+                    <p className="text-xs text-amber-700 font-semibold">+20 XP</p>
+                  </div>
+                </div>
               </div>
-              
-              {editingId === s.id ? (
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={editValue}
-                    onChange={(e) => setEditValue(e.target.value.toUpperCase())}
-                    maxLength="6"
-                    className="border-2 border-blue-300 rounded-lg px-3 py-2 font-black text-lg text-center focus:outline-none focus:border-blue-600"
-                    autoFocus
-                  />
-                  <button
-                    onClick={() => handleSave(s.id)}
-                    className="bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-2 rounded-lg transition-all"
-                  >
-                    ✓
-                  </button>
-                  <button
-                    onClick={handleCancel}
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-2 rounded-lg transition-all"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ) : (
-                <div
-                  onClick={() => handleEdit(s.id, codes[s.id] || s.code)}
-                  className="bg-white border-2 border-blue-300 rounded-lg px-4 py-2 cursor-pointer hover:bg-blue-100 transition-all"
-                >
-                  <span className="font-black text-2xl text-blue-700 tracking-widest select-all">{codes[s.id] || s.code}</span>
-                </div>
-              )}
+
+              <div
+                onClick={() => handleEdit(s.id, codes[s.id] || s.code)}
+                className="bg-white border-2 border-amber-300 rounded-xl px-4 py-3 cursor-pointer hover:bg-amber-50 transition-all text-center"
+              >
+                <p className="text-xs text-stone-500 font-semibold mb-1">Code</p>
+                <p className="font-black text-3xl text-amber-700 tracking-widest">{codes[s.id] || s.code}</p>
+                <p className="text-xs text-amber-600 font-semibold mt-2">Klick zum Bearbeiten</p>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow p-4">
-        <h2 className="text-orange-600 font-black text-lg mb-3">⚡ Aktive Stationen (Admin-Bestätigung)</h2>
-        <p className="text-slate-500 text-sm mb-4">Diese Stationen brauchen keinen Code — ihr bestätigt sie manuell im Dashboard.</p>
-        <div className="grid gap-2">
+      {/* Aktive Stationen */}
+      <div>
+        <h2 className="text-orange-700 font-black text-xl mb-2">⚡ Aktive Stationen</h2>
+        <p className="text-stone-600 text-sm mb-4">Diese brauchen keinen Code</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {activeStations.map(s => (
-            <div key={s.id} className="flex items-center gap-2 bg-orange-50 rounded-xl px-4 py-3">
-              <span className="text-2xl">{s.emoji}</span>
-              <span className="font-bold text-slate-800">{s.title}</span>
-              <span className="ml-auto text-orange-600 text-sm font-semibold">Betreuer vor Ort</span>
+            <div
+              key={s.id}
+              className="bg-gradient-to-br from-orange-50 to-stone-50 border-2 border-orange-200 rounded-2xl p-6 shadow-md"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-4xl">{s.emoji}</span>
+                <div>
+                  <h3 className="font-black text-orange-900 text-lg">{s.title}</h3>
+                  <p className="text-xs text-orange-700 font-semibold">+50 XP • Betreuer vor Ort</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
+      {/* Tipp */}
       <div className="bg-yellow-50 border-2 border-yellow-300 rounded-2xl p-4">
         <p className="text-yellow-800 text-sm">
           <span className="font-bold">💡 Tipp:</span> Druckt die Codes aus und legt sie bei den passiven Stationen aus. Teams müssen die Aufgabe lösen um den Code zu finden.
         </p>
       </div>
+
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full border-2 border-amber-300">
+            <h3 className="text-amber-900 font-black text-2xl mb-6">Code bearbeiten</h3>
+            
+            <div className="mb-6">
+              <label className="block text-amber-900 font-bold mb-3">Neuer Code:</label>
+              <input
+                type="text"
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value.toUpperCase())}
+                onKeyPress={handleKeyPress}
+                maxLength="6"
+                className="w-full border-2 border-amber-300 rounded-2xl px-4 py-3 text-3xl font-black text-center text-amber-700 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-200"
+                autoFocus
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleSave}
+                className="flex-1 bg-amber-700 hover:bg-amber-800 text-white font-black py-3 rounded-2xl transition-all active:scale-95"
+              >
+                ✓ Speichern
+              </button>
+              <button
+                onClick={handleCancel}
+                className="flex-1 border-2 border-stone-300 text-stone-600 font-black py-3 rounded-2xl hover:bg-stone-50 transition-all active:scale-95"
+              >
+                ✕ Abbrechen
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
