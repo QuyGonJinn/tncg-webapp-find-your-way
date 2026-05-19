@@ -80,9 +80,9 @@ export default function SetupScreen({ onStart, onLogin, error }) {
               </div>
 
               <div className="bg-amber-100 border-2 border-amber-300 rounded-2xl p-4 mb-6">
-                <p className="text-amber-900 font-bold text-sm">ℹ️ {t('setup.createTeam')}</p>
+                <p className="text-amber-900 font-bold text-sm">ℹ️ {t('setup.registration')}</p>
                 <p className="text-stone-700 text-sm mt-2">
-                  Die Anmeldung wird beim Caféstand abgeschlossen. Dort werden die Namen der Teilnehmer eingetragen.
+                  {t('setup.registrationDescription')}
                 </p>
               </div>
 

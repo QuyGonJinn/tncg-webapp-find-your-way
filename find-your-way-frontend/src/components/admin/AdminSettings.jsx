@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { loadGameSettings, saveGameSettings as saveLocalSettings, DEFAULT_GAME_SETTINGS } from '../../data/gameSettings';
 import { saveGameSettings as saveBackendSettings, fetchGameSettings } from '../../api';
+import { useI18n } from '../../hooks/useI18n';
 
 export default function AdminSettings() {
+  const { t } = useI18n();
   const [settings, setSettings] = useState(DEFAULT_GAME_SETTINGS);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -57,14 +59,14 @@ export default function AdminSettings() {
   if (loading) {
     return (
       <div className="bg-white rounded-2xl shadow p-6">
-        <p className="text-gray-500">Einstellungen werden geladen...</p>
+        <p className="text-gray-500">{t('admin.loadingSettings')}</p>
       </div>
     );
   }
 
   return (
     <div className="bg-white rounded-2xl shadow p-6">
-      <h2 className="text-blue-700 font-black text-lg mb-4">⚙️ Spieleinstellungen</h2>
+      <h2 className="text-blue-700 font-black text-lg mb-4">{t('admin.gameSettings')}</h2>
 
       {error && (
         <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 mb-4">
@@ -76,7 +78,7 @@ export default function AdminSettings() {
         {/* Game Duration */}
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
-            ⏱️ Spieldauer (Minuten)
+            {t('admin.gameDuration')}
           </label>
           <input
             type="number"
@@ -86,13 +88,13 @@ export default function AdminSettings() {
             onChange={(e) => setSettings({ ...settings, gameDuration: parseInt(e.target.value) || 1 })}
             className="w-full border-2 border-blue-200 rounded-xl px-4 py-2 text-lg font-bold focus:outline-none focus:border-blue-500"
           />
-          <p className="text-xs text-gray-500 mt-1">Wie lange dauert das Spiel insgesamt?</p>
+          <p className="text-xs text-gray-500 mt-1">{t('admin.gameDurationHelp')}</p>
         </div>
 
         {/* Reminder Interval */}
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
-            🔔 Reminder-Intervall (Minuten)
+            {t('admin.reminderInterval')}
           </label>
           <input
             type="number"
@@ -102,12 +104,12 @@ export default function AdminSettings() {
             onChange={(e) => setSettings({ ...settings, reminderInterval: parseInt(e.target.value) || 1 })}
             className="w-full border-2 border-blue-200 rounded-xl px-4 py-2 text-lg font-bold focus:outline-none focus:border-blue-500"
           />
-          <p className="text-xs text-gray-500 mt-1">Alle wie viele Minuten sollen Reminders angezeigt werden?</p>
+          <p className="text-xs text-gray-500 mt-1">{t('admin.reminderIntervalHelp')}</p>
         </div>
 
         {/* Preview */}
         <div className="bg-blue-50 rounded-xl p-4 mt-4">
-          <p className="text-sm font-bold text-blue-700 mb-2">📋 Vorschau:</p>
+          <p className="text-sm font-bold text-blue-700 mb-2">{t('admin.preview')}</p>
           <p className="text-xs text-blue-600">
             • Spieldauer: <span className="font-bold">{settings.gameDuration} Minuten</span>
           </p>
@@ -115,10 +117,10 @@ export default function AdminSettings() {
             • Reminders alle: <span className="font-bold">{settings.reminderInterval} Minuten</span>
           </p>
           <p className="text-xs text-blue-600 mt-2">
-            Reminders werden angezeigt bei: {Array.from(
+            {t('admin.remindersAt')} {Array.from(
               { length: Math.floor(settings.gameDuration / settings.reminderInterval) },
               (_, i) => settings.gameDuration - (i + 1) * settings.reminderInterval
-            ).join(', ')} Minuten verbleibend
+            ).join(', ')} {t('admin.minutesRemaining')}
           </p>
         </div>
 
@@ -128,13 +130,13 @@ export default function AdminSettings() {
             onClick={handleSave}
             className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all active:scale-95"
           >
-            {saved ? '✅ Gespeichert!' : '💾 Speichern'}
+            {saved ? t('admin.saved') : t('admin.save')}
           </button>
           <button
             onClick={handleReset}
             className="flex-1 border-2 border-gray-300 text-gray-600 font-bold py-3 rounded-xl hover:bg-gray-50 transition-all active:scale-95"
           >
-            🔄 Zurücksetzen
+            🔄 {t('common.reset')}
           </button>
         </div>
       </div>

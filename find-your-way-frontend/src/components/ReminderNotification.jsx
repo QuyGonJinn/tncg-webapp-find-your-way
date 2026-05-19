@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { loadGameSettings } from '../data/gameSettings';
+import { useI18n } from '../hooks/useI18n';
 
 export default function ReminderNotification({ timeLeft }) {
+  const { t } = useI18n();
   const [reminders, setReminders] = useState([]);
   const [lastReminderTime, setLastReminderTime] = useState(null);
 
@@ -14,7 +16,7 @@ export default function ReminderNotification({ timeLeft }) {
       const minutes = Math.floor(timeLeft / 60);
       const newReminder = {
         id: Date.now(),
-        message: `⏰ Noch ${minutes} Minuten verbleibend!`,
+        message: `⏰ ${t('admin.minutesRemaining', { minutes })}`,
         timeLeft,
       };
       setReminders(prev => [...prev, newReminder]);
@@ -25,7 +27,7 @@ export default function ReminderNotification({ timeLeft }) {
         setReminders(prev => prev.filter(r => r.id !== newReminder.id));
       }, 5000);
     }
-  }, [timeLeft, lastReminderTime]);
+  }, [timeLeft, lastReminderTime, t]);
 
   const dismissReminder = (id) => {
     setReminders(prev => prev.filter(r => r.id !== id));

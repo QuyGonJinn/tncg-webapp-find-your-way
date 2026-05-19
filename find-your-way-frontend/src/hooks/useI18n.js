@@ -15,7 +15,7 @@ export function useI18n() {
     localStorage.setItem(STORAGE_KEY, language);
   }, [language]);
 
-  function t(key, defaultValue = '') {
+  function t(key, params = {}) {
     const keys = key.split('.');
     let value = TRANSLATIONS[language];
     
@@ -23,11 +23,19 @@ export function useI18n() {
       if (value && typeof value === 'object') {
         value = value[k];
       } else {
-        return defaultValue || key;
+        return key;
       }
     }
     
-    return value || defaultValue || key;
+    if (!value) return key;
+    
+    // Replace placeholders like {minutes}, {correct}, etc.
+    let result = value;
+    for (const [paramKey, paramValue] of Object.entries(params)) {
+      result = result.replace(new RegExp(`\\{${paramKey}\\}`, 'g'), paramValue);
+    }
+    
+    return result;
   }
 
   function switchLanguage(lang) {

@@ -38,7 +38,9 @@
     "pinPlaceholder": "Team-Code eingeben",
     "login": "Einloggen",
     "error": "Server nicht erreichbar. Läuft das Backend?",
-    "invalidPin": "Ungültiger Code"
+    "invalidPin": "Ungültiger Code",
+    "registration": "Anmeldung",
+    "registrationDescription": "Die Anmeldung wird beim Caféstand abgeschlossen. Dort werden die Namen der Teilnehmer eingetragen."
   },
   "pinDisplay": {
     "title": "Euer Team-Code",
@@ -185,7 +187,7 @@
     "reminderIntervalHelp": "Alle wie viele Minuten sollen Reminders angezeigt werden?",
     "preview": "📋 Vorschau:",
     "remindersAt": "Reminders werden angezeigt bei:",
-    "minutesRemaining": "Minuten verbleibend",
+    "minutesRemaining": "⏰ Noch {minutes} Minuten verbleibend!",
     "saved": "✅ Gespeichert!",
     "save": "💾 Speichern",
     "loadingSettings": "Einstellungen werden geladen..."
