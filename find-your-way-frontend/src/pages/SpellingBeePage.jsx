@@ -10,7 +10,7 @@ const SPELLING_BEE_WORDS = [
   { id: 5, word: 'FRIEDE', hint: 'Video 5' },
 ];
 
-const CORRECT_CODE = '12345'; // Code der angezeigt wird wenn alle 5 Wörter richtig sind
+const CORRECT_CODE = 'SB95'; // Code der angezeigt wird wenn alle 5 Wörter richtig sind
 
 function VideoCard({ videoId, onVideoLoad }) {
   const [error, setError] = useState(false);

@@ -10,7 +10,7 @@ export const STATIONS = [
   { id: 9,  title: "Glaubenssprung",          description: "Vertraut einander blind – ein Teammitglied springt, die anderen fangen.", type: "aktiv",  points: 50, emoji: "🙏", code: null, instructions: "Ein Teamkollege wird verbunden und springt von einer 1m hohen Plattform. Die anderen müssen ihn fangen. Sicher landen = Bestätigung!" },
   { id: 10, title: "Der Gute Hirte",          description: "Führt euer 'Schaf' (verbundene Augen) sicher durch den Parcours.", type: "aktiv",  points: 50, emoji: "🐑", code: null, instructions: "Ein Teamkollege hat verbundene Augen (das Schaf). Die anderen führen ihn nur mit Stimme durch einen Parcours. Ziel erreicht = Bestätigung!" },
   { id: 11, title: "Wer bin Ich / Standbild", description: "Stellt eine biblische Person als Standbild dar – die anderen raten, wer gemeint ist.", type: "passiv", points: 20, emoji: "🗿", code: "WI54", instructions: "Euer Team stellt eine biblische Person als Standbild dar (keine Worte!). Der Betreuer rät – wenn er es richtig errät, bekommt ihr den Code." },
-  { id: 12, title: "Kennst du mich",          description: "Wie gut kennt ihr euch? Beantwortet Fragen übereinander und sammelt Punkte.", type: "passiv", points: 20, emoji: "❤️", code: "KM91", instructions: "Jedes Teamkollege beantwortet 3 Fragen über die anderen. Mindestens 6 von 9 richtig = Code!" },
+  { id: 12, title: "Spelling Bee",            description: "Gebärden-Rätsel: Schaut Videos an und erratet die 5 Wörter.", type: "passiv", points: 20, emoji: "🐝", code: "SB95", instructions: "Öffnet die Spelling Bee Seite, meldet euch mit eurem PIN an und erratet die 5 Wörter aus den Gebärden-Videos. Wenn alle richtig sind, bekommt ihr den Code!" },
 ];
 
 export const TEAM_ICONS = [
