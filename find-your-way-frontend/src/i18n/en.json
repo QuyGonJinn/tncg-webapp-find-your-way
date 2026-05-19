@@ -205,6 +205,7 @@
     "tip3": "✓ Remember your team code",
     "tip4": "✓ Plan your route to the stations"
   },
+  "final": {
     "title": "🏆 Game Over!",
     "yourRank": "Your Rank:",
     "totalXP": "Total XP:",
