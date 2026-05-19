@@ -1,17 +1,30 @@
-export const STATIONS = [
-  { id: 1,  title: "Holymoji",                description: "Erratet biblische Begriffe und Geschichten – nur mit Emojis dargestellt.", type: "passiv", points: 20, emoji: "😇", code: "HM42", instructions: "Schaut euch die Emoji-Reihen an und erratet, welche biblische Geschichte oder welcher Begriff gemeint ist. Ihr habt 5 Minuten Zeit. Findet mindestens 8 von 10 richtig, um den Code zu erhalten." },
-  { id: 2,  title: "Geoguesser",              description: "Erkennt anhand von Bildern, wo auf der Welt diese biblischen Orte liegen.", type: "passiv", points: 20, emoji: "🌍", code: "GG17", instructions: "Euch werden 6 Bilder von biblischen Orten gezeigt. Ordnet sie den richtigen Ländern/Regionen zu. Mindestens 5 richtig = Code!" },
-  { id: 3,  title: "Fake or Fact",            description: "Wahr oder falsch? Bewertet gemeinsam verrückte Aussagen über die Bibel.", type: "aktiv",  points: 50, emoji: "🤔", code: null, instructions: "Der Betreuer liest euch 10 Aussagen vor. Entscheidet als Team: Wahr oder Falsch? Mindestens 7 richtig = Bestätigung!" },
-  { id: 4,  title: "David und Goliath",       description: "Stellt euch der Herausforderung: Klein gegen Groß – wer hat den Mut?", type: "aktiv",  points: 50, emoji: "🪨", code: null, instructions: "Ein Teamkollege (David) muss 3 Bälle in einen Eimer werfen, der 5 Meter entfernt ist. Mindestens 2 Treffer = Bestätigung!" },
-  { id: 5,  title: "Anchor of Hope",          description: "Findet den versteckten Anker und entschlüsselt die Botschaft der Hoffnung.", type: "passiv", points: 20, emoji: "⚓", code: "AH85", instructions: "Sucht an dieser Station nach einem versteckten Anker. Wenn ihr ihn findet, könnt ihr die Botschaft darunter lesen und den Code erhalten." },
-  { id: 6,  title: "Krüge von Kana",          description: "Füllt gemeinsam die Krüge – eine Aufgabe, die Teamwork und Glauben braucht.", type: "aktiv",  points: 50, emoji: "🏺", code: null, instructions: "Ihr habt 3 Krüge und müsst sie mit Wasser füllen – aber nur mit Teamwork! Der Betreuer erklärt die genaue Aufgabe vor Ort." },
-  { id: 7,  title: "Lochkarte",               description: "Haltet die Lochkarte ins Licht und lest die verborgene Botschaft.", type: "passiv", points: 20, emoji: "🃏", code: "LK63", instructions: "Nehmt die Lochkarte und haltet sie gegen das Licht. Die Löcher zeigen euch Buchstaben – setzt sie zusammen und erhaltet den Code." },
-  { id: 8,  title: "Heilige Buchstabenjagd",  description: "Sucht versteckte Buchstaben und setzt sie zum richtigen Bibelvers zusammen.", type: "passiv", points: 20, emoji: "🔤", code: "BJ29", instructions: "An dieser Station sind Buchstaben versteckt. Findet alle 8 Buchstaben und setzt sie zum richtigen Bibelvers zusammen. Der Code ist das Lösungswort!" },
-  { id: 9,  title: "Glaubenssprung",          description: "Vertraut einander blind – ein Teammitglied springt, die anderen fangen.", type: "aktiv",  points: 50, emoji: "🙏", code: null, instructions: "Ein Teamkollege wird verbunden und springt von einer 1m hohen Plattform. Die anderen müssen ihn fangen. Sicher landen = Bestätigung!" },
-  { id: 10, title: "Der Gute Hirte",          description: "Führt euer 'Schaf' (verbundene Augen) sicher durch den Parcours.", type: "aktiv",  points: 50, emoji: "🐑", code: null, instructions: "Ein Teamkollege hat verbundene Augen (das Schaf). Die anderen führen ihn nur mit Stimme durch einen Parcours. Ziel erreicht = Bestätigung!" },
-  { id: 11, title: "Wer bin Ich / Standbild", description: "Stellt eine biblische Person als Standbild dar – die anderen raten, wer gemeint ist.", type: "passiv", points: 20, emoji: "🗿", code: "WI54", instructions: "Euer Team stellt eine biblische Person als Standbild dar (keine Worte!). Der Betreuer rät – wenn er es richtig errät, bekommt ihr den Code." },
-  { id: 12, title: "Spelling Bee",            description: "Gebärden-Rätsel: Schaut Videos an und erratet die 5 Wörter.", type: "passiv", points: 20, emoji: "🐝", code: "SB95", instructions: "Öffnet die Spelling Bee Seite, meldet euch mit eurem PIN an und erratet die 5 Wörter aus den Gebärden-Videos. Wenn alle richtig sind, bekommt ihr den Code!" },
+// Stations data - uses i18n for translations
+// Import this and use with useI18n hook to get translated content
+
+export const STATIONS_DATA = [
+  { id: 1,  titleKey: "stations.holymoji.title",                descriptionKey: "stations.holymoji.description", type: "passiv", points: 20, emoji: "😇", code: "HM42", instructionsKey: "stations.holymoji.instructions" },
+  { id: 2,  titleKey: "stations.geoguesser.title",              descriptionKey: "stations.geoguesser.description", type: "passiv", points: 20, emoji: "🌍", code: "GG17", instructionsKey: "stations.geoguesser.instructions" },
+  { id: 3,  titleKey: "stations.fakeOrFact.title",              descriptionKey: "stations.fakeOrFact.description", type: "aktiv",  points: 50, emoji: "🤔", code: null, instructionsKey: "stations.fakeOrFact.instructions" },
+  { id: 4,  titleKey: "stations.davidAndGoliath.title",         descriptionKey: "stations.davidAndGoliath.description", type: "aktiv",  points: 50, emoji: "🪨", code: null, instructionsKey: "stations.davidAndGoliath.instructions" },
+  { id: 5,  titleKey: "stations.anchorOfHope.title",            descriptionKey: "stations.anchorOfHope.description", type: "passiv", points: 20, emoji: "⚓", code: "AH85", instructionsKey: "stations.anchorOfHope.instructions" },
+  { id: 6,  titleKey: "stations.krugeOfKana.title",             descriptionKey: "stations.krugeOfKana.description", type: "aktiv",  points: 50, emoji: "🏺", code: null, instructionsKey: "stations.krugeOfKana.instructions" },
+  { id: 7,  titleKey: "stations.lochkarte.title",               descriptionKey: "stations.lochkarte.description", type: "passiv", points: 20, emoji: "🃏", code: "LK63", instructionsKey: "stations.lochkarte.instructions" },
+  { id: 8,  titleKey: "stations.heiligeBuchstabenjagd.title",   descriptionKey: "stations.heiligeBuchstabenjagd.description", type: "passiv", points: 20, emoji: "🔤", code: "BJ29", instructionsKey: "stations.heiligeBuchstabenjagd.instructions" },
+  { id: 9,  titleKey: "stations.glaubenssprung.title",          descriptionKey: "stations.glaubenssprung.description", type: "aktiv",  points: 50, emoji: "🙏", code: null, instructionsKey: "stations.glaubenssprung.instructions" },
+  { id: 10, titleKey: "stations.guterHirte.title",              descriptionKey: "stations.guterHirte.description", type: "aktiv",  points: 50, emoji: "🐑", code: null, instructionsKey: "stations.guterHirte.instructions" },
+  { id: 11, titleKey: "stations.werBinIch.title",               descriptionKey: "stations.werBinIch.description", type: "passiv", points: 20, emoji: "🗿", code: "WI54", instructionsKey: "stations.werBinIch.instructions" },
+  { id: 12, titleKey: "stations.spellingBee.title",             descriptionKey: "stations.spellingBee.description", type: "passiv", points: 20, emoji: "🐝", code: "12345", instructionsKey: "stations.spellingBee.instructions" },
 ];
+
+// Helper function to get translated stations
+export function getStations(t) {
+  return STATIONS_DATA.map(station => ({
+    ...station,
+    title: t(station.titleKey),
+    description: t(station.descriptionKey),
+    instructions: t(station.instructionsKey),
+  }));
+}
 
 export const TEAM_ICONS = [
   "✝️", "🙏", "🕊️", "⚓", "🔥", "🌊",
@@ -20,3 +33,26 @@ export const TEAM_ICONS = [
 ];
 
 export const GAME_DURATION = 2 * 60 * 60; // 2 hours in seconds
+
+// For backwards compatibility, export STATIONS with default German translations
+import de from '../i18n/de.json';
+
+function getDefaultT(key) {
+  const keys = key.split('.');
+  let value = de;
+  for (const k of keys) {
+    if (value && typeof value === 'object') {
+      value = value[k];
+    } else {
+      return key;
+    }
+  }
+  return value || key;
+}
+
+export const STATIONS = STATIONS_DATA.map(station => ({
+  ...station,
+  title: getDefaultT(station.titleKey),
+  description: getDefaultT(station.descriptionKey),
+  instructions: getDefaultT(station.instructionsKey),
+}));

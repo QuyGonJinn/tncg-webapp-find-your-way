@@ -1,0 +1,185 @@
+{
+  "common": {
+    "logout": "Logout",
+    "login": "Anmelden",
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolgreich",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "reset": "Zurücksetzen",
+    "close": "Schliessen"
+  },
+  "welcome": {
+    "title": "Find Your Way",
+    "subtitle": "Die ultimative Glaubensjagd",
+    "description": "Ihr seid dabei bei einer spannenden Schnitzeljagd mit Glaubensthema. Arbeitet als Team zusammen, löst Aufgaben und sammelt Punkte!",
+    "howItWorks": "📋 So funktioniert's:",
+    "step1": "Team erstellen: Gebt einen Namen ein und wählt ein Icon",
+    "step2": "Stationen erledigen: Löst Aufgaben und sammelt Punkte",
+    "step3": "Rangliste: Konkurriert mit anderen Teams",
+    "step4": "Finale: Nach 2 Stunden seht ihr euren Rang",
+    "important": "⚡ Wichtig:",
+    "passiveStations": "Passive Stationen: Code eingeben → +20 XP",
+    "activeStations": "Aktive Stationen: Mit Betreuer → +50 XP",
+    "rememberCode": "Team-Code merken: Zum Einloggen auf anderen Geräten",
+    "useChat": "Chat nutzen: Bei Fragen den Admin fragen",
+    "button": "Jetzt anmelden! 🚀",
+    "footer": "Viel Spaß beim Spielen! Bei Fragen könnt ihr den Admin im Chat fragen."
+  },
+  "setup": {
+    "title": "Team erstellen",
+    "teamName": "Team-Name",
+    "teamNamePlaceholder": "Gebt eurem Team einen Namen",
+    "selectIcon": "Icon wählen",
+    "createTeam": "Team erstellen",
+    "loginWithPin": "Mit PIN anmelden",
+    "pin": "PIN",
+    "pinPlaceholder": "Team-PIN eingeben",
+    "login": "Anmelden",
+    "error": "Server nicht erreichbar. Läuft das Backend?",
+    "invalidPin": "Ungültiger Code"
+  },
+  "game": {
+    "stations": "🗺️ Stationen",
+    "chat": "💬 Chat",
+    "xp": "XP",
+    "progress": "Stationen",
+    "active": "aktive",
+    "resetGame": "Spiel zurücksetzen",
+    "hint": "💡 Tipp"
+  },
+  "hints": {
+    "start": "Ihr seid am Start – los geht's! Sucht zuerst die einfachsten Stationen.",
+    "progress1": "Gut gemacht! Tipp: Aktive Stationen bringen mehr Punkte – traut euch!",
+    "progress2": "Halbzeit! Schaut, welche Stationen noch offen sind und plant eure Route.",
+    "progress3": "Fast geschafft! Nur noch wenige Stationen – gebt alles!",
+    "progress4": "Unglaublich! Noch eine Station – ihr seid echte Champions!"
+  },
+  "stations": {
+    "holymoji": {
+      "title": "Holymoji",
+      "description": "Erratet biblische Begriffe und Geschichten – nur mit Emojis dargestellt.",
+      "instructions": "Schaut euch die Emoji-Reihen an und erratet, welche biblische Geschichte oder welcher Begriff gemeint ist. Ihr habt 5 Minuten Zeit. Findet mindestens 8 von 10 richtig, um den Code zu erhalten."
+    },
+    "geoguesser": {
+      "title": "Geoguesser",
+      "description": "Erkennt anhand von Bildern, wo auf der Welt diese biblischen Orte liegen.",
+      "instructions": "Euch werden 6 Bilder von biblischen Orten gezeigt. Ordnet sie den richtigen Ländern/Regionen zu. Mindestens 5 richtig = Code!"
+    },
+    "fakeOrFact": {
+      "title": "Fake or Fact",
+      "description": "Wahr oder falsch? Bewertet gemeinsam verrückte Aussagen über die Bibel.",
+      "instructions": "Der Betreuer liest euch 10 Aussagen vor. Entscheidet als Team: Wahr oder Falsch? Mindestens 7 richtig = Bestätigung!"
+    },
+    "davidAndGoliath": {
+      "title": "David und Goliath",
+      "description": "Stellt euch der Herausforderung: Klein gegen Groß – wer hat den Mut?",
+      "instructions": "Ein Teamkollege (David) muss 3 Bälle in einen Eimer werfen, der 5 Meter entfernt ist. Mindestens 2 Treffer = Bestätigung!"
+    },
+    "anchorOfHope": {
+      "title": "Anchor of Hope",
+      "description": "Findet den versteckten Anker und entschlüsselt die Botschaft der Hoffnung.",
+      "instructions": "Sucht an dieser Station nach einem versteckten Anker. Wenn ihr ihn findet, könnt ihr die Botschaft darunter lesen und den Code erhalten."
+    },
+    "krugeOfKana": {
+      "title": "Krüge von Kana",
+      "description": "Füllt gemeinsam die Krüge – eine Aufgabe, die Teamwork und Glauben braucht.",
+      "instructions": "Ihr habt 3 Krüge und müsst sie mit Wasser füllen – aber nur mit Teamwork! Der Betreuer erklärt die genaue Aufgabe vor Ort."
+    },
+    "lochkarte": {
+      "title": "Lochkarte",
+      "description": "Haltet die Lochkarte ins Licht und lest die verborgene Botschaft.",
+      "instructions": "Nehmt die Lochkarte und haltet sie gegen das Licht. Die Löcher zeigen euch Buchstaben – setzt sie zusammen und erhaltet den Code."
+    },
+    "heiligeBuchstabenjagd": {
+      "title": "Heilige Buchstabenjagd",
+      "description": "Sucht versteckte Buchstaben und setzt sie zum richtigen Bibelvers zusammen.",
+      "instructions": "An dieser Station sind Buchstaben versteckt. Findet alle 8 Buchstaben und setzt sie zum richtigen Bibelvers zusammen. Der Code ist das Lösungswort!"
+    },
+    "glaubenssprung": {
+      "title": "Glaubenssprung",
+      "description": "Vertraut einander blind – ein Teammitglied springt, die anderen fangen.",
+      "instructions": "Ein Teamkollege wird verbunden und springt von einer 1m hohen Plattform. Die anderen müssen ihn fangen. Sicher landen = Bestätigung!"
+    },
+    "guterHirte": {
+      "title": "Der Gute Hirte",
+      "description": "Führt euer 'Schaf' (verbundene Augen) sicher durch den Parcours.",
+      "instructions": "Ein Teamkollege hat verbundene Augen (das Schaf). Die anderen führen ihn nur mit Stimme durch einen Parcours. Ziel erreicht = Bestätigung!"
+    },
+    "werBinIch": {
+      "title": "Wer bin Ich / Standbild",
+      "description": "Stellt eine biblische Person als Standbild dar – die anderen raten, wer gemeint ist.",
+      "instructions": "Euer Team stellt eine biblische Person als Standbild dar (keine Worte!). Der Betreuer rät – wenn er es richtig errät, bekommt ihr den Code."
+    },
+    "spellingBee": {
+      "title": "Spelling Bee",
+      "description": "Gebärden-Rätsel: Schaut Videos an und erratet die 5 Wörter.",
+      "instructions": "Öffnet die Spelling Bee Seite, meldet euch mit eurem PIN an und erratet die 5 Wörter aus den Gebärden-Videos. Wenn alle richtig sind, bekommt ihr den Code!"
+    }
+  },
+  "spellingBee": {
+    "title": "Spelling Bee",
+    "subtitle": "Gebärden-Rätsel · 5 Videos",
+    "instructions": "📋 Anleitung:",
+    "step1": "Schau dir die 5 Videos an",
+    "step2": "Erkenne die Gebärden mit Hilfe des ausgedruckten Alphabets",
+    "step3": "Trage die 5 Wörter ein",
+    "step4": "Wenn alle richtig sind, erscheint der Code",
+    "enterWords": "🎯 Wörter eingeben",
+    "wordPlaceholder": "Wort eingeben...",
+    "allCorrect": "🎉 Alle Wörter richtig!",
+    "hereIsCode": "Hier ist dein Code:",
+    "enterInApp": "Trage diesen Code in die App ein!",
+    "progress": "✓ {correct} / 5 Wörter richtig",
+    "loginTitle": "Spelling Bee",
+    "loginSubtitle": "Gebärden-Rätsel",
+    "loginDescription": "Melde dich mit deinem Team-PIN an um die Spelling Bee zu spielen.",
+    "loginButton": "🚀 Anmelden",
+    "loginLoading": "⏳ Wird angemeldet...",
+    "loginError": "Login fehlgeschlagen",
+    "pinReminder": "Dein Team-PIN wurde dir bei der Anmeldung gegeben.",
+    "teamInfo": "{icon} {name}"
+  },
+  "admin": {
+    "title": "Admin – Find Your Way",
+    "teams": "Teams registriert",
+    "overview": "📊 Übersicht",
+    "codes": "📋 Codes",
+    "chat": "💬 Chat",
+    "settings": "⚙️ Settings",
+    "ranking": "🏆 Rangliste",
+    "teamsList": "Teams",
+    "noTeams": "Noch keine Teams registriert.",
+    "timer": "⏱ Timer",
+    "start": "▶ Start",
+    "pause": "⏸ Pause",
+    "reset": "🔄 Reset",
+    "status": "Status:",
+    "running": "🟢 Läuft",
+    "stopped": "🔴 Gestoppt",
+    "waitingRoom": "Wartezimmer",
+    "enable": "Aktivieren",
+    "disable": "Deaktivieren",
+    "teamCount": "Teams im Wartezimmer:",
+    "activityLog": "Aktivitätslog",
+    "gameSettings": "⚙️ Spieleinstellungen",
+    "gameDuration": "⏱️ Spieldauer (Minuten)",
+    "gameDurationHelp": "Wie lange dauert das Spiel insgesamt?",
+    "reminderInterval": "🔔 Reminder-Intervall (Minuten)",
+    "reminderIntervalHelp": "Alle wie viele Minuten sollen Reminders angezeigt werden?",
+    "preview": "📋 Vorschau:",
+    "remindersAt": "Reminders werden angezeigt bei:",
+    "minutesRemaining": "Minuten verbleibend",
+    "saved": "✅ Gespeichert!",
+    "save": "💾 Speichern",
+    "loadingSettings": "Einstellungen werden geladen..."
+  },
+  "final": {
+    "title": "🏆 Spiel vorbei!",
+    "yourRank": "Euer Rang:",
+    "totalXP": "Gesamt XP:",
+    "completed": "Stationen erledigt:",
+    "playAgain": "Nochmal spielen"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "common": {
+    "logout": "Logout",
+    "login": "Login",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "reset": "Reset",
+    "close": "Close"
+  },
+  "welcome": {
+    "title": "Find Your Way",
+    "subtitle": "The Ultimate Faith Quest",
+    "description": "Join an exciting treasure hunt with a faith theme. Work together as a team, solve tasks and collect points!",
+    "howItWorks": "📋 How it works:",
+    "step1": "Create a team: Enter a name and choose an icon",
+    "step2": "Complete stations: Solve tasks and collect points",
+    "step3": "Leaderboard: Compete with other teams",
+    "step4": "Final: After 2 hours you'll see your rank",
+    "important": "⚡ Important:",
+    "passiveStations": "Passive stations: Enter code → +20 XP",
+    "activeStations": "Active stations: With supervisor → +50 XP",
+    "rememberCode": "Remember team code: To login on other devices",
+    "useChat": "Use chat: Ask the admin if you have questions",
+    "button": "Start now! 🚀",
+    "footer": "Have fun playing! If you have questions, ask the admin in the chat."
+  },
+  "setup": {
+    "title": "Create Team",
+    "teamName": "Team Name",
+    "teamNamePlaceholder": "Give your team a name",
+    "selectIcon": "Choose Icon",
+    "createTeam": "Create Team",
+    "loginWithPin": "Login with PIN",
+    "pin": "PIN",
+    "pinPlaceholder": "Enter team PIN",
+    "login": "Login",
+    "error": "Server not reachable. Is the backend running?",
+    "invalidPin": "Invalid code"
+  },
+  "game": {
+    "stations": "🗺️ Stations",
+    "chat": "💬 Chat",
+    "xp": "XP",
+    "progress": "Stations",
+    "active": "active",
+    "resetGame": "Reset Game",
+    "hint": "💡 Hint"
+  },
+  "hints": {
+    "start": "You're at the start – let's go! Look for the easiest stations first.",
+    "progress1": "Well done! Tip: Active stations give more points – dare to try!",
+    "progress2": "Halfway there! Check which stations are still open and plan your route.",
+    "progress3": "Almost done! Just a few stations left – give it your all!",
+    "progress4": "Incredible! One more station – you're true champions!"
+  },
+  "stations": {
+    "holymoji": {
+      "title": "Holymoji",
+      "description": "Guess biblical terms and stories – only shown with emojis.",
+      "instructions": "Look at the emoji sequences and guess which biblical story or term is meant. You have 5 minutes. Find at least 8 out of 10 correctly to get the code."
+    },
+    "geoguesser": {
+      "title": "Geoguesser",
+      "description": "Recognize where in the world these biblical places are located based on images.",
+      "instructions": "You will be shown 6 images of biblical places. Assign them to the correct countries/regions. At least 5 correct = Code!"
+    },
+    "fakeOrFact": {
+      "title": "Fake or Fact",
+      "description": "True or false? Evaluate crazy statements about the Bible together.",
+      "instructions": "The supervisor reads you 10 statements. Decide as a team: True or False? At least 7 correct = Confirmation!"
+    },
+    "davidAndGoliath": {
+      "title": "David and Goliath",
+      "description": "Face the challenge: Small vs. Big – who has the courage?",
+      "instructions": "One team member (David) must throw 3 balls into a bucket 5 meters away. At least 2 hits = Confirmation!"
+    },
+    "anchorOfHope": {
+      "title": "Anchor of Hope",
+      "description": "Find the hidden anchor and decipher the message of hope.",
+      "instructions": "Search at this station for a hidden anchor. When you find it, you can read the message underneath and get the code."
+    },
+    "krugeOfKana": {
+      "title": "Jugs of Cana",
+      "description": "Fill the jugs together – a task that requires teamwork and faith.",
+      "instructions": "You have 3 jugs and must fill them with water – but only with teamwork! The supervisor will explain the exact task on site."
+    },
+    "lochkarte": {
+      "title": "Punch Card",
+      "description": "Hold the punch card up to the light and read the hidden message.",
+      "instructions": "Take the punch card and hold it up to the light. The holes show you letters – put them together and get the code."
+    },
+    "heiligeBuchstabenjagd": {
+      "title": "Holy Letter Hunt",
+      "description": "Search for hidden letters and put them together to form the correct Bible verse.",
+      "instructions": "At this station there are hidden letters. Find all 8 letters and put them together to form the correct Bible verse. The code is the solution word!"
+    },
+    "glaubenssprung": {
+      "title": "Leap of Faith",
+      "description": "Trust each other blindly – one team member jumps, the others catch.",
+      "instructions": "One team member is blindfolded and jumps from a 1m high platform. The others must catch him. Safe landing = Confirmation!"
+    },
+    "guterHirte": {
+      "title": "The Good Shepherd",
+      "description": "Guide your 'sheep' (blindfolded) safely through the course.",
+      "instructions": "One team member is blindfolded (the sheep). The others guide him only by voice through a course. Reach the goal = Confirmation!"
+    },
+    "werBinIch": {
+      "title": "Who Am I / Tableau",
+      "description": "Represent a biblical person as a tableau – others guess who it is.",
+      "instructions": "Your team represents a biblical person as a tableau (no words!). The supervisor guesses – if he guesses correctly, you get the code."
+    },
+    "spellingBee": {
+      "title": "Spelling Bee",
+      "description": "Sign language puzzle: Watch videos and guess the 5 words.",
+      "instructions": "Open the Spelling Bee page, login with your PIN and guess the 5 words from the sign language videos. When all are correct, you get the code!"
+    }
+  },
+  "spellingBee": {
+    "title": "Spelling Bee",
+    "subtitle": "Sign Language Puzzle · 5 Videos",
+    "instructions": "📋 Instructions:",
+    "step1": "Watch the 5 videos",
+    "step2": "Recognize the signs using the printed alphabet",
+    "step3": "Enter the 5 words",
+    "step4": "When all are correct, the code appears",
+    "enterWords": "🎯 Enter Words",
+    "wordPlaceholder": "Enter word...",
+    "allCorrect": "🎉 All words correct!",
+    "hereIsCode": "Here is your code:",
+    "enterInApp": "Enter this code in the app!",
+    "progress": "✓ {correct} / 5 words correct",
+    "loginTitle": "Spelling Bee",
+    "loginSubtitle": "Sign Language Puzzle",
+    "loginDescription": "Login with your team PIN to play Spelling Bee.",
+    "loginButton": "🚀 Login",
+    "loginLoading": "⏳ Logging in...",
+    "loginError": "Login failed",
+    "pinReminder": "Your team PIN was given to you during registration.",
+    "teamInfo": "{icon} {name}"
+  },
+  "admin": {
+    "title": "Admin – Find Your Way",
+    "teams": "Teams registered",
+    "overview": "📊 Overview",
+    "codes": "📋 Codes",
+    "chat": "💬 Chat",
+    "settings": "⚙️ Settings",
+    "ranking": "🏆 Leaderboard",
+    "teamsList": "Teams",
+    "noTeams": "No teams registered yet.",
+    "timer": "⏱ Timer",
+    "start": "▶ Start",
+    "pause": "⏸ Pause",
+    "reset": "🔄 Reset",
+    "status": "Status:",
+    "running": "🟢 Running",
+    "stopped": "🔴 Stopped",
+    "waitingRoom": "Waiting Room",
+    "enable": "Enable",
+    "disable": "Disable",
+    "teamCount": "Teams in waiting room:",
+    "activityLog": "Activity Log",
+    "gameSettings": "⚙️ Game Settings",
+    "gameDuration": "⏱️ Game Duration (Minutes)",
+    "gameDurationHelp": "How long should the game last in total?",
+    "reminderInterval": "🔔 Reminder Interval (Minutes)",
+    "reminderIntervalHelp": "How often should reminders be displayed?",
+    "preview": "📋 Preview:",
+    "remindersAt": "Reminders will be displayed at:",
+    "minutesRemaining": "minutes remaining",
+    "saved": "✅ Saved!",
+    "save": "💾 Save",
+    "loadingSettings": "Loading settings..."
+  },
+  "final": {
+    "title": "🏆 Game Over!",
+    "yourRank": "Your Rank:",
+    "totalXP": "Total XP:",
+    "completed": "Stations completed:",
+    "playAgain": "Play Again"
+  }
+}

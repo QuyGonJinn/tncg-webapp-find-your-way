@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import { STATIONS } from '../data/stations';
+import { getStations } from '../data/stations';
+import { useI18n } from '../hooks/useI18n';
 
 export default function StationCard({ station, done, pending, onComplete }) {
+  const { t } = useI18n();
+  const stations = getStations(t);
   const [showCode, setShowCode] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [code, setCode] = useState('');
@@ -9,7 +12,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
   const [loading, setLoading] = useState(false);
   const isActive = station.type === 'aktiv';
 
-  const nextStation = STATIONS.find(s => s.id === station.id + 1);
+  const nextStation = stations.find(s => s.id === station.id + 1);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,7 +23,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
       setShowCode(false);
       setCode('');
     } catch (err) {
-      setError(err.message || 'Fehler');
+      setError(err.message || t('common.error'));
     } finally {
       setLoading(false);
     }
@@ -44,7 +47,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
               <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                 isActive ? 'bg-orange-100 text-orange-700' : 'bg-amber-100 text-amber-700'
               }`}>
-                {isActive ? '⚡ Aktiv' : '🗺️ Passiv'}
+                {isActive ? '⚡ ' + t('game.active') : '🗺️ Passiv'}
               </span>
             </div>
             <p className="text-stone-500 text-sm mt-1 leading-snug">{station.description}</p>
@@ -90,7 +93,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
                     onClick={() => { setShowCode(false); setCode(''); setError(''); }}
                     className="flex-1 border-2 border-stone-200 text-stone-500 font-bold py-2 rounded-xl text-sm"
                   >
-                    Abbrechen
+                    {t('common.cancel')}
                   </button>
                   <button
                     type="submit"
@@ -127,7 +130,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
               <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${
                 isActive ? 'bg-orange-100 text-orange-700' : 'bg-amber-100 text-amber-800'
               }`}>
-                {isActive ? '⚡ Aktiv' : '🗺️ Passiv'}
+                {isActive ? '⚡ ' + t('game.active') : '🗺️ Passiv'}
               </span>
             </div>
 

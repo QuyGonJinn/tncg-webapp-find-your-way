@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { STATIONS } from '../data/stations';
+import { getStations } from '../data/stations';
+import { useI18n } from '../hooks/useI18n';
 import StationCard from './StationCard';
 import Timer from './Timer';
 import HintBox from './HintBox';
@@ -7,13 +8,15 @@ import ChatBox from './ChatBox';
 import ReminderNotification from './ReminderNotification';
 
 export default function GameScreen({ team, completed, pending, timeLeft, xpPopups, onComplete, onReset, totalXP }) {
+  const { t } = useI18n();
+  const stations = getStations(t);
   const [tab, setTab] = useState(() => {
     return localStorage.getItem('fyw_active_tab') || 'stations';
   });
 
   const completedCount = Object.keys(completed).length;
-  const activeCompleted = STATIONS.filter(s => s.type === 'aktiv' && completed[s.id]).length;
-  const progress = Math.round((completedCount / STATIONS.length) * 100);
+  const activeCompleted = stations.filter(s => s.type === 'aktiv' && completed[s.id]).length;
+  const progress = Math.round((completedCount / stations.length) * 100);
 
   const handleTabChange = (newTab) => {
     setTab(newTab);
@@ -46,8 +49,8 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
           />
         </div>
         <div className="flex justify-between text-xs text-amber-300 mt-1">
-          <span>{completedCount}/12 Stationen</span>
-          <span>⚡ {activeCompleted} aktive</span>
+          <span>{completedCount}/{stations.length} {t('game.progress')}</span>
+          <span>⚡ {activeCompleted} {t('game.active')}</span>
           <span>{progress}%</span>
         </div>
 
@@ -59,7 +62,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
               tab === 'stations' ? 'bg-amber-100 text-amber-900' : 'bg-stone-800/50 text-amber-300'
             }`}
           >
-            🗺️ Stationen
+            {t('game.stations')}
           </button>
           <button
             onClick={() => handleTabChange('chat')}
@@ -67,7 +70,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
               tab === 'chat' ? 'bg-amber-100 text-amber-900' : 'bg-stone-800/50 text-amber-300'
             }`}
           >
-            💬 Chat
+            {t('game.chat')}
           </button>
         </div>
       </div>
@@ -86,7 +89,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
         <div className="flex-1 pb-8">
           <HintBox completedCount={completedCount} />
           <div className="px-4 flex flex-col gap-3 mt-4">
-            {STATIONS.map(station => (
+            {stations.map(station => (
               <StationCard
                 key={station.id}
                 station={station}
@@ -101,7 +104,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
               onClick={onReset}
               className="w-full border-2 border-amber-300 text-amber-700 font-bold py-3 rounded-2xl text-sm active:scale-95 transition-transform"
             >
-              Spiel zurücksetzen
+              {t('game.resetGame')}
             </button>
           </div>
         </div>
