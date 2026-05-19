@@ -107,7 +107,7 @@
     },
     "versteckteBotschaft": {
       "title": "The Hidden Message",
-      "description": "In the Bible verse is a hidden message. Find the sentence using the punch card.",
+      "description": "In the Bible verse is a hidden message. Find the sentence using the punch card. The first letters of each word form the code.",
       "instructions": "In the Bible verse is a hidden message. Find the sentence using the punch card. The first letters of each word form the code."
     },
     "heiligeBuchstabenjagd": {

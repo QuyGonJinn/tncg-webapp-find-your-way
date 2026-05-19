@@ -107,8 +107,8 @@
     },
     "versteckteBotschaft": {
       "title": "Die versteckte Botschaft",
-      "description": "In der Bibelstelle ist eine verborgene Botschaft. Finde mithilfe der Lochkarte den Satz heraus.",
-      "instructions": "In der Bibelstelle ist eine verborgene Botschaft. Finde mithilfe der Lochkarte den Satz heraus. Die Anfangsbuchstaben ergeben den Code."
+      "description": "In der Bibelstelle ist eine verborgene Botschaft. Finde mithilfe der Lochkarte den Satz heraus. Die Anfangsbuchstaben ergeben das (den?) Code",
+      "instructions": "In der Bibelstelle ist eine verborgene Botschaft. Finde mithilfe der Lochkarte den Satz heraus. Die Anfangsbuchstaben ergeben das (den?) Code"
     },
     "heiligeBuchstabenjagd": {
       "title": "Heilige Buchstabenjagd",
