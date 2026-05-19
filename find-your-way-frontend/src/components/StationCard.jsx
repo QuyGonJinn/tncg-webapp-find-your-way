@@ -21,6 +21,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
     try {
       await onComplete(station, isActive ? null : code.toUpperCase());
       setShowCode(false);
+      setShowInfo(false);
       setCode('');
     } catch (err) {
       setError(err.message || t('common.error'));
@@ -31,16 +32,18 @@ export default function StationCard({ station, done, pending, onComplete }) {
 
   return (
     <>
-      <div className={`relative rounded-2xl p-4 shadow-md transition-all cursor-pointer hover:shadow-lg ${
+      <div className={`relative rounded-2xl p-4 shadow-md transition-all ${
         done    ? 'bg-amber-100 border-2 border-amber-400 opacity-90' :
         pending ? 'bg-yellow-50 border-2 border-yellow-400' :
                   'bg-white border-2 border-amber-200'
-      }`}
-      onClick={() => !done && !pending && setShowInfo(true)}>
+      }`}>
         <div className="flex items-start gap-3">
           <span className="text-3xl">{station.emoji}</span>
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
+            <div 
+              className="flex items-center gap-2 flex-wrap cursor-pointer hover:opacity-70 transition-opacity"
+              onClick={() => !done && !pending && setShowInfo(true)}
+            >
               <h3 className={`font-bold text-base leading-tight ${done ? 'text-amber-800' : pending ? 'text-yellow-700' : 'text-stone-800'}`}>
                 {station.title}
               </h3>
@@ -50,7 +53,12 @@ export default function StationCard({ station, done, pending, onComplete }) {
                 {isActive ? '⚡ ' + t('game.active') : '🗺️ Passiv'}
               </span>
             </div>
-            <p className="text-stone-500 text-sm mt-1 leading-snug">{station.description}</p>
+            <p 
+              className="text-stone-500 text-sm mt-1 leading-snug cursor-pointer hover:opacity-70 transition-opacity"
+              onClick={() => !done && !pending && setShowInfo(true)}
+            >
+              {station.description}
+            </p>
 
             <div className="flex items-center justify-between mt-3">
               <span className={`font-black text-lg ${isActive ? 'text-orange-600' : 'text-amber-700'}`}>

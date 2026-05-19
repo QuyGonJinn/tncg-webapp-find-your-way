@@ -107,8 +107,8 @@
     },
     "versteckteBotschaft": {
       "title": "The Hidden Message",
-      "description": "Hold the punch card up to the light and read the hidden message.",
-      "instructions": "Take the punch card and hold it up to the light. The holes show you letters – put them together and get the code."
+      "description": "In the Bible verse is a hidden message. Find the sentence using the punch card.",
+      "instructions": "In the Bible verse is a hidden message. Find the sentence using the punch card. The first letters of each word form the code."
     },
     "heiligeBuchstabenjagd": {
       "title": "Holy Letter Hunt",
