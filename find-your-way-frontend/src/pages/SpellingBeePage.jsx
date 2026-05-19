@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { loginWithPin, fetchTeam } from '../api';
 
 // 5 Gebärden-Videos mit den korrekten Wörtern
 const SPELLING_BEE_WORDS = [
@@ -73,7 +74,76 @@ function WordInput({ wordData, value, onChange, feedback }) {
   );
 }
 
-export default function SpellingBeePage() {
+function LoginScreen({ onLogin, error }) {
+  const [pin, setPin] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState(error);
+
+  async function handleLogin() {
+    if (!pin) return;
+    setLoading(true);
+    try {
+      const team = await loginWithPin(pin);
+      onLogin(team);
+    } catch (e) {
+      setLoginError(e.message || 'Login fehlgeschlagen');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-amber-800 via-stone-800 to-stone-900 flex flex-col items-center justify-center p-6">
+      {/* Logo & Title */}
+      <div className="text-center mb-8">
+        <div className="text-6xl mb-3 animate-bounce">🐝</div>
+        <h1 className="text-4xl font-black text-amber-100 tracking-tight">Spelling Bee</h1>
+        <p className="text-amber-300 mt-2 text-lg">Gebärden-Rätsel</p>
+      </div>
+
+      {/* Login Card */}
+      <div className="bg-amber-50 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border-2 border-amber-300 p-8">
+        <div className="text-center mb-6">
+          <p className="text-stone-700 text-sm leading-relaxed">
+            Melde dich mit deinem Team-PIN an um die Spelling Bee zu spielen.
+          </p>
+        </div>
+
+        {loginError && (
+          <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 mb-4">
+            <p className="text-red-700 text-sm font-bold">⚠️ {loginError}</p>
+          </div>
+        )}
+
+        <div className="space-y-4">
+          <input
+            type="text"
+            value={pin}
+            onChange={(e) => setPin(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+            placeholder="Team-PIN eingeben"
+            className="w-full border-2 border-amber-200 rounded-xl px-4 py-3 text-lg font-bold focus:outline-none focus:border-amber-500"
+            disabled={loading}
+          />
+
+          <button
+            onClick={handleLogin}
+            disabled={loading || !pin}
+            className="w-full bg-amber-700 hover:bg-amber-800 disabled:bg-gray-400 text-white font-black text-lg py-4 rounded-2xl shadow-lg active:scale-95 transition-all"
+          >
+            {loading ? '⏳ Wird angemeldet...' : '🚀 Anmelden'}
+          </button>
+        </div>
+
+        <p className="text-xs text-gray-500 mt-4 text-center">
+          Dein Team-PIN wurde dir bei der Anmeldung gegeben.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function GameScreen({ team, onLogout }) {
   const [answers, setAnswers] = useState({
     1: '',
     2: '',
@@ -88,7 +158,6 @@ export default function SpellingBeePage() {
     4: null,
     5: null,
   });
-  const [showCode, setShowCode] = useState(false);
 
   function handleAnswerChange(id, value) {
     setAnswers(prev => ({ ...prev, [id]: value }));
@@ -108,17 +177,33 @@ export default function SpellingBeePage() {
 
   // Prüfe ob alle 5 Wörter richtig sind
   const allCorrect = SPELLING_BEE_WORDS.every(w => answers[w.id] === w.word);
+  const correctCount = Object.values(feedback).filter(f => f === 'correct').length;
 
   return (
     <div className="min-h-screen bg-amber-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-stone-900 to-amber-900 text-amber-100 px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10">
-        <div className="flex items-center gap-3 mb-1">
-          <span className="text-4xl">🐝</span>
-          <div>
-            <h1 className="text-2xl font-black leading-tight text-amber-50">Spelling Bee</h1>
-            <p className="text-amber-300 text-sm">Gebärden-Rätsel · 5 Videos</p>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <span className="text-4xl">🐝</span>
+            <div>
+              <h1 className="text-2xl font-black leading-tight text-amber-50">Spelling Bee</h1>
+              <p className="text-amber-300 text-sm">Gebärden-Rätsel · 5 Videos</p>
+            </div>
           </div>
+          <button
+            onClick={onLogout}
+            className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1 rounded-lg text-sm"
+          >
+            Logout
+          </button>
+        </div>
+
+        {/* Team Info */}
+        <div className="bg-stone-800/50 rounded-xl px-3 py-2">
+          <p className="text-amber-300 text-sm font-bold">
+            {team.icon} {team.name}
+          </p>
         </div>
       </div>
 
@@ -181,11 +266,53 @@ export default function SpellingBeePage() {
         {!allCorrect && (
           <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center">
             <p className="text-amber-900 font-bold text-sm">
-              ✓ {Object.values(feedback).filter(f => f === 'correct').length} / 5 Wörter richtig
+              ✓ {correctCount} / 5 Wörter richtig
             </p>
           </div>
         )}
       </div>
     </div>
+  );
+}
+
+export default function SpellingBeePage() {
+  const [team, setTeam] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Prüfe ob Team bereits angemeldet ist
+    const savedTeamId = localStorage.getItem('fyw_spelling_bee_team_id');
+    if (savedTeamId) {
+      fetchTeam(savedTeamId)
+        .then(t => setTeam(t))
+        .catch(() => localStorage.removeItem('fyw_spelling_bee_team_id'))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  function handleLogin(teamData) {
+    localStorage.setItem('fyw_spelling_bee_team_id', teamData.id);
+    setTeam(teamData);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('fyw_spelling_bee_team_id');
+    setTeam(null);
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-amber-50 flex items-center justify-center">
+        <p className="text-gray-500">Wird geladen...</p>
+      </div>
+    );
+  }
+
+  return team ? (
+    <GameScreen team={team} onLogout={handleLogout} />
+  ) : (
+    <LoginScreen onLogin={handleLogin} />
   );
 }
