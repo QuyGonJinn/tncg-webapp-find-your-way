@@ -15,7 +15,8 @@ export default function StationCodes() {
   useEffect(() => {
     const loadCodes = async () => {
       try {
-        const response = await fetch('/api/stations/codes');
+        const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+        const response = await fetch(`${apiBase}/stations/codes`);
         const data = await response.json();
         setCodes(data);
       } catch (error) {
@@ -39,7 +40,8 @@ export default function StationCodes() {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('/api/stations/codes', {
+      const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+      const response = await fetch(`${apiBase}/stations/codes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stationId: editingId, code: editValue.toUpperCase() }),
@@ -51,6 +53,8 @@ export default function StationCodes() {
         setEditingId(null);
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
+      } else {
+        console.error('Save failed:', response.status);
       }
     } catch (error) {
       console.error('Error saving code:', error);
