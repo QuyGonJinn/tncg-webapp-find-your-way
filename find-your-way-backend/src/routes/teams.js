@@ -127,8 +127,17 @@ router.post('/:id/complete/:stationId', (req, res) => {
   if (existing) return res.status(400).json({ error: 'Bereits erledigt oder ausstehend' });
 
   if (station.type === 'passiv') {
+    // Get the correct code from database (or use default)
+    let correctCode = station.code;
+    const dbCode = db.get(
+      `SELECT code FROM station_codes WHERE station_id = ?`, [Number(stationId)]
+    );
+    if (dbCode) {
+      correctCode = dbCode.code;
+    }
+    
     // Validate code
-    if (!code || code.toUpperCase() !== station.code) {
+    if (!code || code.toUpperCase() !== correctCode) {
       return res.status(400).json({ error: 'Falscher Code' });
     }
     db.run(

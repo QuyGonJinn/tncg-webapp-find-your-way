@@ -10,7 +10,7 @@ const SPELLING_BEE_WORDS = [
   { id: 5, word: 'FRIEDE', hint: 'Video 5' },
 ];
 
-const CORRECT_CODE = 'SB95'; // Code der angezeigt wird wenn alle 5 Wörter richtig sind
+// Code wird aus der Datenbank geladen (siehe GameScreen)
 
 function VideoCard({ videoId, onVideoLoad }) {
   const [error, setError] = useState(false);
@@ -158,6 +158,26 @@ function GameScreen({ team, onLogout }) {
     4: null,
     5: null,
   });
+  const [correctCode, setCorrectCode] = useState('SB95'); // Fallback
+
+  // Lade den Code aus der Datenbank
+  useEffect(() => {
+    const loadCode = async () => {
+      try {
+        const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+        const response = await fetch(`${apiBase}/stations/codes`);
+        const codes = await response.json();
+        // Station 12 ist Spelling Bee
+        if (codes[12]) {
+          setCorrectCode(codes[12]);
+        }
+      } catch (error) {
+        console.error('Error loading code:', error);
+        // Fallback zu default code
+      }
+    };
+    loadCode();
+  }, []);
 
   function handleAnswerChange(id, value) {
     setAnswers(prev => ({ ...prev, [id]: value }));
@@ -255,7 +275,7 @@ function GameScreen({ team, onLogout }) {
               <p className="text-green-700 font-bold text-sm mb-2">🎉 Alle Wörter richtig!</p>
               <p className="text-stone-600 text-xs mb-3">Hier ist dein Code:</p>
               <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-3">
-                <p className="text-4xl font-black text-green-700 tracking-widest">{CORRECT_CODE}</p>
+                <p className="text-4xl font-black text-green-700 tracking-widest">{correctCode}</p>
               </div>
               <p className="text-green-700 text-xs font-bold">Trage diesen Code in die App ein!</p>
             </div>
