@@ -1,5 +1,5 @@
 import { useI18n } from '../hooks/useI18n';
-import LanguageSwitcher from './LanguageSwitcher';
+import LanguageSwitcherDropdown from './LanguageSwitcherDropdown';
 
 export default function WelcomeScreen({ onContinue }) {
   const { t } = useI18n();
@@ -8,7 +8,7 @@ export default function WelcomeScreen({ onContinue }) {
     <div className="min-h-screen bg-gradient-to-br from-amber-800 via-stone-800 to-stone-900 flex flex-col items-center justify-center p-6">
       {/* Language Switcher - Top Right */}
       <div className="absolute top-4 right-4">
-        <LanguageSwitcher />
+        <LanguageSwitcherDropdown />
       </div>
 
       {/* Logo & Title */}

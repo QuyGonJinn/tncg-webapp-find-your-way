@@ -33,9 +33,9 @@
     "teamNamePlaceholder": "Give your team a name",
     "selectIcon": "Choose Icon",
     "createTeam": "Create Team",
-    "loginWithPin": "Login with PIN",
-    "pin": "PIN",
-    "pinPlaceholder": "Enter team PIN",
+    "loginWithPin": "Login with Code",
+    "pin": "Team Code",
+    "pinPlaceholder": "Enter team code",
     "login": "Login",
     "error": "Server not reachable. Is the backend running?",
     "invalidPin": "Invalid code"
