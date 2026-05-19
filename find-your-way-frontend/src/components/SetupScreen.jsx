@@ -96,7 +96,7 @@ export default function SetupScreen({ onStart, onLogin, error }) {
             </form>
           ) : (
             <form onSubmit={handleLogin}>
-              <p className="text-stone-500 text-sm mb-4">Gebt euren 4-stelligen Team-Code ein, den ihr beim Erstellen bekommen habt.</p>
+              <p className="text-stone-500 text-sm mb-4">{t('setup.pinHint')}</p>
               <label className="block text-amber-900 font-bold mb-2 text-lg">{t('setup.pin')}</label>
               <input
                 type="text"

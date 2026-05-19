@@ -40,7 +40,8 @@
     "error": "Không thể kết nối máy chủ. Backend có đang chạy không?",
     "invalidPin": "Mã không hợp lệ",
     "registration": "Đăng ký",
-    "registrationDescription": "Đăng ký sẽ được hoàn thành tại quầy cà phê. Tên của những người tham gia sẽ được nhập vào đó."
+    "registrationDescription": "Đăng ký sẽ được hoàn thành tại quầy cà phê. Tên của những người tham gia sẽ được nhập vào đó.",
+    "pinHint": "Nhập mã đội 4 chữ số mà bạn nhận được khi tạo đội."
   },
   "pinDisplay": {
     "title": "Mã đội của bạn",

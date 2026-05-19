@@ -40,7 +40,8 @@
     "error": "Server nicht erreichbar. Läuft das Backend?",
     "invalidPin": "Ungültiger Code",
     "registration": "Anmeldung",
-    "registrationDescription": "Die Anmeldung wird beim Caféstand abgeschlossen. Dort werden die Namen der Teilnehmer eingetragen."
+    "registrationDescription": "Die Anmeldung wird beim Caféstand abgeschlossen. Dort werden die Namen der Teilnehmer eingetragen.",
+    "pinHint": "Gebt euren 4-stelligen Team-Code ein, den ihr beim Erstellen bekommen habt."
   },
   "pinDisplay": {
     "title": "Euer Team-Code",

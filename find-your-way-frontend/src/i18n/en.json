@@ -40,7 +40,8 @@
     "error": "Server not reachable. Is the backend running?",
     "invalidPin": "Invalid code",
     "registration": "Registration",
-    "registrationDescription": "Registration will be completed at the café stand. The names of the participants will be entered there."
+    "registrationDescription": "Registration will be completed at the café stand. The names of the participants will be entered there.",
+    "pinHint": "Enter your 4-digit team code that you received when creating the team."
   },
   "pinDisplay": {
     "title": "Your Team Code",
