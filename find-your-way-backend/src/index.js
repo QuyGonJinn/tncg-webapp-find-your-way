@@ -16,6 +16,7 @@ async function main() {
   app.use('/api/chat',  require('./routes/chat'));
   app.use('/api/stats', require('./routes/stats'));
   app.use('/api/participants', require('./routes/participants'));
+  app.use('/api/stations', require('./routes/stations'));
   
   // Admin auth
   app.post('/api/admin/login', (req, res) => {

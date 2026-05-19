@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import de from '../i18n/de.json';
 import en from '../i18n/en.json';
-import vi from '../i18n/vi.json';
 
-const TRANSLATIONS = { de, en, vi };
+const TRANSLATIONS = { de, en };
 const STORAGE_KEY = 'fyw_language';
 const DEFAULT_LANGUAGE = 'de';
 

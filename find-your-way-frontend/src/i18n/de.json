@@ -105,8 +105,8 @@
       "description": "Füllt gemeinsam die Krüge – eine Aufgabe, die Teamwork und Glauben braucht.",
       "instructions": "Ihr habt 3 Krüge und müsst sie mit Wasser füllen – aber nur mit Teamwork! Der Betreuer erklärt die genaue Aufgabe vor Ort."
     },
-    "lochkarte": {
-      "title": "Lochkarte",
+    "versteckteBotschaft": {
+      "title": "Die versteckte Botschaft",
       "description": "Haltet die Lochkarte ins Licht und lest die verborgene Botschaft.",
       "instructions": "Nehmt die Lochkarte und haltet sie gegen das Licht. Die Löcher zeigen euch Buchstaben – setzt sie zusammen und erhaltet den Code."
     },

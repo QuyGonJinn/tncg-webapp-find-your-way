@@ -8,7 +8,6 @@ export default function LanguageSwitcherDropdown() {
   const languages = [
     { code: 'de', name: '🇩🇪 Deutsch', label: 'Deutsch' },
     { code: 'en', name: '🇬🇧 English', label: 'English' },
-    { code: 'vi', name: '🇻🇳 Tiếng Việt', label: 'Tiếng Việt' },
   ];
 
   const currentLang = languages.find(l => l.code === language);
