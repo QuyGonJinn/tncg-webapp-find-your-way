@@ -35,7 +35,7 @@
     "createTeam": "Neues Team",
     "loginWithPin": "Mit Code einloggen",
     "pin": "Team-Code",
-    "pinPlaceholder": "Team-Code eingeben",
+    "pinPlaceholder": "Code eingeben",
     "login": "Einloggen",
     "error": "Server nicht erreichbar. Läuft das Backend?",
     "invalidPin": "Ungültiger Code",
