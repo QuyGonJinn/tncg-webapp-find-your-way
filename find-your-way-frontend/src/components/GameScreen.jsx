@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { getStations } from '../data/stations';
 import { useI18n } from '../hooks/useI18n';
-import LanguageSwitcher from './LanguageSwitcher';
+import LanguageSwitcherDropdown from './LanguageSwitcherDropdown';
 import StationCard from './StationCard';
 import Timer from './Timer';
 import HintBox from './HintBox';
@@ -39,10 +39,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
               <p className="text-yellow-400 text-sm font-bold">⭐ {totalXP} XP</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <Timer timeLeft={timeLeft} />
-            <LanguageSwitcher />
-          </div>
+          <Timer timeLeft={timeLeft} />
         </div>
 
         {/* Progress bar */}
@@ -59,7 +56,7 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mt-3">
+        <div className="flex gap-2 mt-3 items-center">
           <button
             onClick={() => handleTabChange('stations')}
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${
@@ -76,6 +73,9 @@ export default function GameScreen({ team, completed, pending, timeLeft, xpPopup
           >
             {t('game.chat')}
           </button>
+          <div className="ml-auto">
+            <LanguageSwitcherDropdown />
+          </div>
         </div>
       </div>
 

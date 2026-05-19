@@ -47,7 +47,16 @@
     "progress": "Stationen",
     "active": "aktive",
     "resetGame": "Spiel zurücksetzen",
-    "hint": "💡 Tipp"
+    "hint": "💡 Tipp",
+    "enterCode": "Code eingeben",
+    "reportDone": "Erledigt melden",
+    "done": "✅ Erledigt",
+    "pending": "⏳ Wartet auf Bestätigung",
+    "confirm": "Bestätigen",
+    "nextStation": "🎯 Nächste Station:",
+    "points": "Punkte:",
+    "understood": "Verstanden! 🗺️",
+    "task": "📜 Aufgabe"
   },
   "hints": {
     "start": "Ihr seid am Start – los geht's! Sucht zuerst die einfachsten Stationen.",

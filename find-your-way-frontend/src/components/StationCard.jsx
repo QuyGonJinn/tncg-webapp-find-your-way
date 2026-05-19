@@ -58,9 +58,9 @@ export default function StationCard({ station, done, pending, onComplete }) {
               </span>
 
               {done ? (
-                <span className="text-green-700 font-bold text-sm">✅ Erledigt</span>
+                <span className="text-green-700 font-bold text-sm">✅ {t('game.done')}</span>
               ) : pending ? (
-                <span className="text-yellow-600 font-bold text-sm">⏳ Wartet auf Bestätigung</span>
+                <span className="text-yellow-600 font-bold text-sm">{t('game.pending')}</span>
               ) : showCode ? null : (
                 <button
                   onClick={(e) => {
@@ -69,7 +69,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
                   }}
                   className="bg-amber-700 text-amber-50 font-bold text-sm px-4 py-2 rounded-xl active:scale-95 transition-transform shadow"
                 >
-                  {isActive ? 'Erledigt melden' : 'Code eingeben'}
+                  {isActive ? t('game.reportDone') : t('game.enterCode')}
                 </button>
               )}
             </div>
@@ -100,7 +100,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
                     disabled={code.length < 4 || loading}
                     className="flex-1 bg-amber-700 disabled:bg-amber-200 text-white font-bold py-2 rounded-xl text-sm active:scale-95 transition-transform"
                   >
-                    {loading ? '...' : 'Bestätigen'}
+                    {loading ? '...' : t('game.confirm')}
                   </button>
                 </div>
               </form>
@@ -109,7 +109,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
             {/* Next station hint when done */}
             {done && nextStation && (
               <div className="mt-3 bg-green-50 border-2 border-green-300 rounded-xl p-3">
-                <p className="text-xs font-bold text-green-800 mb-1">🎯 Nächste Station:</p>
+                <p className="text-xs font-bold text-green-800 mb-1">{t('game.nextStation')}</p>
                 <p className="text-sm font-bold text-green-900">{nextStation.emoji} {nextStation.title}</p>
                 <p className="text-xs text-green-700 mt-1">{nextStation.description}</p>
               </div>
@@ -136,13 +136,13 @@ export default function StationCard({ station, done, pending, onComplete }) {
 
             <div className="p-6 space-y-4">
               <div>
-                <h3 className="font-black text-amber-800 mb-2">📜 Aufgabe</h3>
+                <h3 className="font-black text-amber-800 mb-2">{t('game.task')}</h3>
                 <p className="text-stone-700 leading-relaxed">{station.instructions}</p>
               </div>
 
               <div className="bg-amber-100 border border-amber-300 rounded-2xl p-4">
                 <p className="text-sm text-stone-600">
-                  <span className="font-bold text-amber-800">Punkte:</span> +{station.points} XP ⭐
+                  <span className="font-bold text-amber-800">{t('game.points')}</span> +{station.points} XP ⭐
                 </p>
               </div>
 
@@ -150,7 +150,7 @@ export default function StationCard({ station, done, pending, onComplete }) {
                 onClick={() => setShowInfo(false)}
                 className="w-full bg-amber-700 text-white font-bold py-3 rounded-xl active:scale-95 transition-transform"
               >
-                Verstanden! 🗺️
+                {t('game.understood')}
               </button>
             </div>
           </div>
