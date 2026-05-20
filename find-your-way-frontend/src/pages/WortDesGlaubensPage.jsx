@@ -327,8 +327,6 @@ export default function WortDesGlaubensPage() {
     setTeam(null);
   }
 
-  const { t } = useI18n();
-
   if (loading) {
     return (
       <div className="min-h-screen bg-amber-50 flex items-center justify-center">
