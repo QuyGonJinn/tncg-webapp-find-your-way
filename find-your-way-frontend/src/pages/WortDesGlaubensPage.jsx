@@ -215,6 +215,8 @@ function GameScreen({ team, onLogout }) {
     7: null,
   });
   const [correctCode, setCorrectCode] = useState('SB95'); // Fallback
+  const [submitted, setSubmitted] = useState(false);
+  const [submissionError, setSubmissionError] = useState(null);
 
   // Lade den Code aus der Datenbank
   useEffect(() => {
@@ -274,6 +276,105 @@ function GameScreen({ team, onLogout }) {
   // Prüfe Mindestanforderung: mindestens 2 Videos + 3 verdrehte Wörter
   const minimumMet = videoCorrectCount >= 2 && scrambledCorrectCount >= 3;
 
+  function handleSubmit() {
+    setSubmissionError(null);
+    
+    if (!minimumMet) {
+      setSubmissionError(t('wortDesGlaubens.minimumNotMet') || 'Mindestanforderung nicht erfüllt. Bitte löse mindestens 2 Videos und 3 verdrehte Wörter.');
+      return;
+    }
+
+    // Mindestanforderung erfüllt → Code anzeigen
+    setSubmitted(true);
+  }
+
+  if (submitted) {
+    return (
+      <div className="min-h-screen bg-amber-50">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-stone-900 to-amber-900 text-amber-100 px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-3">
+              <span className="text-4xl">🐝</span>
+              <div>
+                <h1 className="text-2xl font-black leading-tight text-amber-50">{t('wortDesGlaubens.title')}</h1>
+                <p className="text-amber-300 text-sm">{t('wortDesGlaubens.subtitle')}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex gap-1">
+                <button
+                  onClick={() => switchLanguage('de')}
+                  className={`px-2 py-1 rounded text-xs font-bold transition-all ${
+                    language === 'de'
+                      ? 'bg-amber-500 text-white'
+                      : 'bg-stone-700 text-amber-200 hover:bg-stone-600'
+                  }`}
+                >
+                  DE
+                </button>
+                <button
+                  onClick={() => switchLanguage('en')}
+                  className={`px-2 py-1 rounded text-xs font-bold transition-all ${
+                    language === 'en'
+                      ? 'bg-amber-500 text-white'
+                      : 'bg-stone-700 text-amber-200 hover:bg-stone-600'
+                  }`}
+                >
+                  EN
+                </button>
+              </div>
+              <button
+                onClick={onLogout}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1 rounded-lg text-sm"
+              >
+                {t('common.logout')}
+              </button>
+            </div>
+          </div>
+
+          {/* Team Info */}
+          <div className="bg-stone-800/50 rounded-xl px-3 py-2">
+            <p className="text-amber-300 text-sm font-bold">
+              {team.icon} {team.name}
+            </p>
+          </div>
+        </div>
+
+        <div className="px-4 py-6 max-w-2xl mx-auto">
+          {/* Success State */}
+          <div className="bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-8 shadow-lg text-center">
+            <div className="text-6xl mb-4">✅</div>
+            <h2 className="text-3xl font-black text-green-700 mb-2">{t('wortDesGlaubens.allCorrect')}</h2>
+            
+            <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-6">
+              <p className="text-green-700 font-bold text-sm mb-2">🎉 {t('wortDesGlaubens.hereIsCode')}:</p>
+              <p className="text-4xl font-black text-green-700 tracking-widest">{correctCode}</p>
+            </div>
+
+            {/* Instructions for entering code */}
+            <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-4 mb-6">
+              <p className="text-blue-900 font-bold text-sm mb-2">📝 {t('common.instructions')}:</p>
+              <p className="text-blue-800 text-sm">
+                {t('wortDesGlaubens.codeInstructions') || 'Trag den Code ein. Klicke auf "Zurück", um zum Teilnehmerbereich zurückzukehren und den Code zu der Station einzutragen.'}
+              </p>
+            </div>
+            
+            <button
+              onClick={() => {
+                localStorage.removeItem('fyw_wort_des_glaubens_team_id');
+                navigate('/');
+              }}
+              className="w-full bg-blue-700 hover:bg-blue-800 text-white font-black px-6 py-4 rounded-2xl text-lg"
+            >
+              ← {t('common.back')}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-amber-50">
       {/* Header */}
@@ -327,39 +428,6 @@ function GameScreen({ team, onLogout }) {
       </div>
 
       <div className="px-4 py-6 max-w-2xl mx-auto">
-        {/* Success Box - Sticky at top when minimum is met */}
-        {minimumMet && (
-          <div className="sticky top-20 z-20 bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-6 shadow-lg mb-6">
-            <div className="text-center">
-              <div className="text-4xl mb-3">✅</div>
-              <h2 className="text-2xl font-black text-green-700 mb-3">{t('wortDesGlaubens.allCorrect')}</h2>
-              
-              <div className="bg-white rounded-xl p-3 border-2 border-green-400 mb-4">
-                <p className="text-green-700 font-bold text-xs mb-1">🎉 {t('wortDesGlaubens.hereIsCode')}:</p>
-                <p className="text-3xl font-black text-green-700 tracking-widest">{correctCode}</p>
-              </div>
-
-              {/* Instructions for entering code */}
-              <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-3 mb-4">
-                <p className="text-blue-900 font-bold text-xs mb-1">📝 {t('common.instructions')}:</p>
-                <p className="text-blue-800 text-xs">
-                  {t('wortDesGlaubens.codeInstructions') || 'Trag den Code ein. Klicke auf "Zurück", um zum Teilnehmerbereich zurückzukehren und den Code zu der Station einzutragen.'}
-                </p>
-              </div>
-              
-              <button
-                onClick={() => {
-                  localStorage.removeItem('fyw_wort_des_glaubens_team_id');
-                  navigate('/');
-                }}
-                className="w-full bg-blue-700 hover:bg-blue-800 text-white font-black px-4 py-3 rounded-xl text-sm"
-              >
-                ← {t('common.back')}
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* Instructions */}
         <div className="bg-amber-100 border-2 border-amber-300 rounded-2xl p-4 mb-6">
           <p className="text-amber-900 font-bold text-sm mb-2">{t('wortDesGlaubens.instructions')}</p>
@@ -421,14 +489,27 @@ function GameScreen({ team, onLogout }) {
         </div>
 
         {/* Progress Indicator */}
-        {!minimumMet && (
-          <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center space-y-2">
-            <p className="text-amber-900 font-bold text-sm">
-              {t('wortDesGlaubens.progress', { videoCorrect: videoCorrectCount, scrambledCorrect: scrambledCorrectCount })}
-            </p>
-            <p className="text-amber-700 text-xs font-semibold">{t('wortDesGlaubens.minimumRequired')}</p>
+        <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center space-y-2 mb-6">
+          <p className="text-amber-900 font-bold text-sm">
+            {t('wortDesGlaubens.progress', { videoCorrect: videoCorrectCount, scrambledCorrect: scrambledCorrectCount })}
+          </p>
+          <p className="text-amber-700 text-xs font-semibold">{t('wortDesGlaubens.minimumRequired')}</p>
+        </div>
+
+        {/* Error Message */}
+        {submissionError && (
+          <div className="bg-red-50 border-2 border-red-300 rounded-2xl p-4 mb-6">
+            <p className="text-red-700 font-bold text-sm">⚠️ {submissionError}</p>
           </div>
         )}
+
+        {/* Submit Button */}
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-green-700 hover:bg-green-800 text-white font-black text-lg py-4 rounded-2xl shadow-lg active:scale-95 transition-all"
+        >
+          ✓ {t('wortDesGlaubens.submitAnswers') || 'Bestätigen'}
+        </button>
       </div>
     </div>
   );
