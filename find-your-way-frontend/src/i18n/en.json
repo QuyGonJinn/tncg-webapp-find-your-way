@@ -200,7 +200,11 @@
     "reject": "Reject",
     "confirmReject": "Are you sure you want to reject this submission?",
     "codeAssigned": "Code assigned",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "rejected": "❌ Photo rejected",
+    "rejectedMessage": "Your photo was rejected by the admin. Please try again with a better tableau!",
+    "tryAgain": "Try again",
+    "code": "Code"
   },
   "admin": {
     "title": "Admin – Find Your Way",

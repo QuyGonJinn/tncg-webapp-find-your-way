@@ -129,10 +129,13 @@ function GameScreen({ team, onLogout }) {
   const [uploadError, setUploadError] = useState(null);
   const [submissionId, setSubmissionId] = useState(null);
   const [submissionCode, setSubmissionCode] = useState(null);
-  const [checkingStatus, setCheckingStatus] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState('pending'); // 'pending', 'confirmed', 'rejected'
+  const [rejectionMessage, setRejectionMessage] = useState(null);
 
   // WebSocket connection for real-time updates
   useEffect(() => {
+    if (!submissionId) return;
+
     const wsBase = `${import.meta.env.VITE_WS_URL ?? 'ws://localhost:3001'}`;
     const ws = new WebSocket(wsBase);
 
@@ -143,6 +146,13 @@ function GameScreen({ team, onLogout }) {
         // Listen for bibelpose confirmation events
         if (type === 'bibelpose:confirmed' && payload.submissionId === submissionId) {
           setSubmissionCode(payload.code);
+          setSubmissionStatus('confirmed');
+        }
+        
+        // Listen for bibelpose rejection events
+        if (type === 'bibelpose:rejected' && payload.submissionId === submissionId) {
+          setSubmissionStatus('rejected');
+          setRejectionMessage(t('bibelpose.rejectedMessage'));
         }
       } catch (error) {
         console.error('WebSocket message error:', error);
@@ -156,7 +166,7 @@ function GameScreen({ team, onLogout }) {
         ws.close();
       }
     };
-  }, [submissionId]);
+  }, [submissionId, t]);
 
   async function handlePhotoUpload(e) {
     const file = e.target.files?.[0];
@@ -185,31 +195,12 @@ function GameScreen({ team, onLogout }) {
       const data = await response.json();
       setPhoto(file);
       setSubmissionId(data.submissionId);
+      setSubmissionStatus('pending');
       setSubmitted(true);
-      
-      // Start polling for status
-      pollSubmissionStatus(data.submissionId);
     } catch (error) {
       setUploadError(error.message || t('bibelpose.uploadError'));
     } finally {
       setUploading(false);
-    }
-  }
-
-  async function pollSubmissionStatus(id) {
-    setCheckingStatus(true);
-    try {
-      const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
-      const response = await fetch(`${apiBase}/bibelpose/submissions/${id}/status`);
-      const data = await response.json();
-      
-      if (data.status === 'confirmed') {
-        setSubmissionCode(data.code);
-      }
-    } catch (error) {
-      console.error('Error checking status:', error);
-    } finally {
-      setCheckingStatus(false);
     }
   }
 
@@ -346,41 +337,63 @@ function GameScreen({ team, onLogout }) {
         ) : (
           /* Submitted State */
           <div className="bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-8 shadow-lg text-center">
-            <div className="text-6xl mb-4">✅</div>
-            <h2 className="text-3xl font-black text-green-700 mb-2">{t('bibelpose.submitted')}</h2>
-            <p className="text-green-700 text-lg mb-2">{t('bibelpose.waitingConfirmation')}</p>
-            <p className="text-green-600 text-sm mb-6">{t('bibelpose.adminWillConfirm')}</p>
-            
-            {submissionCode ? (
-              <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-6">
-                <p className="text-green-700 font-bold text-sm mb-2">🎉 {t('bibelpose.codeReceived')}</p>
-                <p className="text-4xl font-black text-green-700 tracking-widest">{submissionCode}</p>
-              </div>
-            ) : (
-              <div className="mb-6">
+            {submissionStatus === 'confirmed' ? (
+              <>
+                <div className="text-6xl mb-4">✅</div>
+                <h2 className="text-3xl font-black text-green-700 mb-2">{t('bibelpose.submitted')}</h2>
+                <p className="text-green-700 text-lg mb-6">{t('bibelpose.codeReceived')}</p>
+                
+                <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-6">
+                  <p className="text-green-700 font-bold text-sm mb-2">🎉 {t('bibelpose.code')}:</p>
+                  <p className="text-4xl font-black text-green-700 tracking-widest">{submissionCode}</p>
+                </div>
+                
                 <button
-                  onClick={() => pollSubmissionStatus(submissionId)}
-                  disabled={checkingStatus}
-                  className="bg-green-700 hover:bg-green-800 disabled:bg-gray-400 text-white font-black px-6 py-2 rounded-2xl"
+                  onClick={() => {
+                    setSelectedScene(null);
+                    setPhoto(null);
+                    setSubmitted(false);
+                    setUploadError(null);
+                    setSubmissionId(null);
+                    setSubmissionCode(null);
+                    setSubmissionStatus('pending');
+                    setRejectionMessage(null);
+                  }}
+                  className="bg-green-700 hover:bg-green-800 text-white font-black px-6 py-3 rounded-2xl"
                 >
-                  {checkingStatus ? '⏳ ' + t('common.loading') : '🔄 ' + t('bibelpose.checkStatus')}
+                  {t('bibelpose.submitAnother')}
                 </button>
-              </div>
+              </>
+            ) : submissionStatus === 'rejected' ? (
+              <>
+                <div className="text-6xl mb-4">❌</div>
+                <h2 className="text-3xl font-black text-red-700 mb-2">{t('bibelpose.rejected')}</h2>
+                <p className="text-red-700 text-lg mb-6">{rejectionMessage}</p>
+                
+                <button
+                  onClick={() => {
+                    setSelectedScene(null);
+                    setPhoto(null);
+                    setSubmitted(false);
+                    setUploadError(null);
+                    setSubmissionId(null);
+                    setSubmissionCode(null);
+                    setSubmissionStatus('pending');
+                    setRejectionMessage(null);
+                  }}
+                  className="bg-red-700 hover:bg-red-800 text-white font-black px-6 py-3 rounded-2xl"
+                >
+                  {t('bibelpose.tryAgain')}
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="text-6xl mb-4 animate-spin">⏳</div>
+                <h2 className="text-3xl font-black text-green-700 mb-2">{t('bibelpose.submitted')}</h2>
+                <p className="text-green-700 text-lg mb-2">{t('bibelpose.waitingConfirmation')}</p>
+                <p className="text-green-600 text-sm">{t('bibelpose.adminWillConfirm')}</p>
+              </>
             )}
-            
-            <button
-              onClick={() => {
-                setSelectedScene(null);
-                setPhoto(null);
-                setSubmitted(false);
-                setUploadError(null);
-                setSubmissionId(null);
-                setSubmissionCode(null);
-              }}
-              className="bg-green-700 hover:bg-green-800 text-white font-black px-6 py-3 rounded-2xl"
-            >
-              {t('bibelpose.submitAnother')}
-            </button>
           </div>
         )}
       </div>

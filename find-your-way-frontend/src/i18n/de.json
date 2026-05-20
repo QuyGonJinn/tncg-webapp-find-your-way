@@ -200,7 +200,11 @@
     "reject": "Ablehnen",
     "confirmReject": "Möchtest du diese Einreichung wirklich ablehnen?",
     "codeAssigned": "Code zugewiesen",
-    "refresh": "Aktualisieren"
+    "refresh": "Aktualisieren",
+    "rejected": "❌ Foto abgelehnt",
+    "rejectedMessage": "Dein Foto wurde vom Admin abgelehnt. Bitte versuche es mit einem besseren Standbild erneut!",
+    "tryAgain": "Nochmal versuchen",
+    "code": "Code"
   },
   "admin": {
     "title": "Admin – Find Your Way",

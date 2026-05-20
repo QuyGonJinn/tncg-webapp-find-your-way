@@ -183,6 +183,13 @@ router.post('/submissions/:id/reject', (req, res) => {
 
     run(`DELETE FROM bibelpose_submissions WHERE id = ?`, [id]);
 
+    // Broadcast WebSocket event to all connected clients
+    broadcast('bibelpose:rejected', {
+      submissionId: id,
+      teamId: submission.team_id,
+      message: `Bibelpose submission rejected for team ${submission.team_name}`,
+    });
+
     res.json({ success: true, message: 'Submission rejected and deleted' });
   } catch (error) {
     console.error('Error rejecting submission:', error);
