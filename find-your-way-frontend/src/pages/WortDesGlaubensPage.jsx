@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { loginWithPin, fetchTeam } from '../api';
+import { useI18n } from '../hooks/useI18n';
 
 // 5 Gebärden-Videos mit den korrekten Wörtern
 const WORT_DES_GLAUBENS_WORDS = [
@@ -40,6 +41,7 @@ function VideoCard({ videoId, onVideoLoad }) {
 }
 
 function WordInput({ wordData, value, onChange, feedback }) {
+  const { t } = useI18n();
   const isCorrect = feedback === 'correct';
   const isWrong = feedback === 'wrong';
 
@@ -53,7 +55,7 @@ function WordInput({ wordData, value, onChange, feedback }) {
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value.toUpperCase())}
-          placeholder="Wort eingeben..."
+          placeholder={t('wortDesGlaubens.wordPlaceholder')}
           className={`flex-1 border-2 rounded-xl px-4 py-2 font-bold text-lg focus:outline-none transition-all ${
             isCorrect
               ? 'border-green-500 bg-green-50 text-green-900'
@@ -75,6 +77,7 @@ function WordInput({ wordData, value, onChange, feedback }) {
 }
 
 function LoginScreen({ onLogin, error }) {
+  const { t } = useI18n();
   const [pin, setPin] = useState('');
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState(error);
@@ -86,7 +89,7 @@ function LoginScreen({ onLogin, error }) {
       const team = await loginWithPin(pin);
       onLogin(team);
     } catch (e) {
-      setLoginError(e.message || 'Login fehlgeschlagen');
+      setLoginError(e.message || t('wortDesGlaubens.loginError'));
     } finally {
       setLoading(false);
     }
@@ -97,15 +100,15 @@ function LoginScreen({ onLogin, error }) {
       {/* Logo & Title */}
       <div className="text-center mb-8">
         <div className="text-6xl mb-3 animate-bounce">🐝</div>
-        <h1 className="text-4xl font-black text-amber-100 tracking-tight">Wort des Glaubens</h1>
-        <p className="text-amber-300 mt-2 text-lg">Gebärden-Rätsel</p>
+        <h1 className="text-4xl font-black text-amber-100 tracking-tight">{t('wortDesGlaubens.title')}</h1>
+        <p className="text-amber-300 mt-2 text-lg">{t('wortDesGlaubens.subtitle')}</p>
       </div>
 
       {/* Login Card */}
       <div className="bg-amber-50 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border-2 border-amber-300 p-8">
         <div className="text-center mb-6">
           <p className="text-stone-700 text-sm leading-relaxed">
-            Melde dich mit deinem Team-PIN an um das Wort des Glaubens zu spielen.
+            {t('wortDesGlaubens.loginDescription')}
           </p>
         </div>
 
@@ -121,7 +124,7 @@ function LoginScreen({ onLogin, error }) {
             value={pin}
             onChange={(e) => setPin(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-            placeholder="Team-PIN eingeben"
+            placeholder={t('setup.pinPlaceholder')}
             className="w-full border-2 border-amber-200 rounded-xl px-4 py-3 text-lg font-bold focus:outline-none focus:border-amber-500"
             disabled={loading}
           />
@@ -131,12 +134,12 @@ function LoginScreen({ onLogin, error }) {
             disabled={loading || !pin}
             className="w-full bg-amber-700 hover:bg-amber-800 disabled:bg-gray-400 text-white font-black text-lg py-4 rounded-2xl shadow-lg active:scale-95 transition-all"
           >
-            {loading ? '⏳ Wird angemeldet...' : '🚀 Anmelden'}
+            {loading ? t('wortDesGlaubens.loginLoading') : t('wortDesGlaubens.loginButton')}
           </button>
         </div>
 
         <p className="text-xs text-gray-500 mt-4 text-center">
-          Dein Team-PIN wurde dir bei der Anmeldung gegeben.
+          {t('wortDesGlaubens.pinReminder')}
         </p>
       </div>
     </div>
@@ -144,6 +147,7 @@ function LoginScreen({ onLogin, error }) {
 }
 
 function GameScreen({ team, onLogout }) {
+  const { t } = useI18n();
   const [answers, setAnswers] = useState({
     1: '',
     2: '',
@@ -167,7 +171,7 @@ function GameScreen({ team, onLogout }) {
         const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
         const response = await fetch(`${apiBase}/stations/codes`);
         const codes = await response.json();
-      // Station 12 ist Wort des Glaubens
+        // Station 12 ist Wort des Glaubens
         if (codes[12]) {
           setCorrectCode(codes[12]);
         }
@@ -207,15 +211,15 @@ function GameScreen({ team, onLogout }) {
           <div className="flex items-center gap-3">
             <span className="text-4xl">🐝</span>
             <div>
-              <h1 className="text-2xl font-black leading-tight text-amber-50">Wort des Glaubens</h1>
-              <p className="text-amber-300 text-sm">Gebärden-Rätsel · 5 Videos</p>
+              <h1 className="text-2xl font-black leading-tight text-amber-50">{t('wortDesGlaubens.title')}</h1>
+              <p className="text-amber-300 text-sm">{t('wortDesGlaubens.subtitle')}</p>
             </div>
           </div>
           <button
             onClick={onLogout}
             className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1 rounded-lg text-sm"
           >
-            Logout
+            {t('common.logout')}
           </button>
         </div>
 
@@ -230,12 +234,12 @@ function GameScreen({ team, onLogout }) {
       <div className="px-4 py-6 max-w-2xl mx-auto">
         {/* Instructions */}
         <div className="bg-amber-100 border-2 border-amber-300 rounded-2xl p-4 mb-6">
-          <p className="text-amber-900 font-bold text-sm mb-2">📋 Anleitung:</p>
+          <p className="text-amber-900 font-bold text-sm mb-2">{t('wortDesGlaubens.instructions')}</p>
           <ol className="text-amber-900 text-sm space-y-1 list-decimal list-inside">
-            <li>Schau dir die 5 Videos an</li>
-            <li>Erkenne die Gebärden mit Hilfe des ausgedruckten Alphabets</li>
-            <li>Trage die 5 Wörter ein</li>
-            <li>Wenn alle richtig sind, erscheint der Code</li>
+            <li>{t('wortDesGlaubens.step1')}</li>
+            <li>{t('wortDesGlaubens.step2')}</li>
+            <li>{t('wortDesGlaubens.step3')}</li>
+            <li>{t('wortDesGlaubens.step4')}</li>
           </ol>
         </div>
 
@@ -254,7 +258,7 @@ function GameScreen({ team, onLogout }) {
 
         {/* Word Input Section */}
         <div className="bg-white rounded-2xl shadow p-6 mb-6">
-          <h2 className="text-amber-900 font-black text-lg mb-4">🎯 Wörter eingeben</h2>
+          <h2 className="text-amber-900 font-black text-lg mb-4">{t('wortDesGlaubens.enterWords')}</h2>
           <div className="space-y-4">
             {WORT_DES_GLAUBENS_WORDS.map(wordData => (
               <WordInput
@@ -272,12 +276,12 @@ function GameScreen({ team, onLogout }) {
         {allCorrect && (
           <div className="bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-6 shadow-lg animate-pulse">
             <div className="text-center">
-              <p className="text-green-700 font-bold text-sm mb-2">🎉 Alle Wörter richtig!</p>
-              <p className="text-stone-600 text-xs mb-3">Hier ist dein Code:</p>
+              <p className="text-green-700 font-bold text-sm mb-2">{t('wortDesGlaubens.allCorrect')}</p>
+              <p className="text-stone-600 text-xs mb-3">{t('wortDesGlaubens.hereIsCode')}</p>
               <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-3">
                 <p className="text-4xl font-black text-green-700 tracking-widest">{correctCode}</p>
               </div>
-              <p className="text-green-700 text-xs font-bold">Trage diesen Code in die App ein!</p>
+              <p className="text-green-700 text-xs font-bold">{t('wortDesGlaubens.enterInApp')}</p>
             </div>
           </div>
         )}
@@ -286,7 +290,7 @@ function GameScreen({ team, onLogout }) {
         {!allCorrect && (
           <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center">
             <p className="text-amber-900 font-bold text-sm">
-              ✓ {correctCount} / 5 Wörter richtig
+              {t('wortDesGlaubens.progress', { correct: correctCount })}
             </p>
           </div>
         )}
@@ -325,7 +329,7 @@ export default function WortDesGlaubensPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-amber-50 flex items-center justify-center">
-        <p className="text-gray-500">Wird geladen...</p>
+        <p className="text-gray-500">{useI18n().t('common.loading')}</p>
       </div>
     );
   }
