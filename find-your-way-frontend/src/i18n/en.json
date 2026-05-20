@@ -199,7 +199,8 @@
     "confirm": "Confirm",
     "reject": "Reject",
     "confirmReject": "Are you sure you want to reject this submission?",
-    "codeAssigned": "Code assigned"
+    "codeAssigned": "Code assigned",
+    "refresh": "Refresh"
   },
   "admin": {
     "title": "Admin – Find Your Way",

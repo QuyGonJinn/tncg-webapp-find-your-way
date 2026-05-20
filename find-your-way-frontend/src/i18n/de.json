@@ -199,7 +199,8 @@
     "confirm": "Bestätigen",
     "reject": "Ablehnen",
     "confirmReject": "Möchtest du diese Einreichung wirklich ablehnen?",
-    "codeAssigned": "Code zugewiesen"
+    "codeAssigned": "Code zugewiesen",
+    "refresh": "Aktualisieren"
   },
   "admin": {
     "title": "Admin – Find Your Way",

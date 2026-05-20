@@ -9,6 +9,36 @@ export default function BibelposeModerator() {
   const [code, setCode] = useState('');
   const [confirming, setConfirming] = useState(false);
   const [error, setError] = useState(null);
+  const [stationCode, setStationCode] = useState('');
+
+  // Load station code for Bibelpose (station 11)
+  useEffect(() => {
+    loadStationCode();
+  }, []);
+
+  async function loadStationCode() {
+    try {
+      const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+      const response = await fetch(`${apiBase}/stations/codes`);
+      const codes = await response.json();
+      // Station 11 is Bibelpose
+      if (codes[11]) {
+        setStationCode(codes[11]);
+      }
+    } catch (err) {
+      console.error('Error loading station code:', err);
+    }
+  }
+
+  function handleSelectSubmission(submission) {
+    setSelectedSubmission(submission);
+    // Set code from station code when selecting a submission
+    if (submission.status === 'pending') {
+      setCode(stationCode);
+    } else {
+      setCode(submission.code || '');
+    }
+  }
 
   useEffect(() => {
     loadSubmissions();
@@ -86,7 +116,7 @@ export default function BibelposeModerator() {
           onClick={loadSubmissions}
           className="bg-amber-700 hover:bg-amber-800 text-white font-bold px-4 py-2 rounded-lg"
         >
-          🔄 {t('common.refresh')}
+          🔄 {t('bibelpose.refresh')}
         </button>
       </div>
 
@@ -123,7 +153,7 @@ export default function BibelposeModerator() {
             {submissions.map(submission => (
               <button
                 key={submission.id}
-                onClick={() => setSelectedSubmission(submission)}
+                onClick={() => handleSelectSubmission(submission)}
                 className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                   selectedSubmission?.id === submission.id
                     ? 'bg-amber-500 border-amber-700 text-white'
@@ -153,9 +183,12 @@ export default function BibelposeModerator() {
                 {/* Photo Preview */}
                 <div className="mb-6">
                   <img
-                    src={selectedSubmission.photo_path}
+                    src={`${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}${selectedSubmission.photo_path}`}
                     alt={selectedSubmission.scene_name}
                     className="w-full rounded-xl border-2 border-amber-200 max-h-64 object-cover"
+                    onError={(e) => {
+                      e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f3f4f6" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="24"%3EBild konnte nicht geladen werden%3C/text%3E%3C/svg%3E';
+                    }}
                   />
                 </div>
 
@@ -178,13 +211,12 @@ export default function BibelposeModerator() {
                       <label className="block text-sm font-bold text-stone-700 mb-2">
                         {t('bibelpose.enterCode')}
                       </label>
-                      <input
-                        type="text"
-                        value={code}
-                        onChange={(e) => setCode(e.target.value.toUpperCase())}
-                        placeholder="z.B. ABC123"
-                        className="w-full border-2 border-amber-200 rounded-xl px-4 py-2 font-bold text-lg focus:outline-none focus:border-amber-500"
-                      />
+                      <div className="bg-amber-50 border-2 border-amber-300 rounded-xl px-4 py-3 font-bold text-lg">
+                        {code || '⚠️ Kein Code definiert'}
+                      </div>
+                      <p className="text-xs text-stone-500 mt-2">
+                        {code ? 'Code aus Station-Codes übernommen' : 'Bitte definieren Sie einen Code im Station-Codes Tab'}
+                      </p>
                     </div>
 
                     <div className="flex gap-3">

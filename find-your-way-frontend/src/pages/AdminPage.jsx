@@ -22,6 +22,7 @@ function formatTime(timestamp) {
 export default function AdminPage() {
   const { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam, handleApprove, handleReject } = useAdmin();
   const [adminTab, setAdminTab] = useState('overview');
+  const [bibelposTab, setBibelposTab] = useState(false);
   const [authenticated, setAuthenticated] = useState(() => {
     // Restore admin session from localStorage on mount
     return localStorage.getItem('fyw_admin_authenticated') === 'true';
@@ -84,12 +85,6 @@ export default function AdminPage() {
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${adminTab === 'codes' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'}`}
           >
             📋 Codes
-          </button>
-          <button
-            onClick={() => setAdminTab('bibelpose')}
-            className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${adminTab === 'bibelpose' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'}`}
-          >
-            🎭 Bibelpose
           </button>
           <button
             onClick={() => setAdminTab('chat')}
@@ -163,9 +158,34 @@ export default function AdminPage() {
           </>
         )}
 
+        {adminTab === 'codes' && (
+          <div>
+            <div className="flex gap-2 mb-4">
+              <button
+                onClick={() => setBibelposTab(false)}
+                className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+                  !bibelposTab
+                    ? 'bg-amber-700 text-white'
+                    : 'bg-stone-200 text-stone-800 hover:bg-stone-300'
+                }`}
+              >
+                📋 Station Codes
+              </button>
+              <button
+                onClick={() => setBibelposTab(true)}
+                className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+                  bibelposTab
+                    ? 'bg-amber-700 text-white'
+                    : 'bg-stone-200 text-stone-800 hover:bg-stone-300'
+                }`}
+              >
+                🎭 Bibelpose
+              </button>
+            </div>
+            {!bibelposTab ? <StationCodes /> : <BibelposeModerator />}
+          </div>
+        )}
         {adminTab === 'chat' && <AdminChat teams={teams} />}
-        {adminTab === 'codes' && <StationCodes />}
-        {adminTab === 'bibelpose' && <BibelposeModerator />}
         {adminTab === 'settings' && <AdminSettings />}
       </div>
     </div>
