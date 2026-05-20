@@ -8,6 +8,7 @@ import AdminChat from '../components/admin/AdminChat';
 import StationCodes from '../components/admin/StationCodes';
 import AdminSettings from '../components/admin/AdminSettings';
 import BibelposeModerator from '../components/admin/BibelposeModerator';
+import HeiligeBuchstabenjagdModerator from '../components/admin/HeiligeBuchstabenjagdModerator';
 import { STATIONS } from '../data/stations';
 import { adminLogin } from '../api';
 
@@ -22,7 +23,7 @@ function formatTime(timestamp) {
 export default function AdminPage() {
   const { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam, handleApprove, handleReject } = useAdmin();
   const [adminTab, setAdminTab] = useState('overview');
-  const [bibelposTab, setBibelposTab] = useState(false);
+  const [codesSubTab, setCodesSubTab] = useState('stations'); // 'stations', 'bibelpose', 'heilige-buchstabenjagd'
   const [authenticated, setAuthenticated] = useState(() => {
     // Restore admin session from localStorage on mount
     return localStorage.getItem('fyw_admin_authenticated') === 'true';
@@ -160,11 +161,11 @@ export default function AdminPage() {
 
         {adminTab === 'codes' && (
           <div>
-            <div className="flex gap-2 mb-4">
+            <div className="flex gap-2 mb-4 flex-wrap">
               <button
-                onClick={() => setBibelposTab(false)}
+                onClick={() => setCodesSubTab('stations')}
                 className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
-                  !bibelposTab
+                  codesSubTab === 'stations'
                     ? 'bg-amber-700 text-white'
                     : 'bg-stone-200 text-stone-800 hover:bg-stone-300'
                 }`}
@@ -172,17 +173,29 @@ export default function AdminPage() {
                 📋 Station Codes
               </button>
               <button
-                onClick={() => setBibelposTab(true)}
+                onClick={() => setCodesSubTab('bibelpose')}
                 className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
-                  bibelposTab
+                  codesSubTab === 'bibelpose'
                     ? 'bg-amber-700 text-white'
                     : 'bg-stone-200 text-stone-800 hover:bg-stone-300'
                 }`}
               >
                 🎭 Bibelpose
               </button>
+              <button
+                onClick={() => setCodesSubTab('heilige-buchstabenjagd')}
+                className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+                  codesSubTab === 'heilige-buchstabenjagd'
+                    ? 'bg-purple-700 text-white'
+                    : 'bg-stone-200 text-stone-800 hover:bg-stone-300'
+                }`}
+              >
+                📜 Heilige Buchstabenjagd
+              </button>
             </div>
-            {!bibelposTab ? <StationCodes /> : <BibelposeModerator />}
+            {codesSubTab === 'stations' && <StationCodes />}
+            {codesSubTab === 'bibelpose' && <BibelposeModerator />}
+            {codesSubTab === 'heilige-buchstabenjagd' && <HeiligeBuchstabenjagdModerator />}
           </div>
         )}
         {adminTab === 'chat' && <AdminChat teams={teams} />}

@@ -24,6 +24,7 @@ async function main() {
   app.use('/api/participants', require('./routes/participants'));
   app.use('/api/stations', require('./routes/stations'));
   app.use('/api/bibelpose', require('./routes/bibelpose'));
+  app.use('/api/heilige-buchstabenjagd', require('./routes/heilige-buchstabenjagd'));
   
   // Admin auth
   app.post('/api/admin/login', (req, res) => {
