@@ -40,8 +40,7 @@ function VideoCard({ videoId, onVideoLoad }) {
   );
 }
 
-function WordInput({ wordData, value, onChange, feedback }) {
-  const { t } = useI18n();
+function WordInput({ wordData, value, onChange, feedback, t }) {
   const isCorrect = feedback === 'correct';
   const isWrong = feedback === 'wrong';
 
@@ -267,6 +266,7 @@ function GameScreen({ team, onLogout }) {
                 value={answers[wordData.id]}
                 onChange={(value) => handleAnswerChange(wordData.id, value)}
                 feedback={feedback[wordData.id]}
+                t={t}
               />
             ))}
           </div>
