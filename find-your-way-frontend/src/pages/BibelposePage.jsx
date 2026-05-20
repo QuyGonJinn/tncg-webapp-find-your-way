@@ -132,64 +132,38 @@ function GameScreen({ team, onLogout }) {
   const [submissionStatus, setSubmissionStatus] = useState('pending'); // 'pending', 'confirmed', 'rejected'
   const [rejectionMessage, setRejectionMessage] = useState(null);
 
-  // WebSocket connection for real-time updates
+  // Poll for submission status updates
   useEffect(() => {
-    if (!submissionId) return;
+    if (!submissionId || submissionStatus !== 'pending') return;
 
-    console.log('🔌 Connecting WebSocket for submission:', submissionId);
+    console.log('⏱️ Starting status polling for submission:', submissionId);
     
-    // Use the same domain as the API, but with WebSocket protocol
-    // Nginx will handle the upgrade
-    const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:3001';
-    const wsUrl = apiUrl
-      .replace(/^https:/, 'wss:')
-      .replace(/^http:/, 'ws:');
-    
-    console.log('📡 WebSocket URL:', wsUrl);
-    const ws = new WebSocket(wsUrl);
-
-    ws.onopen = () => {
-      console.log('✅ WebSocket connected');
-    };
-
-    ws.onmessage = (event) => {
+    const pollInterval = setInterval(async () => {
       try {
-        const { type, payload } = JSON.parse(event.data);
-        console.log('📨 WebSocket message:', type, payload);
+        const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+        const response = await fetch(`${apiBase}/bibelpose/submissions/${submissionId}/status`);
+        const data = await response.json();
         
-        // Listen for bibelpose confirmation events
-        if (type === 'bibelpose:confirmed' && payload.submissionId === submissionId) {
-          console.log('✅ Submission confirmed!', payload);
-          setSubmissionCode(payload.code);
+        console.log('📊 Status check:', data.status);
+        
+        if (data.status === 'confirmed') {
+          console.log('✅ Submission confirmed!', data);
+          setSubmissionCode(data.code);
           setSubmissionStatus('confirmed');
-        }
-        
-        // Listen for bibelpose rejection events
-        if (type === 'bibelpose:rejected' && payload.submissionId === submissionId) {
-          console.log('❌ Submission rejected!', payload);
+          clearInterval(pollInterval);
+        } else if (data.status === 'rejected') {
+          console.log('❌ Submission rejected!');
           setSubmissionStatus('rejected');
           setRejectionMessage(t('bibelpose.rejectedMessage'));
+          clearInterval(pollInterval);
         }
       } catch (error) {
-        console.error('WebSocket message error:', error);
+        console.error('Error checking status:', error);
       }
-    };
+    }, 2000); // Check every 2 seconds
 
-    ws.onerror = (error) => {
-      console.error('❌ WebSocket error:', error);
-    };
-
-    ws.onclose = () => {
-      console.log('🔌 WebSocket closed');
-    };
-
-    return () => {
-      console.log('🔌 Closing WebSocket');
-      if (ws.readyState === WebSocket.OPEN) {
-        ws.close();
-      }
-    };
-  }, [submissionId, t]);
+    return () => clearInterval(pollInterval);
+  }, [submissionId, submissionStatus, t]);
 
   async function handlePhotoUpload(e) {
     const file = e.target.files?.[0];
