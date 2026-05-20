@@ -9,7 +9,7 @@ import PinDisplay from './components/PinDisplay';
 import WaitingRoom from './components/WaitingRoom';
 import AdminPage from './pages/AdminPage';
 import ControlPage from './pages/ControlPage';
-import SpellingBeePage from './pages/SpellingBeePage';
+import WortDesGlaubensPage from './pages/WortDesGlaubensPage';
 
 function GameApp() {
   const { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP, waitingRoomEnabled } = useGameState();
@@ -39,7 +39,7 @@ export default function App() {
       <Routes>
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/control" element={<ControlPage />} />
-        <Route path="/spelling-bee" element={<SpellingBeePage />} />
+        <Route path="/wort-des-glaubens" element={<WortDesGlaubensPage />} />
         <Route path="*" element={<GameApp />} />
       </Routes>
     </BrowserRouter>
