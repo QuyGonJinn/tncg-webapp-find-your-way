@@ -155,6 +155,7 @@
     "enterInApp": "Enter this code in the app!",
     "progress": "✓ {videoCorrect} / 5 videos correct, {scrambledCorrect} / 7 words correct",
     "minimumRequired": "Minimum 2 videos + 3 words required",
+    "codeInstructions": "Please enter the code above in the station and then click \"Back\" to return to the participant area.",
     "loginTitle": "Word of Faith",
     "loginSubtitle": "Sign Language Puzzle",
     "loginDescription": "Login with your team PIN to play Word of Faith.",

@@ -155,6 +155,7 @@
     "enterInApp": "Trage diesen Code in die App ein!",
     "progress": "✓ {videoCorrect} / 5 Videos richtig, {scrambledCorrect} / 7 Wörter richtig",
     "minimumRequired": "Mindestens 2 Videos + 3 Wörter erforderlich",
+    "codeInstructions": "Bitte trage den Code oben in die Station ein und klicke dann auf \"Zurück\", um zum Teilnehmerbereich zurückzukehren.",
     "loginTitle": "Wort des Glaubens",
     "loginSubtitle": "Gebärden-Rätsel",
     "loginDescription": "Melde dich mit deinem Team-PIN an um das Wort des Glaubens zu spielen.",
