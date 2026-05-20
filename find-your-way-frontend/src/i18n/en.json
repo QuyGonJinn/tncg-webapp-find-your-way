@@ -278,6 +278,22 @@
     "code": "Code",
     "codeInstructions": "Please enter the code above in the station and then click \"Back\" to return to the participant area."
   },
+  "privacy": {
+    "title": "🔒 Privacy Policy",
+    "subtitle": "Please read and confirm",
+    "section1Title": "What data do we collect?",
+    "section1Content": "We only collect the necessary data: team name, team icon, points, and station progress. No personal data such as names, addresses, or phone numbers are stored.",
+    "section2Title": "How is the data protected?",
+    "section2Content": "All data is transmitted encrypted and stored securely on our server. Only administrators have access to the data.",
+    "section3Title": "Photos and Media",
+    "section3Content": "Photos you upload at stations are only used for verification by administrators. After the event, all photos are deleted.",
+    "section4Title": "How long is data stored?",
+    "section4Content": "All data is deleted after the event. During the event, data is only used for game management.",
+    "section5Title": "Your Rights",
+    "section5Content": "You can ask the admin at any time to delete your data or find out what data is stored about your team.",
+    "acceptCheckbox": "I have read and accept the privacy policy",
+    "acceptButton": "✓ Accept and continue"
+  },
   "admin": {
     "title": "Admin – Find Your Way",
     "teams": "Teams registered",

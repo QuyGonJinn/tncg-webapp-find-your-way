@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TEAM_ICONS } from '../data/stations';
 import { useI18n } from '../hooks/useI18n';
 import LanguageSwitcherDropdown from './LanguageSwitcherDropdown';
+import PrivacyPolicyModal from './PrivacyPolicyModal';
 
 export default function SetupScreen({ onStart, onLogin, error }) {
   const { t } = useI18n();
@@ -9,6 +10,20 @@ export default function SetupScreen({ onStart, onLogin, error }) {
   const [name, setName] = useState('');
   const [icon, setIcon] = useState(TEAM_ICONS[0]);
   const [pin, setPin] = useState('');
+  const [showPrivacy, setShowPrivacy] = useState(false);
+
+  // Check if privacy policy has been accepted
+  useEffect(() => {
+    const privacyAccepted = localStorage.getItem('fyw_privacy_accepted');
+    if (!privacyAccepted) {
+      setShowPrivacy(true);
+    }
+  }, []);
+
+  function handlePrivacyAccept() {
+    localStorage.setItem('fyw_privacy_accepted', 'true');
+    setShowPrivacy(false);
+  }
 
   function handleCreate(e) {
     e.preventDefault();
@@ -20,6 +35,10 @@ export default function SetupScreen({ onStart, onLogin, error }) {
     e.preventDefault();
     if (pin.trim().length < 4) return;
     onLogin(pin.trim());
+  }
+
+  if (showPrivacy) {
+    return <PrivacyPolicyModal onAccept={handlePrivacyAccept} />;
   }
 
   return (

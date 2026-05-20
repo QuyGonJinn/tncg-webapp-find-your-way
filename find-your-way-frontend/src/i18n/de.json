@@ -278,6 +278,22 @@
     "code": "Code",
     "codeInstructions": "Bitte tragen Sie den Code oben in die Station ein und klicken Sie dann auf \"Zurück\", um zum Teilnehmerbereich zurückzukehren."
   },
+  "privacy": {
+    "title": "🔒 Datenschutzrichtlinie",
+    "subtitle": "Bitte lesen und bestätigen",
+    "section1Title": "Welche Daten sammeln wir?",
+    "section1Content": "Wir sammeln nur die notwendigsten Daten: Team-Name, Team-Icon, Punkte und Stationen-Fortschritt. Keine persönlichen Daten wie Namen, Adressen oder Telefonnummern werden gespeichert.",
+    "section2Title": "Wie werden die Daten geschützt?",
+    "section2Content": "Alle Daten werden verschlüsselt übertragen und sicher auf unserem Server gespeichert. Nur die Administratoren haben Zugriff auf die Daten.",
+    "section3Title": "Fotos und Medien",
+    "section3Content": "Fotos, die ihr bei Stationen hochladet, werden nur für die Überprüfung durch Administratoren verwendet. Nach dem Event werden alle Fotos gelöscht.",
+    "section4Title": "Wie lange werden Daten gespeichert?",
+    "section4Content": "Alle Daten werden nach dem Event gelöscht. Während des Events werden die Daten nur für die Spielverwaltung verwendet.",
+    "section5Title": "Eure Rechte",
+    "section5Content": "Ihr könnt jederzeit den Admin fragen, um eure Daten zu löschen oder zu erfahren, welche Daten über euer Team gespeichert sind.",
+    "acceptCheckbox": "Ich habe die Datenschutzrichtlinie gelesen und akzeptiert",
+    "acceptButton": "✓ Akzeptieren und fortfahren"
+  },
   "admin": {
     "title": "Admin – Find Your Way",
     "teams": "Teams registriert",
