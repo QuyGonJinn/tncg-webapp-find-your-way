@@ -136,21 +136,30 @@ function GameScreen({ team, onLogout }) {
   useEffect(() => {
     if (!submissionId) return;
 
+    console.log('🔌 Connecting WebSocket for submission:', submissionId);
+    
     const wsBase = `${import.meta.env.VITE_WS_URL ?? 'ws://localhost:3001'}`;
     const ws = new WebSocket(wsBase);
+
+    ws.onopen = () => {
+      console.log('✅ WebSocket connected');
+    };
 
     ws.onmessage = (event) => {
       try {
         const { type, payload } = JSON.parse(event.data);
+        console.log('📨 WebSocket message:', type, payload);
         
         // Listen for bibelpose confirmation events
         if (type === 'bibelpose:confirmed' && payload.submissionId === submissionId) {
+          console.log('✅ Submission confirmed!', payload);
           setSubmissionCode(payload.code);
           setSubmissionStatus('confirmed');
         }
         
         // Listen for bibelpose rejection events
         if (type === 'bibelpose:rejected' && payload.submissionId === submissionId) {
+          console.log('❌ Submission rejected!', payload);
           setSubmissionStatus('rejected');
           setRejectionMessage(t('bibelpose.rejectedMessage'));
         }
@@ -159,9 +168,16 @@ function GameScreen({ team, onLogout }) {
       }
     };
 
-    ws.onerror = (error) => console.error('WebSocket error:', error);
+    ws.onerror = (error) => {
+      console.error('❌ WebSocket error:', error);
+    };
+
+    ws.onclose = () => {
+      console.log('🔌 WebSocket closed');
+    };
 
     return () => {
+      console.log('🔌 Closing WebSocket');
       if (ws.readyState === WebSocket.OPEN) {
         ws.close();
       }
