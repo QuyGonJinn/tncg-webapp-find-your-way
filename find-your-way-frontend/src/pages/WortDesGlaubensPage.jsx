@@ -3,7 +3,7 @@ import { loginWithPin, fetchTeam } from '../api';
 import { useI18n } from '../hooks/useI18n';
 
 // 5 Gebärden-Videos mit den korrekten Wörtern
-const WORT_DES_GLAUBENS_WORDS = [
+const WORT_DES_GLAUBENS_VIDEOS = [
   { id: 1, word: 'GLAUBE', hint: 'Video 1' },
   { id: 2, word: 'HOFFNUNG', hint: 'Video 2' },
   { id: 3, word: 'LIEBE', hint: 'Video 3' },
@@ -11,7 +11,16 @@ const WORT_DES_GLAUBENS_WORDS = [
   { id: 5, word: 'FRIEDE', hint: 'Video 5' },
 ];
 
-// Code wird aus der Datenbank geladen (siehe GameScreen)
+// 7 verdrehte Wörter (Anagramme)
+const WORT_DES_GLAUBENS_SCRAMBLED = [
+  { id: 1, scrambled: 'UABLEG', correct: 'GLAUBE' },
+  { id: 2, scrambled: 'NFNUGFHO', correct: 'HOFFNUNG' },
+  { id: 3, scrambled: 'EIBEL', correct: 'LIEBE' },
+  { id: 4, scrambled: 'UERFDE', correct: 'FREUDE' },
+  { id: 5, scrambled: 'EFDREI', correct: 'FRIEDE' },
+  { id: 6, scrambled: 'TGUO', correct: 'GOTT' },
+  { id: 7, scrambled: 'NAGES', correct: 'SEGEN' },
+];
 
 function VideoCard({ videoId, onVideoLoad }) {
   const [error, setError] = useState(false);
@@ -40,21 +49,21 @@ function VideoCard({ videoId, onVideoLoad }) {
   );
 }
 
-function WordInput({ wordData, value, onChange, feedback, t }) {
+function WordInput({ wordData, value, onChange, feedback, t, isScrambled = false }) {
   const isCorrect = feedback === 'correct';
   const isWrong = feedback === 'wrong';
 
   return (
     <div className="space-y-2">
       <label className="block text-sm font-bold text-stone-700">
-        {wordData.hint}
+        {isScrambled ? wordData.scrambled : wordData.hint}
       </label>
       <div className="flex gap-2">
         <input
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value.toUpperCase())}
-          placeholder={t('wortDesGlaubens.wordPlaceholder')}
+          placeholder={isScrambled ? t('wortDesGlaubens.scrambledPlaceholder') : t('wortDesGlaubens.wordPlaceholder')}
           className={`flex-1 border-2 rounded-xl px-4 py-2 font-bold text-lg focus:outline-none transition-all ${
             isCorrect
               ? 'border-green-500 bg-green-50 text-green-900'
@@ -146,7 +155,7 @@ function LoginScreen({ onLogin, error }) {
             type="text"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+            onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
             placeholder={t('setup.pinPlaceholder')}
             className="w-full border-2 border-amber-200 rounded-xl px-4 py-3 text-lg font-bold focus:outline-none focus:border-amber-500"
             disabled={loading}
@@ -171,19 +180,37 @@ function LoginScreen({ onLogin, error }) {
 
 function GameScreen({ team, onLogout }) {
   const { t, language, switchLanguage } = useI18n();
-  const [answers, setAnswers] = useState({
+  const [videoAnswers, setVideoAnswers] = useState({
     1: '',
     2: '',
     3: '',
     4: '',
     5: '',
   });
-  const [feedback, setFeedback] = useState({
+  const [videoFeedback, setVideoFeedback] = useState({
     1: null,
     2: null,
     3: null,
     4: null,
     5: null,
+  });
+  const [scrambledAnswers, setScrambledAnswers] = useState({
+    1: '',
+    2: '',
+    3: '',
+    4: '',
+    5: '',
+    6: '',
+    7: '',
+  });
+  const [scrambledFeedback, setScrambledFeedback] = useState({
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
   });
   const [correctCode, setCorrectCode] = useState('SB95'); // Fallback
 
@@ -206,25 +233,44 @@ function GameScreen({ team, onLogout }) {
     loadCode();
   }, []);
 
-  function handleAnswerChange(id, value) {
-    setAnswers(prev => ({ ...prev, [id]: value }));
+  function handleVideoAnswerChange(id, value) {
+    setVideoAnswers(prev => ({ ...prev, [id]: value }));
     
     // Prüfe ob das Wort richtig ist
-    const wordData = WORT_DES_GLAUBENS_WORDS.find(w => w.id === id);
+    const videoData = WORT_DES_GLAUBENS_VIDEOS.find(w => w.id === id);
     if (value.length > 0) {
-      if (value === wordData.word) {
-        setFeedback(prev => ({ ...prev, [id]: 'correct' }));
+      if (value === videoData.word) {
+        setVideoFeedback(prev => ({ ...prev, [id]: 'correct' }));
       } else {
-        setFeedback(prev => ({ ...prev, [id]: 'wrong' }));
+        setVideoFeedback(prev => ({ ...prev, [id]: 'wrong' }));
       }
     } else {
-      setFeedback(prev => ({ ...prev, [id]: null }));
+      setVideoFeedback(prev => ({ ...prev, [id]: null }));
     }
   }
 
-  // Prüfe ob alle 5 Wörter richtig sind
-  const allCorrect = WORT_DES_GLAUBENS_WORDS.every(w => answers[w.id] === w.word);
-  const correctCount = Object.values(feedback).filter(f => f === 'correct').length;
+  function handleScrambledAnswerChange(id, value) {
+    setScrambledAnswers(prev => ({ ...prev, [id]: value }));
+    
+    // Prüfe ob das Wort richtig ist
+    const scrambledData = WORT_DES_GLAUBENS_SCRAMBLED.find(w => w.id === id);
+    if (value.length > 0) {
+      if (value === scrambledData.correct) {
+        setScrambledFeedback(prev => ({ ...prev, [id]: 'correct' }));
+      } else {
+        setScrambledFeedback(prev => ({ ...prev, [id]: 'wrong' }));
+      }
+    } else {
+      setScrambledFeedback(prev => ({ ...prev, [id]: null }));
+    }
+  }
+
+  // Zähle korrekte Antworten
+  const videoCorrectCount = Object.values(videoFeedback).filter(f => f === 'correct').length;
+  const scrambledCorrectCount = Object.values(scrambledFeedback).filter(f => f === 'correct').length;
+
+  // Prüfe Mindestanforderung: mindestens 2 Videos + 3 verdrehte Wörter
+  const minimumMet = videoCorrectCount >= 2 && scrambledCorrectCount >= 3;
 
   return (
     <div className="min-h-screen bg-amber-50">
@@ -292,36 +338,55 @@ function GameScreen({ team, onLogout }) {
 
         {/* Videos Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          {WORT_DES_GLAUBENS_WORDS.map(wordData => (
-            <div key={wordData.id} className="space-y-3">
+          {WORT_DES_GLAUBENS_VIDEOS.map(videoData => (
+            <div key={videoData.id} className="space-y-3">
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-black text-amber-700">{wordData.id}</span>
-                <p className="text-sm font-bold text-stone-600">{wordData.hint}</p>
+                <span className="text-2xl font-black text-amber-700">{videoData.id}</span>
+                <p className="text-sm font-bold text-stone-600">{videoData.hint}</p>
               </div>
-              <VideoCard videoId={wordData.id} />
+              <VideoCard videoId={videoData.id} />
             </div>
           ))}
         </div>
 
-        {/* Word Input Section */}
+        {/* Video Word Input Section */}
         <div className="bg-white rounded-2xl shadow p-6 mb-6">
           <h2 className="text-amber-900 font-black text-lg mb-4">{t('wortDesGlaubens.enterWords')}</h2>
           <div className="space-y-4">
-            {WORT_DES_GLAUBENS_WORDS.map(wordData => (
+            {WORT_DES_GLAUBENS_VIDEOS.map(videoData => (
               <WordInput
-                key={wordData.id}
-                wordData={wordData}
-                value={answers[wordData.id]}
-                onChange={(value) => handleAnswerChange(wordData.id, value)}
-                feedback={feedback[wordData.id]}
+                key={videoData.id}
+                wordData={videoData}
+                value={videoAnswers[videoData.id]}
+                onChange={(value) => handleVideoAnswerChange(videoData.id, value)}
+                feedback={videoFeedback[videoData.id]}
                 t={t}
+                isScrambled={false}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Scrambled Words Section */}
+        <div className="bg-white rounded-2xl shadow p-6 mb-6">
+          <h2 className="text-amber-900 font-black text-lg mb-4">{t('wortDesGlaubens.enterScrambled')}</h2>
+          <div className="space-y-4">
+            {WORT_DES_GLAUBENS_SCRAMBLED.map(scrambledData => (
+              <WordInput
+                key={scrambledData.id}
+                wordData={scrambledData}
+                value={scrambledAnswers[scrambledData.id]}
+                onChange={(value) => handleScrambledAnswerChange(scrambledData.id, value)}
+                feedback={scrambledFeedback[scrambledData.id]}
+                t={t}
+                isScrambled={true}
               />
             ))}
           </div>
         </div>
 
         {/* Code Display */}
-        {allCorrect && (
+        {minimumMet && (
           <div className="bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-6 shadow-lg animate-pulse">
             <div className="text-center">
               <p className="text-green-700 font-bold text-sm mb-2">{t('wortDesGlaubens.allCorrect')}</p>
@@ -335,11 +400,12 @@ function GameScreen({ team, onLogout }) {
         )}
 
         {/* Progress Indicator */}
-        {!allCorrect && (
-          <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center">
+        {!minimumMet && (
+          <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center space-y-2">
             <p className="text-amber-900 font-bold text-sm">
-              {t('wortDesGlaubens.progress', { correct: correctCount })}
+              {t('wortDesGlaubens.progress', { videoCorrect: videoCorrectCount, scrambledCorrect: scrambledCorrectCount })}
             </p>
+            <p className="text-amber-700 text-xs font-semibold">{t('wortDesGlaubens.minimumRequired')}</p>
           </div>
         )}
       </div>
