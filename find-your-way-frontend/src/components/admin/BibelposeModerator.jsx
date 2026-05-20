@@ -155,22 +155,14 @@ export default function BibelposeModerator() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-black text-amber-900">🎭 {t('bibelpose.moderationTitle')}</h2>
-        <div className="flex gap-2">
+        {submissions.length > 0 && (
           <button
-            onClick={loadSubmissions}
-            className="bg-amber-700 hover:bg-amber-800 text-white font-bold px-4 py-2 rounded-lg"
+            onClick={handleDeleteAll}
+            className="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg"
           >
-            🔄 {t('bibelpose.refresh')}
+            🗑️ Alle löschen ({submissions.length})
           </button>
-          {submissions.length > 0 && (
-            <button
-              onClick={handleDeleteAll}
-              className="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg"
-            >
-              🗑️ Alle löschen ({submissions.length})
-            </button>
-          )}
-        </div>
+        )}
       </div>
 
       {/* Stats */}
