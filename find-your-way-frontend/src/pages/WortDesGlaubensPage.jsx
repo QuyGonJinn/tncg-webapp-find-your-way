@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { loginWithPin, fetchTeam } from '../api';
 
 // 5 Gebärden-Videos mit den korrekten Wörtern
-const SPELLING_BEE_WORDS = [
+const WORT_DES_GLAUBENS_WORDS = [
   { id: 1, word: 'GLAUBE', hint: 'Video 1' },
   { id: 2, word: 'HOFFNUNG', hint: 'Video 2' },
   { id: 3, word: 'LIEBE', hint: 'Video 3' },
@@ -97,7 +97,7 @@ function LoginScreen({ onLogin, error }) {
       {/* Logo & Title */}
       <div className="text-center mb-8">
         <div className="text-6xl mb-3 animate-bounce">🐝</div>
-        <h1 className="text-4xl font-black text-amber-100 tracking-tight">Spelling Bee</h1>
+        <h1 className="text-4xl font-black text-amber-100 tracking-tight">Wort des Glaubens</h1>
         <p className="text-amber-300 mt-2 text-lg">Gebärden-Rätsel</p>
       </div>
 
@@ -105,7 +105,7 @@ function LoginScreen({ onLogin, error }) {
       <div className="bg-amber-50 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border-2 border-amber-300 p-8">
         <div className="text-center mb-6">
           <p className="text-stone-700 text-sm leading-relaxed">
-            Melde dich mit deinem Team-PIN an um die Spelling Bee zu spielen.
+            Melde dich mit deinem Team-PIN an um das Wort des Glaubens zu spielen.
           </p>
         </div>
 
@@ -167,7 +167,7 @@ function GameScreen({ team, onLogout }) {
         const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
         const response = await fetch(`${apiBase}/stations/codes`);
         const codes = await response.json();
-        // Station 12 ist Spelling Bee
+      // Station 12 ist Wort des Glaubens
         if (codes[12]) {
           setCorrectCode(codes[12]);
         }
@@ -183,7 +183,7 @@ function GameScreen({ team, onLogout }) {
     setAnswers(prev => ({ ...prev, [id]: value }));
     
     // Prüfe ob das Wort richtig ist
-    const wordData = SPELLING_BEE_WORDS.find(w => w.id === id);
+    const wordData = WORT_DES_GLAUBENS_WORDS.find(w => w.id === id);
     if (value.length > 0) {
       if (value === wordData.word) {
         setFeedback(prev => ({ ...prev, [id]: 'correct' }));
@@ -196,7 +196,7 @@ function GameScreen({ team, onLogout }) {
   }
 
   // Prüfe ob alle 5 Wörter richtig sind
-  const allCorrect = SPELLING_BEE_WORDS.every(w => answers[w.id] === w.word);
+  const allCorrect = WORT_DES_GLAUBENS_WORDS.every(w => answers[w.id] === w.word);
   const correctCount = Object.values(feedback).filter(f => f === 'correct').length;
 
   return (
@@ -207,7 +207,7 @@ function GameScreen({ team, onLogout }) {
           <div className="flex items-center gap-3">
             <span className="text-4xl">🐝</span>
             <div>
-              <h1 className="text-2xl font-black leading-tight text-amber-50">Spelling Bee</h1>
+              <h1 className="text-2xl font-black leading-tight text-amber-50">Wort des Glaubens</h1>
               <p className="text-amber-300 text-sm">Gebärden-Rätsel · 5 Videos</p>
             </div>
           </div>
@@ -241,7 +241,7 @@ function GameScreen({ team, onLogout }) {
 
         {/* Videos Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          {SPELLING_BEE_WORDS.map(wordData => (
+          {WORT_DES_GLAUBENS_WORDS.map(wordData => (
             <div key={wordData.id} className="space-y-3">
               <div className="flex items-center gap-2">
                 <span className="text-2xl font-black text-amber-700">{wordData.id}</span>
@@ -256,7 +256,7 @@ function GameScreen({ team, onLogout }) {
         <div className="bg-white rounded-2xl shadow p-6 mb-6">
           <h2 className="text-amber-900 font-black text-lg mb-4">🎯 Wörter eingeben</h2>
           <div className="space-y-4">
-            {SPELLING_BEE_WORDS.map(wordData => (
+            {WORT_DES_GLAUBENS_WORDS.map(wordData => (
               <WordInput
                 key={wordData.id}
                 wordData={wordData}
@@ -295,17 +295,17 @@ function GameScreen({ team, onLogout }) {
   );
 }
 
-export default function SpellingBeePage() {
+export default function WortDesGlaubensPage() {
   const [team, setTeam] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Prüfe ob Team bereits angemeldet ist
-    const savedTeamId = localStorage.getItem('fyw_spelling_bee_team_id');
+    const savedTeamId = localStorage.getItem('fyw_wort_des_glaubens_team_id');
     if (savedTeamId) {
       fetchTeam(savedTeamId)
         .then(t => setTeam(t))
-        .catch(() => localStorage.removeItem('fyw_spelling_bee_team_id'))
+        .catch(() => localStorage.removeItem('fyw_wort_des_glaubens_team_id'))
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
@@ -313,12 +313,12 @@ export default function SpellingBeePage() {
   }, []);
 
   function handleLogin(teamData) {
-    localStorage.setItem('fyw_spelling_bee_team_id', teamData.id);
+    localStorage.setItem('fyw_wort_des_glaubens_team_id', teamData.id);
     setTeam(teamData);
   }
 
   function handleLogout() {
-    localStorage.removeItem('fyw_spelling_bee_team_id');
+    localStorage.removeItem('fyw_wort_des_glaubens_team_id');
     setTeam(null);
   }
 
