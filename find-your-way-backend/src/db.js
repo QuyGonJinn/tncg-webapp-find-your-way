@@ -117,6 +117,28 @@ try {
   console.log('read_at column already exists or error:', e.message);
 }
 
+// Migration: add rejected_at column to bibelpose_submissions if missing
+try {
+  const hasRejectedAt = db.prepare(`PRAGMA table_info(bibelpose_submissions)`).all().some(col => col.name === 'rejected_at');
+  if (!hasRejectedAt) {
+    db.exec(`ALTER TABLE bibelpose_submissions ADD COLUMN rejected_at INTEGER`);
+    console.log('✅ Added rejected_at column to bibelpose_submissions');
+  }
+} catch (e) {
+  console.log('rejected_at column already exists or error:', e.message);
+}
+
+// Migration: add rejected_at column to heilige_buchstabenjagd_submissions if missing
+try {
+  const hasRejectedAt = db.prepare(`PRAGMA table_info(heilige_buchstabenjagd_submissions)`).all().some(col => col.name === 'rejected_at');
+  if (!hasRejectedAt) {
+    db.exec(`ALTER TABLE heilige_buchstabenjagd_submissions ADD COLUMN rejected_at INTEGER`);
+    console.log('✅ Added rejected_at column to heilige_buchstabenjagd_submissions');
+  }
+} catch (e) {
+  console.log('rejected_at column already exists or error:', e.message);
+}
+
 // Init game state defaults
 const initState = db.prepare(`INSERT OR IGNORE INTO game_state (key, value) VALUES (?, ?)`);
 initState.run('timer_running', 'false');

@@ -351,7 +351,7 @@ function GameScreen({ team, onLogout }) {
                 <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-4 mb-6">
                   <p className="text-blue-900 font-bold text-sm mb-2">📝 {t('common.instructions')}:</p>
                   <p className="text-blue-800 text-sm">
-                    {t('bibelpose.codeInstructions') || 'Bitte tragen Sie den Code oben in die Station ein und klicken Sie dann auf "Zurück", um zum Teilnehmerbereich zurückzukehren.'}
+                    {t('bibelpose.codeInstructions') || 'Trag den Code ein. Klicke auf "Zurück", um zum Teilnehmerbereich zurückzukehren und den Code zu der Station einzutragen.'}
                   </p>
                 </div>
                 

@@ -168,7 +168,12 @@ router.post('/submissions/:id/reject', (req, res) => {
       fs.unlinkSync(photoPath);
     }
 
-    run(`DELETE FROM heilige_buchstabenjagd_submissions WHERE id = ?`, [id]);
+    // Update status to rejected instead of deleting
+    const now = Math.floor(Date.now() / 1000);
+    run(
+      `UPDATE heilige_buchstabenjagd_submissions SET status = ?, rejected_at = ? WHERE id = ?`,
+      ['rejected', now, id]
+    );
 
     // Broadcast WebSocket event
     broadcast('heiligeBuchstabenjagd:rejected', {
@@ -177,7 +182,7 @@ router.post('/submissions/:id/reject', (req, res) => {
       message: `Heilige Buchstabenjagd submission rejected for team ${submission.team_name}`,
     });
 
-    res.json({ success: true, message: 'Submission rejected and deleted' });
+    res.json({ success: true, message: 'Submission rejected' });
   } catch (error) {
     console.error('Error rejecting submission:', error);
     res.status(500).json({ error: 'Failed to reject submission' });
