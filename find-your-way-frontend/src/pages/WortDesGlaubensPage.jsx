@@ -300,6 +300,7 @@ function GameScreen({ team, onLogout }) {
 }
 
 export default function WortDesGlaubensPage() {
+  const { t } = useI18n();
   const [team, setTeam] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -326,10 +327,12 @@ export default function WortDesGlaubensPage() {
     setTeam(null);
   }
 
+  const { t } = useI18n();
+
   if (loading) {
     return (
       <div className="min-h-screen bg-amber-50 flex items-center justify-center">
-        <p className="text-gray-500">{useI18n().t('common.loading')}</p>
+        <p className="text-gray-500">{t('common.loading')}</p>
       </div>
     );
   }
