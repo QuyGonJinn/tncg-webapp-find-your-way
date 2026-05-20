@@ -55,6 +55,19 @@ db.exec(`
     created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
   );
+  CREATE TABLE IF NOT EXISTS bibelpose_submissions (
+    id TEXT PRIMARY KEY,
+    team_id TEXT NOT NULL,
+    team_name TEXT NOT NULL,
+    scene_id INTEGER NOT NULL,
+    scene_name TEXT NOT NULL,
+    photo_path TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending',
+    code TEXT,
+    submitted_at INTEGER NOT NULL,
+    confirmed_at INTEGER,
+    FOREIGN KEY (team_id) REFERENCES teams(id)
+  );
 `);
 
 // Enable foreign keys

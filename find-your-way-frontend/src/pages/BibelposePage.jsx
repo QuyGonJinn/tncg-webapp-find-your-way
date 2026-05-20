@@ -127,6 +127,9 @@ function GameScreen({ team, onLogout }) {
   const [uploading, setUploading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [uploadError, setUploadError] = useState(null);
+  const [submissionId, setSubmissionId] = useState(null);
+  const [submissionCode, setSubmissionCode] = useState(null);
+  const [checkingStatus, setCheckingStatus] = useState(false);
 
   async function handlePhotoUpload(e) {
     const file = e.target.files?.[0];
@@ -152,12 +155,34 @@ function GameScreen({ team, onLogout }) {
         throw new Error(t('bibelpose.uploadError'));
       }
 
+      const data = await response.json();
       setPhoto(file);
+      setSubmissionId(data.submissionId);
       setSubmitted(true);
+      
+      // Start polling for status
+      pollSubmissionStatus(data.submissionId);
     } catch (error) {
       setUploadError(error.message || t('bibelpose.uploadError'));
     } finally {
       setUploading(false);
+    }
+  }
+
+  async function pollSubmissionStatus(id) {
+    setCheckingStatus(true);
+    try {
+      const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+      const response = await fetch(`${apiBase}/bibelpose/submissions/${id}/status`);
+      const data = await response.json();
+      
+      if (data.status === 'confirmed') {
+        setSubmissionCode(data.code);
+      }
+    } catch (error) {
+      console.error('Error checking status:', error);
+    } finally {
+      setCheckingStatus(false);
     }
   }
 
@@ -296,8 +321,25 @@ function GameScreen({ team, onLogout }) {
           <div className="bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-8 shadow-lg text-center">
             <div className="text-6xl mb-4">✅</div>
             <h2 className="text-3xl font-black text-green-700 mb-2">{t('bibelpose.submitted')}</h2>
-            <p className="text-green-700 text-lg mb-6">{t('bibelpose.waitingConfirmation')}</p>
-            <p className="text-green-600 text-sm mb-8">{t('bibelpose.adminWillConfirm')}</p>
+            <p className="text-green-700 text-lg mb-2">{t('bibelpose.waitingConfirmation')}</p>
+            <p className="text-green-600 text-sm mb-6">{t('bibelpose.adminWillConfirm')}</p>
+            
+            {submissionCode ? (
+              <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-6">
+                <p className="text-green-700 font-bold text-sm mb-2">🎉 {t('bibelpose.codeReceived')}</p>
+                <p className="text-4xl font-black text-green-700 tracking-widest">{submissionCode}</p>
+              </div>
+            ) : (
+              <div className="mb-6">
+                <button
+                  onClick={() => pollSubmissionStatus(submissionId)}
+                  disabled={checkingStatus}
+                  className="bg-green-700 hover:bg-green-800 disabled:bg-gray-400 text-white font-black px-6 py-2 rounded-2xl"
+                >
+                  {checkingStatus ? '⏳ ' + t('common.loading') : '🔄 ' + t('bibelpose.checkStatus')}
+                </button>
+              </div>
+            )}
             
             <button
               onClick={() => {
@@ -305,6 +347,8 @@ function GameScreen({ team, onLogout }) {
                 setPhoto(null);
                 setSubmitted(false);
                 setUploadError(null);
+                setSubmissionId(null);
+                setSubmissionCode(null);
               }}
               className="bg-green-700 hover:bg-green-800 text-white font-black px-6 py-3 rounded-2xl"
             >

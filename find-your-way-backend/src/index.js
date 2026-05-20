@@ -10,6 +10,9 @@ async function main() {
   const app = express();
   app.use(cors());
   app.use(express.json());
+  
+  // Serve uploaded files
+  app.use('/data', express.static(require('path').join(__dirname, '..', 'data')));
 
   const PORT = process.env.PORT || 3001;
   const ADMIN_PIN = process.env.ADMIN_PIN || '1234'; // Change in production!
@@ -20,6 +23,7 @@ async function main() {
   app.use('/api/stats', require('./routes/stats'));
   app.use('/api/participants', require('./routes/participants'));
   app.use('/api/stations', require('./routes/stations'));
+  app.use('/api/bibelpose', require('./routes/bibelpose'));
   
   // Admin auth
   app.post('/api/admin/login', (req, res) => {

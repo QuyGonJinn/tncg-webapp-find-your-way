@@ -7,6 +7,7 @@ import TeamCard from '../components/admin/TeamCard';
 import AdminChat from '../components/admin/AdminChat';
 import StationCodes from '../components/admin/StationCodes';
 import AdminSettings from '../components/admin/AdminSettings';
+import BibelposeModerator from '../components/admin/BibelposeModerator';
 import { STATIONS } from '../data/stations';
 import { adminLogin } from '../api';
 
@@ -85,6 +86,12 @@ export default function AdminPage() {
             📋 Codes
           </button>
           <button
+            onClick={() => setAdminTab('bibelpose')}
+            className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${adminTab === 'bibelpose' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'}`}
+          >
+            🎭 Bibelpose
+          </button>
+          <button
             onClick={() => setAdminTab('chat')}
             className={`flex-1 py-2 rounded-xl font-bold text-sm transition-all ${adminTab === 'chat' ? 'bg-white text-blue-700' : 'bg-blue-700/50 text-blue-200'}`}
           >
@@ -158,6 +165,7 @@ export default function AdminPage() {
 
         {adminTab === 'chat' && <AdminChat teams={teams} />}
         {adminTab === 'codes' && <StationCodes />}
+        {adminTab === 'bibelpose' && <BibelposeModerator />}
         {adminTab === 'settings' && <AdminSettings />}
       </div>
     </div>
