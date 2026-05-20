@@ -113,18 +113,20 @@ function GameScreen({ team, onLogout }) {
 
     console.log('🔌 Connecting WebSocket for submission:', submissionId);
     
-    // Construct WebSocket URL - use backend directly, not through Nginx
-    let wsBase = import.meta.env.VITE_WS_URL ?? 'ws://localhost:3001';
+    // Construct WebSocket URL - connect directly to backend
+    // Extract host from VITE_API_URL and convert to WebSocket URL
+    const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:3001';
+    let wsUrl = apiUrl.replace(/^https?:\/\//, '').replace(/^wss?:\/\//, '');
     
-    // If VITE_WS_URL is wss://, convert to ws:// for local development
-    // In production, wss:// should work through Nginx
-    if (wsBase.startsWith('wss://')) {
-      // For production with Nginx, we need to use the same domain
-      wsBase = wsBase; // Keep as is, Nginx will handle it
+    // If it's a domain (like fyw.tncg.de), use wss://, otherwise ws://
+    if (apiUrl.includes('https://') || apiUrl.includes('wss://')) {
+      wsUrl = `wss://${wsUrl}`;
+    } else {
+      wsUrl = `ws://${wsUrl}`;
     }
     
-    console.log('📡 WebSocket URL:', wsBase);
-    const ws = new WebSocket(wsBase);
+    console.log('📡 WebSocket URL:', wsUrl);
+    const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
       console.log('✅ WebSocket connected');
