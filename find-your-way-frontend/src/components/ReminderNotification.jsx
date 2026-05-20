@@ -9,14 +9,20 @@ export default function ReminderNotification({ timeLeft }) {
 
   useEffect(() => {
     const settings = loadGameSettings();
-    const reminderInterval = settings.reminderInterval * 60; // In Sekunden
+    const reminderInterval = settings.reminderInterval;
+
+    // Wenn Reminder deaktiviert (0), zeige nichts
+    if (reminderInterval === 0) return;
+
+    const reminderIntervalSeconds = reminderInterval * 60;
+    const timeLeftMinutes = Math.floor(timeLeft / 60);
 
     // Prüfe ob ein neuer Reminder angezeigt werden soll
-    if (timeLeft > 0 && timeLeft % reminderInterval === 0 && timeLeft !== lastReminderTime) {
-      const minutes = Math.floor(timeLeft / 60);
+    // Zeige Reminder nur wenn die Zeit ein Vielfaches des Intervalls ist
+    if (timeLeft > 0 && timeLeftMinutes > 0 && timeLeftMinutes % reminderInterval === 0 && timeLeft !== lastReminderTime) {
       const newReminder = {
         id: Date.now(),
-        message: `⏰ ${t('admin.minutesRemaining', { minutes })}`,
+        message: `⏰ ${t('admin.minutesRemaining', { minutes: timeLeftMinutes })}`,
         timeLeft,
       };
       setReminders(prev => [...prev, newReminder]);

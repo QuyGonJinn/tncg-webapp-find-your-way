@@ -85,7 +85,7 @@ export default function AdminSettings() {
             min="1"
             max="480"
             value={settings.gameDuration}
-            onChange={(e) => setSettings({ ...settings, gameDuration: parseInt(e.target.value) || 1 })}
+            onChange={(e) => setSettings({ ...settings, gameDuration: Math.max(1, parseInt(e.target.value) || 1) })}
             className="w-full border-2 border-blue-200 rounded-xl px-4 py-2 text-lg font-bold focus:outline-none focus:border-blue-500"
           />
           <p className="text-xs text-gray-500 mt-1">{t('admin.gameDurationHelp')}</p>
@@ -98,10 +98,10 @@ export default function AdminSettings() {
           </label>
           <input
             type="number"
-            min="1"
-            max="60"
+            min="0"
+            max="120"
             value={settings.reminderInterval}
-            onChange={(e) => setSettings({ ...settings, reminderInterval: parseInt(e.target.value) || 1 })}
+            onChange={(e) => setSettings({ ...settings, reminderInterval: Math.max(0, parseInt(e.target.value) || 0) })}
             className="w-full border-2 border-blue-200 rounded-xl px-4 py-2 text-lg font-bold focus:outline-none focus:border-blue-500"
           />
           <p className="text-xs text-gray-500 mt-1">{t('admin.reminderIntervalHelp')}</p>
@@ -114,14 +114,16 @@ export default function AdminSettings() {
             • Spieldauer: <span className="font-bold">{settings.gameDuration} Minuten</span>
           </p>
           <p className="text-xs text-blue-600">
-            • Reminders alle: <span className="font-bold">{settings.reminderInterval} Minuten</span>
+            • Reminders alle: <span className="font-bold">{settings.reminderInterval === 0 ? 'Deaktiviert' : settings.reminderInterval + ' Minuten'}</span>
           </p>
-          <p className="text-xs text-blue-600 mt-2">
-            {t('admin.remindersAt')} {Array.from(
-              { length: Math.floor(settings.gameDuration / settings.reminderInterval) },
-              (_, i) => settings.gameDuration - (i + 1) * settings.reminderInterval
-            ).join(', ')} {t('admin.minutesRemaining')}
-          </p>
+          {settings.reminderInterval > 0 && (
+            <p className="text-xs text-blue-600 mt-2">
+              {t('admin.remindersAt')} {Array.from(
+                { length: Math.floor(settings.gameDuration / settings.reminderInterval) },
+                (_, i) => settings.gameDuration - (i + 1) * settings.reminderInterval
+              ).join(', ')} {t('admin.minutesRemaining')}
+            </p>
+          )}
         </div>
 
         {/* Buttons */}
