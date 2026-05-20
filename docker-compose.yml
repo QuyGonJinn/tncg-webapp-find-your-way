@@ -5,7 +5,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - fyw-data:/app/data
+      - fyw-backend-data:/app/data
     environment:
       PORT: 3001
       ADMIN_PIN: "1234"
@@ -25,4 +25,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  fyw-data:
+  fyw-backend-data:
