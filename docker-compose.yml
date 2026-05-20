@@ -20,6 +20,8 @@ services:
     container_name: fyw-frontend
     ports:
       - "80:80"
+    volumes:
+      - fyw-backend-data:/app/data:ro
     depends_on:
       - backend
     restart: unless-stopped
