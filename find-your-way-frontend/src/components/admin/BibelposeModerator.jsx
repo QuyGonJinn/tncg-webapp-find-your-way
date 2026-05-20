@@ -105,6 +105,26 @@ export default function BibelposeModerator() {
     }
   }
 
+  async function handleDelete() {
+    if (!selectedSubmission) return;
+
+    if (!confirm('Möchtest du diese Einreichung wirklich löschen? Das Foto wird auch gelöscht.')) return;
+
+    try {
+      const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+      const response = await fetch(`${apiBase}/bibelpose/submissions/${selectedSubmission.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) throw new Error('Failed to delete');
+
+      setSelectedSubmission(null);
+      loadSubmissions();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   const pendingCount = submissions.filter(s => s.status === 'pending').length;
   const confirmedCount = submissions.filter(s => s.status === 'confirmed').length;
 
@@ -239,10 +259,20 @@ export default function BibelposeModerator() {
 
                 {/* Show code if confirmed */}
                 {selectedSubmission.status === 'confirmed' && selectedSubmission.code && (
-                  <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4">
+                  <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4 mb-4">
                     <p className="text-green-700 font-bold text-sm mb-2">🎉 {t('bibelpose.codeAssigned')}:</p>
                     <p className="text-3xl font-black text-green-700 tracking-widest">{selectedSubmission.code}</p>
                   </div>
+                )}
+
+                {/* Delete button for confirmed submissions */}
+                {selectedSubmission.status === 'confirmed' && (
+                  <button
+                    onClick={handleDelete}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-black py-3 rounded-xl"
+                  >
+                    🗑️ Löschen
+                  </button>
                 )}
               </div>
             </div>

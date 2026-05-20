@@ -226,4 +226,32 @@ router.get('/submissions/:id/status', (req, res) => {
   }
 });
 
+// Delete submission (admin)
+router.delete('/submissions/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const submission = get('SELECT * FROM bibelpose_submissions WHERE id = ?', [id]);
+    if (!submission) {
+      return res.status(404).json({ error: 'Submission not found' });
+    }
+
+    // Delete photo file
+    const photoPath = path.join(__dirname, '..', '..', submission.photo_path);
+    if (fs.existsSync(photoPath)) {
+      fs.unlinkSync(photoPath);
+      console.log('📸 Deleted photo:', photoPath);
+    }
+
+    // Delete submission from database
+    run(`DELETE FROM bibelpose_submissions WHERE id = ?`, [id]);
+
+    console.log('✅ Submission deleted:', id);
+    res.json({ success: true, message: 'Submission deleted' });
+  } catch (error) {
+    console.error('Error deleting submission:', error);
+    res.status(500).json({ error: 'Failed to delete submission' });
+  }
+});
+
 module.exports = router;
