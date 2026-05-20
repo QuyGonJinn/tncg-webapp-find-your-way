@@ -388,6 +388,205 @@ Diese Stationen haben **keinen Code** – ein Betreuer steht vor Ort:
 
 ---
 
+## 9️⃣ Foto-Stationen moderieren – Bibelpose, Heilige Buchstabenjagd, Anchor of Hope
+
+### Was sind Foto-Stationen?
+
+Diese 3 Stationen funktionieren anders als normale aktive Stationen:
+
+- **Teams laden Fotos hoch** (z.B. Standbild, Alphabet-Blatt, Armband)
+- **Admins überprüfen die Fotos** im Admin-Dashboard
+- **Admins bestätigen oder lehnen ab**
+- **Teams bekommen einen Code** oder müssen es nochmal versuchen
+
+**Punkte:** +50 XP pro Station  
+**Anzahl:** 3 Stationen  
+**Gesamtpunkte:** 150 XP
+
+### Die 3 Foto-Stationen
+
+| Station | Aufgabe | Was wird hochgeladen |
+|---------|---------|---------------------|
+| **🎭 Bibelpose** | Team stellt eine biblische Szene dar | Foto des Standbildes |
+| **📜 Heilige Buchstabenjagd** | Team füllt Alphabet mit christlichen Wörtern | Foto des Alphabet-Blattes |
+| **⚓ Anchor of Hope** | Team findet Anker und macht Foto | Foto des Armbands/der Botschaft |
+
+### Admin-Bereich: Foto-Moderator
+
+#### Zugang
+
+1. **Admin-Dashboard öffnen**
+2. **Oben auf den Tab "📋 Codes" klicken**
+3. **Unter "Station Codes" seht ihr die 3 Foto-Stationen:**
+   - 🎭 Bibelpose
+   - 📜 Heilige Buchstabenjagd
+   - ⚓ Anchor of Hope
+
+#### Foto-Moderator öffnen
+
+1. **Auf die Station klicken** (z.B. "🎭 Bibelpose")
+2. **Der Moderator öffnet sich**
+3. **Ihr seht alle eingereichten Fotos**
+
+#### Fotos überprüfen
+
+**Für jedes Foto seht ihr:**
+
+```
+Team: 🌊 Team C
+Status: ⏳ Ausstehend
+Foto: [Bild anzeigen]
+Eingereicht: 14:32 Uhr
+
+[✓ Bestätigen] [✕ Ablehnen]
+```
+
+- **Team-Name + Icon:** Welches Team das Foto eingereicht hat
+- **Status:** Ausstehend / Bestätigt / Abgelehnt
+- **Foto:** Das hochgeladene Bild (klickt zum Vergrößern)
+- **Zeitstempel:** Wann das Foto eingereicht wurde
+
+#### Foto bestätigen
+
+**Wenn das Foto gut ist:**
+
+1. **Foto anschauen**
+   - Überprüft, ob die Aufgabe richtig gelöst wurde
+   - Ist das Standbild erkennbar? Ist das Alphabet vollständig? Ist das Armband sichtbar?
+
+2. **"✓ Bestätigen" drücken**
+   - Klickt auf den grünen Button
+   - Ein Modal öffnet sich
+
+3. **Code eingeben**
+   - Gebt einen 4-stelligen Code ein (z.B. `BP42`)
+   - Dieser Code wird dem Team angezeigt
+   - Das Team trägt den Code in der Hauptapp ein
+
+4. **"✓ Speichern" drücken**
+   - Der Code wird gespeichert
+   - Das Team bekommt sofort den Code angezeigt
+   - Das Foto wird grün markiert
+   - Das Team bekommt +50 XP
+
+#### Foto ablehnen
+
+**Wenn das Foto nicht gut genug ist:**
+
+1. **"✕ Ablehnen" drücken**
+   - Klickt auf den roten Button
+   - Das Foto wird rot markiert
+
+2. **Team sieht Fehlermeldung**
+   - Das Team sieht: "❌ Foto abgelehnt"
+   - Das Team kann es nochmal versuchen
+   - Das Team bekommt keine Punkte
+
+3. **Team kann nochmal hochladen**
+   - Das Team kann ein neues Foto hochladen
+   - Der Prozess beginnt von vorne
+
+#### Fotos löschen
+
+**Wenn ihr alle bestätigten Fotos löschen wollt:**
+
+1. **"🗑️ Alle löschen" Button** (oben rechts)
+2. **Bestätigung erforderlich**
+3. **Alle bestätigten Fotos werden gelöscht**
+4. **Die Fotos werden auch vom Server gelöscht**
+
+**Wann nutzen?**
+- Am Ende des Events
+- Zur Datenschutz-Hygiene
+- Wenn der Speicher voll wird
+
+### ⚠️ Wichtig bei Foto-Stationen
+
+- **Fotos sind zeitlich begrenzt:** Teams können nur während des Events Fotos hochladen
+- **Fotos werden nach dem Event gelöscht:** Alle Fotos werden automatisch nach 24 Stunden gelöscht
+- **Social Media Nutzung:** Falls ein Team der Social Media Nutzung zugestimmt hat, könnt ihr die Fotos für Social Media verwenden
+- **Codes sind eindeutig:** Jedes Foto bekommt einen eigenen Code
+- **Teams sehen den Code sofort:** Nach der Bestätigung sieht das Team den Code auf der Seite
+
+---
+
+## 🔟 Wort des Glaubens – Gebärden-Rätsel moderieren
+
+### Was ist Wort des Glaubens?
+
+**Wort des Glaubens** ist eine spezielle passive Station mit Gebärden-Videos:
+
+- **Teams schauen 5 Gebärden-Videos an**
+- **Teams lösen 7 verdrehte Wörter (Anagramme)**
+- **Mindestanforderung:** 2 Videos + 3 Wörter richtig
+- **Teams klicken "Bestätigen"**
+- **Wenn erfüllt:** Code wird angezeigt
+- **Wenn nicht erfüllt:** Fehlermeldung, Team kann weitermachen
+
+**Punkte:** +20 XP  
+**Besonderheit:** Automatische Validierung (kein Admin nötig!)
+
+### Wie funktioniert es?
+
+1. **Team öffnet die Wort des Glaubens Seite**
+   - Separate Webseite: `https://fyw.tncg.de/wort-des-glaubens`
+   - Team meldet sich mit PIN an
+
+2. **Team schaut Videos und löst Rätsel**
+   - 5 Gebärden-Videos
+   - 7 verdrehte Wörter
+   - Eingabefelder für jedes Wort
+
+3. **Team klickt "Bestätigen"**
+   - Am Ende der Seite
+   - Die App überprüft automatisch
+
+4. **Validierung**
+   - Wenn 2+ Videos + 3+ Wörter richtig: ✅ Code anzeigen
+   - Wenn nicht erfüllt: ❌ Fehlermeldung, weitermachen
+
+5. **Team trägt Code in Hauptapp ein**
+   - Team geht zurück zur Hauptapp
+   - Team trägt den Code bei der Station ein
+   - Station wird freigeschaltet
+
+### Admin-Aufgaben
+
+**Admins müssen hier NICHTS tun!** 🎉
+
+- ✅ Keine Fotos zu überprüfen
+- ✅ Keine Codes zu vergeben
+- ✅ Keine Bestätigungen nötig
+- ✅ Alles läuft automatisch
+
+**Einzige Admin-Aufgabe:**
+- Falls ein Team Probleme hat, könnt ihr im Chat helfen
+- Falls die Videos nicht laden, könnt ihr dem Team helfen, die Seite neu zu laden
+
+### Lösungswörter (für Admins)
+
+Falls ein Team fragt, welche Wörter richtig sind:
+
+**5 Gebärden-Videos:**
+1. GLAUBE
+2. HOFFNUNG
+3. LIEBE
+4. FREUDE
+5. FRIEDE
+
+**7 Verdrehte Wörter:**
+1. UABLEG → GLAUBE
+2. NFNUGFHO → HOFFNUNG
+3. EIBEL → LIEBE
+4. UERFDE → FREUDE
+5. EFDREI → FRIEDE
+6. TGUO → GOTT
+7. NAGES → SEGEN
+
+**Mindestanforderung:** 2 Videos + 3 Wörter = 5 von 12 Items
+
+---
+
 ## 7️⃣ Häufige Aufgaben
 
 ### Spiel starten

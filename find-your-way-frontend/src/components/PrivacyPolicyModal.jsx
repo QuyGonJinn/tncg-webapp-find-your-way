@@ -4,6 +4,7 @@ import { useI18n } from '../hooks/useI18n';
 export default function PrivacyPolicyModal({ onAccept }) {
   const { t } = useI18n();
   const [accepted, setAccepted] = useState(false);
+  const [socialMediaAccepted, setSocialMediaAccepted] = useState(false);
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
@@ -49,7 +50,7 @@ export default function PrivacyPolicyModal({ onAccept }) {
 
         {/* Footer */}
         <div className="border-t border-stone-200 px-6 py-4 bg-stone-50 space-y-3">
-          {/* Checkbox */}
+          {/* Checkbox 1 - Privacy Policy */}
           <label className="flex items-start gap-3 cursor-pointer">
             <input
               type="checkbox"
@@ -62,9 +63,22 @@ export default function PrivacyPolicyModal({ onAccept }) {
             </span>
           </label>
 
+          {/* Checkbox 2 - Social Media */}
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={socialMediaAccepted}
+              onChange={(e) => setSocialMediaAccepted(e.target.checked)}
+              className="w-5 h-5 mt-0.5 rounded border-2 border-amber-300 accent-amber-700"
+            />
+            <span className="text-sm text-stone-700 font-semibold">
+              {t('privacy.socialMediaCheckbox')}
+            </span>
+          </label>
+
           {/* Button */}
           <button
-            onClick={() => onAccept()}
+            onClick={() => onAccept(socialMediaAccepted)}
             disabled={!accepted}
             className="w-full bg-amber-700 hover:bg-amber-800 disabled:bg-stone-300 text-white font-black py-3 rounded-2xl transition-all"
           >

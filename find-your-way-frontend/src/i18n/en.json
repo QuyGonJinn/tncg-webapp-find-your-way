@@ -292,6 +292,7 @@
     "section5Title": "Your Rights",
     "section5Content": "You can ask the admin at any time to delete your data or find out what data is stored about your team.",
     "acceptCheckbox": "I have read and accept the privacy policy",
+    "socialMediaCheckbox": "I allow photos of my team to be used for social media of TNCG (optional)",
     "acceptButton": "✓ Accept and continue"
   },
   "admin": {

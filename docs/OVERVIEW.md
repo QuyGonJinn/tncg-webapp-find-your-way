@@ -102,11 +102,22 @@
 **Beispiele:**
 - Holymoji (HM42)
 - Geoguesser (GG17)
-- Anchor of Hope (AH85)
-- Lochkarte (LK63)
-- Heilige Buchstabenjagd (BJ29)
-- Wer bin Ich / Standbild (WI54)
-- Kennst du mich (KM91)
+- Die versteckte Botschaft (LK63)
+- Wort des Glaubens (WG20) – Gebärden-Rätsel
+
+### Foto-Upload Stationen (3 Stück)
+
+**Was sind Foto-Upload Stationen?**
+- Teams laden **Fotos hoch** (Standbild, Alphabet-Blatt, Armband)
+- **Admin überprüft die Fotos** im Admin-Dashboard
+- Admin **bestätigt oder lehnt ab**
+- Bei Bestätigung: **Code wird angezeigt** → +50 XP
+- Bei Ablehnung: Team kann nochmal versuchen
+
+**Beispiele:**
+- 🎭 Bibelpose – Standbild-Rätsel
+- 📜 Heilige Buchstabenjagd – Alphabet-Rätsel
+- ⚓ Anchor of Hope – Hoffnungs-Botschaft
 
 ### Aktive Stationen (5 Stück)
 
@@ -132,20 +143,21 @@
 
 | Rang | Punkte | Beschreibung |
 |------|--------|-------------|
-| 🏆 **Legendär** | 351+ XP (90%+) | Alle oder fast alle Stationen erledigt |
-| 🥇 **Meister** | 273+ XP (70%+) | Großteil der Stationen erledigt |
-| 🥈 **Fortgeschritten** | 195+ XP (50%+) | Hälfte der Stationen erledigt |
-| 🥉 **Einsteiger** | <195 XP (<50%) | Weniger als die Hälfte erledigt |
+| 🏆 **Legendär** | 432+ XP (90%+) | Alle oder fast alle Stationen erledigt |
+| 🥇 **Meister** | 336+ XP (70%+) | Großteil der Stationen erledigt |
+| 🥈 **Fortgeschritten** | 240+ XP (50%+) | Hälfte der Stationen erledigt |
+| 🥉 **Einsteiger** | <240 XP (<50%) | Weniger als die Hälfte erledigt |
 
 ### Punkte-Berechnung
 
 | Stationstyp | Punkte | Anzahl | Gesamt |
 |-------------|--------|--------|--------|
-| Passive Stationen | +20 XP | 7 | 140 XP |
+| Passive Stationen | +20 XP | 4 | 80 XP |
+| Foto-Upload Stationen | +50 XP | 3 | 150 XP |
 | Aktive Stationen | +50 XP | 5 | 250 XP |
-| **Gesamt möglich** | — | **12** | **390 XP** |
+| **Gesamt möglich** | — | **12** | **480 XP** |
 
-**Strategie-Tipp:** Aktive Stationen bringen 2,5x mehr Punkte! Wenn Zeit knapp wird, konzentriert euch auf die aktiven Stationen.
+**Strategie-Tipp:** Foto-Upload und aktive Stationen bringen 2,5x mehr Punkte! Wenn Zeit knapp wird, konzentriert euch auf diese Stationen.
 
 ### Ranking: Wie werden Teams sortiert?
 

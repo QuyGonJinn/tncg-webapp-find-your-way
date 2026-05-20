@@ -20,8 +20,9 @@ export default function SetupScreen({ onStart, onLogin, error }) {
     }
   }, []);
 
-  function handlePrivacyAccept() {
+  function handlePrivacyAccept(socialMediaAccepted) {
     localStorage.setItem('fyw_privacy_accepted', 'true');
+    localStorage.setItem('fyw_social_media_accepted', socialMediaAccepted ? 'true' : 'false');
     setShowPrivacy(false);
   }
 

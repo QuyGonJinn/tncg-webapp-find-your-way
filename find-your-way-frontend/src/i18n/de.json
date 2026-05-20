@@ -292,6 +292,7 @@
     "section5Title": "Eure Rechte",
     "section5Content": "Ihr könnt jederzeit den Admin fragen, um eure Daten zu löschen oder zu erfahren, welche Daten über euer Team gespeichert sind.",
     "acceptCheckbox": "Ich habe die Datenschutzrichtlinie gelesen und akzeptiert",
+    "socialMediaCheckbox": "Ich erlaube, dass Fotos meines Teams für Social Media von TNCG verwendet werden dürfen (optional)",
     "acceptButton": "✓ Akzeptieren und fortfahren"
   },
   "admin": {

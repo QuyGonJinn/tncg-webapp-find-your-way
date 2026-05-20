@@ -2,11 +2,14 @@
 
 ## 📊 Datenbank-Übersicht
 
-SQLite Datenbank mit 4 Haupttabellen:
+SQLite Datenbank mit 7 Haupttabellen:
 - `game_state` - Globale Spiel-Einstellungen
 - `teams` - Team-Informationen
 - `completions` - Station-Abschlüsse
 - `messages` - Chat-Nachrichten
+- `bibelpose_submissions` - Bibelpose Foto-Einreichungen
+- `heilige_buchstabenjagd_submissions` - Heilige Buchstabenjagd Foto-Einreichungen
+- `anchor_of_hope_submissions` - Anchor of Hope Foto-Einreichungen
 
 ---
 
@@ -178,6 +181,110 @@ id                                   | team_id | team_name | team_icon | text   
 
 ---
 
+---
+
+## 5️⃣ `bibelpose_submissions`
+
+Speichert Bibelpose Foto-Einreichungen
+
+```sql
+CREATE TABLE bibelpose_submissions (
+  id TEXT PRIMARY KEY,
+  team_id TEXT NOT NULL,
+  scene_id INTEGER NOT NULL,
+  scene_name TEXT NOT NULL,
+  photo_path TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending',
+  code TEXT,
+  submitted_at INTEGER NOT NULL,
+  confirmed_at INTEGER,
+  rejected_at INTEGER
+);
+```
+
+**Spalten:**
+| Spalte | Typ | Beschreibung |
+|--------|-----|-------------|
+| `id` | TEXT | UUID (eindeutig) |
+| `team_id` | TEXT | Referenz zu `teams.id` |
+| `scene_id` | INTEGER | Szenen-ID (1-20) |
+| `scene_name` | TEXT | Szenen-Name (z.B. "David und Goliath") |
+| `photo_path` | TEXT | Pfad zum Foto (z.B. "/uploads/bibelpose/...jpg") |
+| `status` | TEXT | "pending", "confirmed", "rejected" |
+| `code` | TEXT | 4-stelliger Code (nur wenn confirmed) |
+| `submitted_at` | INTEGER | Timestamp der Einreichung |
+| `confirmed_at` | INTEGER | Timestamp der Bestätigung (NULL wenn pending/rejected) |
+| `rejected_at` | INTEGER | Timestamp der Ablehnung (NULL wenn pending/confirmed) |
+
+**Status-Erklärung:**
+- `pending` - Wartet auf Admin-Überprüfung
+- `confirmed` - Admin hat bestätigt, Code vergeben
+- `rejected` - Admin hat abgelehnt, Team kann nochmal versuchen
+
+---
+
+## 6️⃣ `heilige_buchstabenjagd_submissions`
+
+Speichert Heilige Buchstabenjagd Foto-Einreichungen
+
+```sql
+CREATE TABLE heilige_buchstabenjagd_submissions (
+  id TEXT PRIMARY KEY,
+  team_id TEXT NOT NULL,
+  photo_path TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending',
+  code TEXT,
+  submitted_at INTEGER NOT NULL,
+  confirmed_at INTEGER,
+  rejected_at INTEGER
+);
+```
+
+**Spalten:**
+| Spalte | Typ | Beschreibung |
+|--------|-----|-------------|
+| `id` | TEXT | UUID (eindeutig) |
+| `team_id` | TEXT | Referenz zu `teams.id` |
+| `photo_path` | TEXT | Pfad zum Foto des Alphabet-Blattes |
+| `status` | TEXT | "pending", "confirmed", "rejected" |
+| `code` | TEXT | 4-stelliger Code (nur wenn confirmed) |
+| `submitted_at` | INTEGER | Timestamp der Einreichung |
+| `confirmed_at` | INTEGER | Timestamp der Bestätigung |
+| `rejected_at` | INTEGER | Timestamp der Ablehnung |
+
+---
+
+## 7️⃣ `anchor_of_hope_submissions`
+
+Speichert Anchor of Hope Foto-Einreichungen
+
+```sql
+CREATE TABLE anchor_of_hope_submissions (
+  id TEXT PRIMARY KEY,
+  team_id TEXT NOT NULL,
+  photo_path TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending',
+  code TEXT,
+  submitted_at INTEGER NOT NULL,
+  confirmed_at INTEGER,
+  rejected_at INTEGER
+);
+```
+
+**Spalten:**
+| Spalte | Typ | Beschreibung |
+|--------|-----|-------------|
+| `id` | TEXT | UUID (eindeutig) |
+| `team_id` | TEXT | Referenz zu `teams.id` |
+| `photo_path` | TEXT | Pfad zum Foto des Armbands/der Botschaft |
+| `status` | TEXT | "pending", "confirmed", "rejected" |
+| `code` | TEXT | 4-stelliger Code (nur wenn confirmed) |
+| `submitted_at` | INTEGER | Timestamp der Einreichung |
+| `confirmed_at` | INTEGER | Timestamp der Bestätigung |
+| `rejected_at` | INTEGER | Timestamp der Ablehnung |
+
+---
+
 ## 📈 Daten-Beziehungen
 
 ```
@@ -186,7 +293,16 @@ teams (1)
   ├─── (N) completions
   │         └─ station_id → STATIONS[id]
   │
-  └─── (N) messages
+  ├─── (N) messages
+  │         └─ team_id → teams.id
+  │
+  ├─── (N) bibelpose_submissions
+  │         └─ team_id → teams.id
+  │
+  ├─── (N) heilige_buchstabenjagd_submissions
+  │         └─ team_id → teams.id
+  │
+  └─── (N) anchor_of_hope_submissions
         └─ team_id → teams.id
 ```
 
@@ -227,9 +343,10 @@ ORDER BY s.id;
 - **Typen**: "passiv" oder "aktiv"
 
 ### XP-Punkte
-- **Passiv**: 20 XP pro Station
-- **Aktiv**: 50 XP pro Station
-- **Max**: 12 × 20 + 5 × 50 = 490 XP
+- **Passive Stationen**: 20 XP pro Station (4 Stationen = 80 XP)
+- **Foto-Upload Stationen**: 50 XP pro Station (3 Stationen = 150 XP)
+- **Aktive Stationen**: 50 XP pro Station (5 Stationen = 250 XP)
+- **Max**: 4 × 20 + 3 × 50 + 5 × 50 = 480 XP
 
 ---
 

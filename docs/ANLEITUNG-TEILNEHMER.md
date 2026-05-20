@@ -183,11 +183,16 @@ Passive Stationen könnt ihr **ohne Betreuer** erledigen. Ihr löst die Aufgabe,
 |---------|------|---------|
 | **Holymoji** | `HM42` | Finde Emojis zum Thema Glaube |
 | **Geoguesser** | `GG17` | Erkenne biblische Orte |
-| **Anchor of Hope** | `AH85` | Finde das Hoffnungs-Symbol |
 | **Die versteckte Botschaft** | `LK63` | Löse das Lochkarten-Rätsel |
-| **Heilige Buchstabenjagd** | `BJ29` | Finde versteckte Buchstaben |
-| **Wer bin Ich / Standbild** | `WI54` | Erkenne die biblische Figur |
-| **Spelling Bee** | `SB95` | Gebärden-Rätsel: Erkenne die 5 Wörter |
+| **Wort des Glaubens** | `WG20` | Gebärden-Rätsel: Erkenne 5 Videos + 7 verdrehte Wörter |
+
+### Foto-Upload Stationen – Die Liste
+
+| Station | Aufgabe | Punkte |
+|---------|---------|--------|
+| **🎭 Bibelpose** | Stellt eine biblische Szene dar und macht ein Foto | +50 XP |
+| **📜 Heilige Buchstabenjagd** | Füllt das Alphabet mit christlichen Wörtern und macht ein Foto | +50 XP |
+| **⚓ Anchor of Hope** | Findet den Anker und macht ein Foto der Hoffnungsbotschaft | +50 XP |
 
 ### ⚠️ Wichtig: Codes können sich ändern!
 
@@ -195,18 +200,6 @@ Der Admin kann die Codes jederzeit ändern. Das bedeutet:
 - **Der Code bei der Station kann anders sein** als in dieser Anleitung
 - **Schaut immer auf den Zettel bei der Station** – das ist der aktuelle Code
 - **Falls der Code nicht funktioniert:** Überprüft, ob ihr ihn richtig eingegeben habt (Großbuchstaben, keine Leerzeichen)
-
-### 📖 Spelling Bee – Separate Anleitung
-
-Für die **Spelling Bee Station** gibt es eine ausführliche separate Anleitung:
-
-👉 **[ANLEITUNG-SPELLING-BEE.md](./ANLEITUNG-SPELLING-BEE.md)**
-
-Diese erklärt Teilnehmern:
-- Wie die Gebärden-Videos funktionieren
-- Wie man die 5 Wörter errät
-- Tipps & Tricks zum Lösen
-- Häufige Fragen & Probleme
 
 ---
 
@@ -307,6 +300,380 @@ Diese separate Anleitung erklärt:
 - Wie ihr die 5 Wörter erratet
 - Wie ihr den Code in der Hauptapp eingebt
 - Tipps & Tricks zum Lösen
+
+---
+
+## 4️⃣ Spezielle Stationen – Foto-Upload & Gebärden-Rätsel
+
+### 🎭 Bibelpose – Standbild-Rätsel
+
+**Was ist Bibelpose?**
+- Ihr stellt eine **biblische Szene als Standbild dar** (z.B. David und Goliath, Jesus und die Jünger)
+- Ihr macht ein **Foto des Standbildes**
+- Ein **Admin überprüft das Foto** und bestätigt es
+- Ihr bekommt einen **Code** oder müsst es nochmal versuchen
+
+**Punkte:** +50 XP  
+**Dauer:** ca. 10-15 Minuten
+
+#### Schritt-für-Schritt
+
+1. **Zur Bibelpose-Station gehen**
+   - Öffnet die App
+   - Klickt auf die "🎭 Bibelpose" Karte
+   - Eine separate Seite öffnet sich
+
+2. **Mit eurem Team-PIN anmelden**
+   - Gebt euren 4-stelligen Team-Code ein
+   - Klickt "🚀 Anmelden"
+
+3. **Biblische Szene auswählen**
+   - Ihr seht 20 verschiedene biblische Szenen
+   - Wählt eine aus, die euch gefällt
+   - Beispiele: "Jesus und die Jünger", "David und Goliath", "Die Heilung des Blinden"
+
+4. **Standbild darstellen**
+   - Euer Team stellt die Szene dar
+   - Jedes Teamkollege hat eine Rolle
+   - Versucht, die Szene möglichst realistisch darzustellen
+   - Nehmt verschiedene Posen an
+
+5. **Foto machen**
+   - Macht ein Foto des Standbildes
+   - Das Foto sollte alle Teamkollegen zeigen
+   - Gutes Licht ist wichtig!
+   - Klickt auf "📸 Foto hochladen"
+
+6. **Foto hochladen**
+   - Wählt das Foto aus eurer Galerie
+   - Klickt "Foto hochladen"
+   - Die App lädt das Foto hoch
+
+7. **⏳ Wartet auf Bestätigung**
+   - Der Admin überprüft das Foto
+   - Das kann ein paar Minuten dauern
+   - Ihr seht: "⏳ Dein Foto wird gerade überprüft"
+
+8. **✅ Code erhalten oder ❌ Ablehnung**
+   - **Wenn bestätigt:** Ihr seht den Code! 🎉
+   - **Wenn abgelehnt:** Ihr könnt es nochmal versuchen
+
+9. **Code in Hauptapp eingeben**
+   - Geht zurück zur Hauptapp
+   - Klickt auf die "🎭 Bibelpose" Karte
+   - Gebt den Code ein
+   - Station ist erledigt! ✅
+
+#### 💡 Tipps für gute Fotos
+
+- ✅ **Alle Teamkollegen sollten sichtbar sein**
+- ✅ **Die Szene sollte erkennbar sein** (z.B. ist klar, dass es David und Goliath ist)
+- ✅ **Gutes Licht** (nicht zu dunkel)
+- ✅ **Interessante Posen** (nicht einfach nur stehen)
+- ✅ **Kreativ sein!** (Admins mögen kreative Lösungen)
+
+#### ⚠️ Häufige Probleme
+
+| Problem | Lösung |
+|---------|--------|
+| "Foto abgelehnt" | Die Szene war nicht erkennbar. Versucht es nochmal mit einer klareren Darstellung. |
+| "Foto wird nicht hochgeladen" | Überprüft eure Internetverbindung. Versucht es nochmal. |
+| "Ich sehe den Code nicht" | Wartet ein paar Sekunden. Der Admin überprüft gerade. |
+| "Code funktioniert nicht" | Überprüft, ob ihr den Code richtig eingegeben habt (Großbuchstaben, keine Leerzeichen). |
+
+---
+
+### 📜 Heilige Buchstabenjagd – Alphabet-Rätsel
+
+**Was ist Heilige Buchstabenjagd?**
+- Ihr füllt ein **Alphabet mit christlichen Wörtern/Namen** aus
+- Ihr könnt bis zu **3 Buchstaben auslassen**
+- Ihr macht ein **Foto des ausgefüllten Blattes**
+- Ein **Admin überprüft das Foto** und bestätigt es
+- Ihr bekommt einen **Code** oder müsst es nochmal versuchen
+
+**Punkte:** +50 XP  
+**Dauer:** ca. 15-20 Minuten
+
+#### Schritt-für-Schritt
+
+1. **Zur Heilige Buchstabenjagd-Station gehen**
+   - Öffnet die App
+   - Klickt auf die "📜 Heilige Buchstabenjagd" Karte
+   - Eine separate Seite öffnet sich
+
+2. **Mit eurem Team-PIN anmelden**
+   - Gebt euren 4-stelligen Team-Code ein
+   - Klickt "🚀 Anmelden"
+
+3. **Alphabet ausfüllen**
+   - Ihr bekommt ein Alphabet-Blatt (A-Z)
+   - Für jeden Buchstaben müsst ihr ein **christliches Wort oder einen Namen** finden
+   - Beispiele:
+     - A: Abraham, Apostel, Altar
+     - B: Bibel, Bethlehem, Barmherzigkeit
+     - C: Christus, Gemeinde
+     - D: David, Dankbarkeit
+     - E: Engel, Erlösung
+     - usw.
+
+4. **Bis zu 3 Buchstaben auslassen**
+   - Ihr müsst nicht alle 26 Buchstaben ausfüllen
+   - Ihr könnt bis zu 3 Buchstaben leer lassen
+   - Beispiel: Wenn ihr kein Wort für "X" findet, könnt ihr es auslassen
+
+5. **Foto machen**
+   - Macht ein Foto des ausgefüllten Blattes
+   - Das Foto sollte alle Wörter deutlich zeigen
+   - Gutes Licht ist wichtig!
+   - Klickt auf "📸 Foto hochladen"
+
+6. **Foto hochladen**
+   - Wählt das Foto aus eurer Galerie
+   - Klickt "Foto hochladen"
+   - Die App lädt das Foto hoch
+
+7. **⏳ Wartet auf Bestätigung**
+   - Der Admin überprüft das Foto
+   - Das kann ein paar Minuten dauern
+   - Ihr seht: "⏳ Dein Foto wird gerade überprüft"
+
+8. **✅ Code erhalten oder ❌ Ablehnung**
+   - **Wenn bestätigt:** Ihr seht den Code! 🎉
+   - **Wenn abgelehnt:** Ihr könnt es nochmal versuchen
+
+9. **Code in Hauptapp eingeben**
+   - Geht zurück zur Hauptapp
+   - Klickt auf die "📜 Heilige Buchstabenjagd" Karte
+   - Gebt den Code ein
+   - Station ist erledigt! ✅
+
+#### 💡 Tipps für gute Fotos
+
+- ✅ **Alle Wörter sollten deutlich lesbar sein**
+- ✅ **Das Blatt sollte vollständig im Foto sein**
+- ✅ **Gutes Licht** (nicht zu dunkel)
+- ✅ **Keine Schatten auf dem Blatt**
+- ✅ **Handschrift sollte lesbar sein**
+
+#### 📖 Christliche Wörter & Namen
+
+Hier sind ein paar Ideen für jedes Alphabet:
+
+| Buchstabe | Beispiele |
+|-----------|-----------|
+| A | Abraham, Apostel, Altar, Auferstehung |
+| B | Bibel, Bethlehem, Barmherzigkeit, Brot |
+| C | Christus, Gemeinde, Gnade |
+| D | David, Dankbarkeit, Demut |
+| E | Engel, Erlösung, Ewigkeit |
+| F | Frieden, Freude, Fürsorge |
+| G | Gott, Gnade, Gebet, Gemeinde |
+| H | Hoffnung, Heiland, Herz |
+| I | Isa (Prophet), Inspiration |
+| J | Jesus, Jünger, Jericho |
+| K | König, Kirche, Kreuz |
+| L | Liebe, Licht, Lied |
+| M | Maria, Mose, Mitgefühl |
+| N | Nächstenliebe, Noah |
+| O | Opfer, Ordnung |
+| P | Petrus, Psalm, Predigt |
+| Q | Quelle |
+| R | Rettung, Reue, Ruf |
+| S | Segen, Seele, Sünde, Sündenvergebung |
+| T | Tempel, Taufe, Treue |
+| U | Urteil, Umkehr |
+| V | Vergebung, Vertrauen, Versprechen |
+| W | Wort, Wahrheit, Wunder |
+| X | (schwierig - kann ausgelassen werden) |
+| Y | (schwierig - kann ausgelassen werden) |
+| Z | Zeichen, Zorn, Zuflucht |
+
+#### ⚠️ Häufige Probleme
+
+| Problem | Lösung |
+|---------|--------|
+| "Foto abgelehnt" | Die Wörter waren nicht lesbar oder nicht christlich. Versucht es nochmal. |
+| "Foto wird nicht hochgeladen" | Überprüft eure Internetverbindung. Versucht es nochmal. |
+| "Ich sehe den Code nicht" | Wartet ein paar Sekunden. Der Admin überprüft gerade. |
+| "Code funktioniert nicht" | Überprüft, ob ihr den Code richtig eingegeben habt (Großbuchstaben, keine Leerzeichen). |
+
+---
+
+### ⚓ Anchor of Hope – Hoffnungs-Botschaft
+
+**Was ist Anchor of Hope?**
+- Ihr findet einen **versteckten Anker** an der Station
+- Ihr macht ein **Foto des Armbands oder der Hoffnungsbotschaft**
+- Ein **Admin überprüft das Foto** und bestätigt es
+- Ihr bekommt einen **Code** oder müsst es nochmal versuchen
+
+**Punkte:** +50 XP  
+**Dauer:** ca. 10-15 Minuten
+
+#### Schritt-für-Schritt
+
+1. **Zur Anchor of Hope-Station gehen**
+   - Sucht die Station im Gelände
+   - Dort findet ihr einen **versteckten Anker**
+   - Der Anker hat eine **Hoffnungsbotschaft** darunter
+
+2. **Anker finden und Botschaft lesen**
+   - Sucht sorgfältig nach dem Anker
+   - Lest die Botschaft darunter
+   - Macht euch Notizen
+
+3. **Armband oder Botschaft fotografieren**
+   - Macht ein Foto des Armbands oder der Botschaft
+   - Das Foto sollte deutlich zeigen, was ihr gefunden habt
+   - Gutes Licht ist wichtig!
+
+4. **Zur Anchor of Hope-Seite gehen**
+   - Öffnet die App
+   - Klickt auf die "⚓ Anchor of Hope" Karte
+   - Eine separate Seite öffnet sich
+
+5. **Mit eurem Team-PIN anmelden**
+   - Gebt euren 4-stelligen Team-Code ein
+   - Klickt "🚀 Anmelden"
+
+6. **Foto hochladen**
+   - Klickt auf "📸 Foto hochladen"
+   - Wählt das Foto aus eurer Galerie
+   - Klickt "Foto hochladen"
+   - Die App lädt das Foto hoch
+
+7. **⏳ Wartet auf Bestätigung**
+   - Der Admin überprüft das Foto
+   - Das kann ein paar Minuten dauern
+   - Ihr seht: "⏳ Dein Foto wird gerade überprüft"
+
+8. **✅ Code erhalten oder ❌ Ablehnung**
+   - **Wenn bestätigt:** Ihr seht den Code! 🎉
+   - **Wenn abgelehnt:** Ihr könnt es nochmal versuchen
+
+9. **Code in Hauptapp eingeben**
+   - Geht zurück zur Hauptapp
+   - Klickt auf die "⚓ Anchor of Hope" Karte
+   - Gebt den Code ein
+   - Station ist erledigt! ✅
+
+#### 💡 Tipps für gute Fotos
+
+- ✅ **Der Anker sollte deutlich sichtbar sein**
+- ✅ **Die Botschaft sollte lesbar sein**
+- ✅ **Gutes Licht** (nicht zu dunkel)
+- ✅ **Das Armband sollte vollständig im Foto sein**
+
+#### ⚠️ Häufige Probleme
+
+| Problem | Lösung |
+|---------|--------|
+| "Foto abgelehnt" | Der Anker war nicht deutlich sichtbar. Versucht es nochmal mit einem besseren Foto. |
+| "Foto wird nicht hochgeladen" | Überprüft eure Internetverbindung. Versucht es nochmal. |
+| "Ich sehe den Code nicht" | Wartet ein paar Sekunden. Der Admin überprüft gerade. |
+| "Code funktioniert nicht" | Überprüft, ob ihr den Code richtig eingegeben habt (Großbuchstaben, keine Leerzeichen). |
+
+---
+
+### 🐝 Wort des Glaubens – Gebärden-Rätsel
+
+**Was ist Wort des Glaubens?**
+- Ihr schaut **5 Gebärden-Videos** an
+- Ihr löst **7 verdrehte Wörter (Anagramme)**
+- **Mindestanforderung:** 2 Videos + 3 Wörter richtig
+- Ihr klickt "Bestätigen"
+- **Wenn erfüllt:** Ihr bekommt den Code! 🎉
+- **Wenn nicht erfüllt:** Ihr könnt weitermachen und nochmal versuchen
+
+**Punkte:** +20 XP  
+**Dauer:** ca. 10-15 Minuten
+
+#### Schritt-für-Schritt
+
+1. **Zur Wort des Glaubens-Station gehen**
+   - Öffnet die App
+   - Klickt auf die "🐝 Wort des Glaubens" Karte
+   - Eine separate Seite öffnet sich
+
+2. **Mit eurem Team-PIN anmelden**
+   - Gebt euren 4-stelligen Team-Code ein
+   - Klickt "🚀 Anmelden"
+
+3. **Gebärden-Videos anschauen**
+   - Ihr seht 5 Videos mit Gebärden
+   - Schaut die Videos sorgfältig an
+   - Versucht, die Gebärden zu verstehen
+   - Nutzt das ausgedruckte Gebärden-Alphabet zur Hilfe
+
+4. **Wörter eingeben**
+   - Unter jedem Video ist ein Eingabefeld
+   - Gebt das Wort ein, das ihr aus der Gebärde erraten habt
+   - Beispiel: "GLAUBE", "HOFFNUNG", "LIEBE"
+   - **Wichtig:** Großbuchstaben verwenden!
+
+5. **Verdrehte Wörter lösen**
+   - Ihr seht 7 verdrehte Wörter (Anagramme)
+   - Beispiel: "UABLEG" → "GLAUBE"
+   - Versucht, die Wörter zu lösen
+   - Gebt die Lösung in das Eingabefeld ein
+
+6. **Feedback sehen**
+   - Wenn ein Wort richtig ist: ✅ Grüner Haken
+   - Wenn ein Wort falsch ist: ❌ Roter Haken
+   - Ihr könnt jederzeit korrigieren
+
+7. **"Bestätigen" drücken**
+   - Am Ende der Seite ist ein großer grüner Button
+   - Klickt auf "✓ Bestätigen"
+   - Die App überprüft automatisch
+
+8. **Validierung**
+   - **Wenn erfüllt (2+ Videos + 3+ Wörter):** ✅ Code wird angezeigt! 🎉
+   - **Wenn nicht erfüllt:** ❌ Fehlermeldung, ihr könnt weitermachen
+
+9. **Code in Hauptapp eingeben**
+   - Geht zurück zur Hauptapp
+   - Klickt auf die "🐝 Wort des Glaubens" Karte
+   - Gebt den Code ein
+   - Station ist erledigt! ✅
+
+#### 💡 Tipps zum Lösen
+
+- ✅ **Videos mehrmals anschauen** – Beim zweiten Mal versteht ihr mehr
+- ✅ **Gebärden-Alphabet nutzen** – Das ausgedruckte Alphabet hilft!
+- ✅ **Zusammen überlegen** – Das Team kann gemeinsam raten
+- ✅ **Nicht aufgeben** – Ihr braucht nur 2 Videos + 3 Wörter!
+- ✅ **Verdrehte Wörter:** Versucht, die Buchstaben umzuordnen
+
+#### 📖 Lösungswörter (falls ihr steckenbleibt)
+
+**5 Gebärden-Videos:**
+1. GLAUBE
+2. HOFFNUNG
+3. LIEBE
+4. FREUDE
+5. FRIEDE
+
+**7 Verdrehte Wörter:**
+1. UABLEG → GLAUBE
+2. NFNUGFHO → HOFFNUNG
+3. EIBEL → LIEBE
+4. UERFDE → FREUDE
+5. EFDREI → FRIEDE
+6. TGUO → GOTT
+7. NAGES → SEGEN
+
+**Mindestanforderung:** 2 Videos + 3 Wörter = 5 von 12 Items
+
+#### ⚠️ Häufige Probleme
+
+| Problem | Lösung |
+|---------|--------|
+| "Videos laden nicht" | Überprüft eure Internetverbindung. Versucht es nochmal. |
+| "Ich verstehe die Gebärden nicht" | Schaut die Videos mehrmals an. Nutzt das Gebärden-Alphabet. |
+| "Ich habe nicht genug richtig" | Ihr braucht nur 2 Videos + 3 Wörter. Versucht es nochmal! |
+| "Code funktioniert nicht" | Überprüft, ob ihr den Code richtig eingegeben habt (Großbuchstaben, keine Leerzeichen). |
 
 ---
 

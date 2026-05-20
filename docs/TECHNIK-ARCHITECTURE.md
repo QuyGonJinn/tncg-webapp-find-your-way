@@ -138,6 +138,30 @@ DELETE /api/teams/:id/complete/:stationId    # Station rückgängig (Admin)
 DELETE /api/teams/:id                        # Team löschen (Admin)
 ```
 
+### Foto-Upload Stationen
+```
+POST   /api/bibelpose/upload                 # Bibelpose Foto hochladen
+GET    /api/bibelpose/submissions            # Alle Bibelpose Einreichungen (Admin)
+GET    /api/bibelpose/submissions/:id/status # Status einer Einreichung
+POST   /api/bibelpose/submissions/:id/confirm # Bibelpose bestätigen (Admin)
+POST   /api/bibelpose/submissions/:id/reject  # Bibelpose ablehnen (Admin)
+DELETE /api/bibelpose/submissions/:id         # Bibelpose löschen (Admin)
+
+POST   /api/heilige-buchstabenjagd/upload                 # Heilige Buchstabenjagd Foto hochladen
+GET    /api/heilige-buchstabenjagd/submissions            # Alle Einreichungen (Admin)
+GET    /api/heilige-buchstabenjagd/submissions/:id/status # Status einer Einreichung
+POST   /api/heilige-buchstabenjagd/submissions/:id/confirm # Bestätigen (Admin)
+POST   /api/heilige-buchstabenjagd/submissions/:id/reject  # Ablehnen (Admin)
+DELETE /api/heilige-buchstabenjagd/submissions/:id         # Löschen (Admin)
+
+POST   /api/anchor-of-hope/upload                 # Anchor of Hope Foto hochladen
+GET    /api/anchor-of-hope/submissions            # Alle Einreichungen (Admin)
+GET    /api/anchor-of-hope/submissions/:id/status # Status einer Einreichung
+POST   /api/anchor-of-hope/submissions/:id/confirm # Bestätigen (Admin)
+POST   /api/anchor-of-hope/submissions/:id/reject  # Ablehnen (Admin)
+DELETE /api/anchor-of-hope/submissions/:id         # Löschen (Admin)
+```
+
 ### Chat
 ```
 GET    /api/chat                     # Alle Nachrichten (Admin)
