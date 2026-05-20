@@ -165,7 +165,7 @@ function GameScreen({ team, onLogout }) {
     }, 2000); // Check every 2 seconds
 
     return () => clearInterval(pollInterval);
-  }, [submissionId]);
+  }, [submissionId, t]);
 
   async function handlePhotoUpload(e) {
     const file = e.target.files?.[0];
@@ -346,33 +346,24 @@ function GameScreen({ team, onLogout }) {
                   <p className="text-green-700 font-bold text-sm mb-2">🎉 {t('bibelpose.code')}:</p>
                   <p className="text-4xl font-black text-green-700 tracking-widest">{submissionCode}</p>
                 </div>
-                
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => {
-                      setSelectedScene(null);
-                      setPhoto(null);
-                      setSubmitted(false);
-                      setUploadError(null);
-                      setSubmissionId(null);
-                      setSubmissionCode(null);
-                      setSubmissionStatus('pending');
-                      setRejectionMessage(null);
-                    }}
-                    className="flex-1 bg-green-700 hover:bg-green-800 text-white font-black px-6 py-3 rounded-2xl"
-                  >
-                    {t('bibelpose.submitAnother')}
-                  </button>
-                  <button
-                    onClick={() => {
-                      localStorage.removeItem('fyw_bibelpose_team_id');
-                      navigate('/');
-                    }}
-                    className="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-black px-6 py-3 rounded-2xl"
-                  >
-                    ← {t('common.back')}
-                  </button>
+
+                {/* Instructions for entering code */}
+                <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-4 mb-6">
+                  <p className="text-blue-900 font-bold text-sm mb-2">📝 {t('common.instructions')}:</p>
+                  <p className="text-blue-800 text-sm">
+                    {t('bibelpose.codeInstructions') || 'Bitte tragen Sie den Code oben in die Station ein und klicken Sie dann auf "Zurück", um zum Teilnehmerbereich zurückzukehren.'}
+                  </p>
                 </div>
+                
+                <button
+                  onClick={() => {
+                    localStorage.removeItem('fyw_bibelpose_team_id');
+                    navigate('/');
+                  }}
+                  className="w-full bg-blue-700 hover:bg-blue-800 text-white font-black px-6 py-4 rounded-2xl text-lg"
+                >
+                  ← {t('common.back')}
+                </button>
               </>
             ) : submissionStatus === 'rejected' ? (
               <>

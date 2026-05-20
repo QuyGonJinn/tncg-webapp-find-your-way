@@ -9,7 +9,8 @@
     "save": "Save",
     "reset": "Reset",
     "close": "Close",
-    "back": "Back"
+    "back": "Back",
+    "instructions": "Instructions"
   },
   "welcome": {
     "title": "Find Your Way",
@@ -205,7 +206,8 @@
     "rejected": "❌ Photo rejected",
     "rejectedMessage": "Your photo was rejected by the admin. Please try again with a better tableau!",
     "tryAgain": "Try again",
-    "code": "Code"
+    "code": "Code",
+    "codeInstructions": "Please enter the code above in the station and then click \"Back\" to return to the participant area."
   },
   "heiligeBuchstabenjagd": {
     "title": "Holy Letter Hunt",
@@ -236,7 +238,8 @@
     "rejected": "❌ Photo rejected",
     "rejectedMessage": "Your photo was rejected by the admin. Please try again!",
     "tryAgain": "Try again",
-    "code": "Code"
+    "code": "Code",
+    "codeInstructions": "Please enter the code above in the station and then click \"Back\" to return to the participant area."
   },
   "admin": {
     "title": "Admin – Find Your Way",

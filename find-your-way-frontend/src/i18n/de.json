@@ -9,7 +9,8 @@
     "save": "Speichern",
     "reset": "Zurücksetzen",
     "close": "Schliessen",
-    "back": "Zurück"
+    "back": "Zurück",
+    "instructions": "Anleitung"
   },
   "welcome": {
     "title": "Find Your Way",
@@ -205,7 +206,8 @@
     "rejected": "❌ Foto abgelehnt",
     "rejectedMessage": "Dein Foto wurde vom Admin abgelehnt. Bitte versuche es mit einem besseren Standbild erneut!",
     "tryAgain": "Nochmal versuchen",
-    "code": "Code"
+    "code": "Code",
+    "codeInstructions": "Bitte tragen Sie den Code oben in die Station ein und klicken Sie dann auf \"Zurück\", um zum Teilnehmerbereich zurückzukehren."
   },
   "heiligeBuchstabenjagd": {
     "title": "Heilige Buchstabenjagd",
@@ -236,7 +238,8 @@
     "rejected": "❌ Foto abgelehnt",
     "rejectedMessage": "Dein Foto wurde vom Admin abgelehnt. Bitte versuche es erneut!",
     "tryAgain": "Nochmal versuchen",
-    "code": "Code"
+    "code": "Code",
+    "codeInstructions": "Bitte tragen Sie den Code oben in die Station ein und klicken Sie dann auf \"Zurück\", um zum Teilnehmerbereich zurückzukehren."
   },
   "admin": {
     "title": "Admin – Find Your Way",
