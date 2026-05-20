@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { loginWithPin, fetchTeam } from '../api';
 import { useI18n } from '../hooks/useI18n';
 
@@ -97,6 +98,7 @@ function LoginScreen({ onLogin, error }) {
 }
 
 function GameScreen({ team, onLogout }) {
+  const navigate = useNavigate();
   const { t, language, switchLanguage } = useI18n();
   const [photo, setPhoto] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -311,13 +313,8 @@ function GameScreen({ team, onLogout }) {
                   </button>
                   <button
                     onClick={() => {
-                      setPhoto(null);
-                      setSubmitted(false);
-                      setUploadError(null);
-                      setSubmissionId(null);
-                      setSubmissionCode(null);
-                      setSubmissionStatus('pending');
-                      setRejectionMessage(null);
+                      localStorage.removeItem('fyw_heilige_buchstabenjagd_team_id');
+                      navigate('/');
                     }}
                     className="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-black px-6 py-3 rounded-2xl"
                   >

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { loginWithPin, fetchTeam } from '../api';
 import { useI18n } from '../hooks/useI18n';
 
@@ -121,6 +122,7 @@ function LoginScreen({ onLogin, error }) {
 }
 
 function GameScreen({ team, onLogout }) {
+  const navigate = useNavigate();
   const { t, language, switchLanguage } = useI18n();
   const [selectedScene, setSelectedScene] = useState(null);
   const [photo, setPhoto] = useState(null);
@@ -363,14 +365,8 @@ function GameScreen({ team, onLogout }) {
                   </button>
                   <button
                     onClick={() => {
-                      setSelectedScene(null);
-                      setPhoto(null);
-                      setSubmitted(false);
-                      setUploadError(null);
-                      setSubmissionId(null);
-                      setSubmissionCode(null);
-                      setSubmissionStatus('pending');
-                      setRejectionMessage(null);
+                      localStorage.removeItem('fyw_bibelpose_team_id');
+                      navigate('/');
                     }}
                     className="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-black px-6 py-3 rounded-2xl"
                   >
