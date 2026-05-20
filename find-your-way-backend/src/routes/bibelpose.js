@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const { get, run, all } = require('../db');
+const { broadcast } = require('../wss');
 
 const router = express.Router();
 
@@ -148,6 +149,14 @@ router.post('/submissions/:id/confirm', (req, res) => {
       `UPDATE bibelpose_submissions SET status = ?, code = ?, confirmed_at = ? WHERE id = ?`,
       ['confirmed', code, now, id]
     );
+
+    // Broadcast WebSocket event to all connected clients
+    broadcast('bibelpose:confirmed', {
+      submissionId: id,
+      teamId: submission.team_id,
+      code: code,
+      message: `Bibelpose submission confirmed for team ${submission.team_name}`,
+    });
 
     res.json({ success: true, message: 'Submission confirmed' });
   } catch (error) {

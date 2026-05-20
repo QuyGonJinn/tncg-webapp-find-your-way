@@ -131,6 +131,33 @@ function GameScreen({ team, onLogout }) {
   const [submissionCode, setSubmissionCode] = useState(null);
   const [checkingStatus, setCheckingStatus] = useState(false);
 
+  // WebSocket connection for real-time updates
+  useEffect(() => {
+    const wsBase = `${import.meta.env.VITE_WS_URL ?? 'ws://localhost:3001'}`;
+    const ws = new WebSocket(wsBase);
+
+    ws.onmessage = (event) => {
+      try {
+        const { type, payload } = JSON.parse(event.data);
+        
+        // Listen for bibelpose confirmation events
+        if (type === 'bibelpose:confirmed' && payload.submissionId === submissionId) {
+          setSubmissionCode(payload.code);
+        }
+      } catch (error) {
+        console.error('WebSocket message error:', error);
+      }
+    };
+
+    ws.onerror = (error) => console.error('WebSocket error:', error);
+
+    return () => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.close();
+      }
+    };
+  }, [submissionId]);
+
   async function handlePhotoUpload(e) {
     const file = e.target.files?.[0];
     if (!file) return;
