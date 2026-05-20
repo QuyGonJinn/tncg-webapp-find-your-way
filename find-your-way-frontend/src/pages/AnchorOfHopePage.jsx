@@ -1,0 +1,401 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loginWithPin, fetchTeam } from '../api';
+import { useI18n } from '../hooks/useI18n';
+
+function LoginScreen({ onLogin, error }) {
+  const { t, language, switchLanguage } = useI18n();
+  const [pin, setPin] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState(error);
+
+  async function handleLogin() {
+    if (!pin) return;
+    setLoading(true);
+    try {
+      const team = await loginWithPin(pin);
+      onLogin(team);
+    } catch (e) {
+      setLoginError(e.message || t('anchorOfHope.loginError'));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-800 via-cyan-800 to-cyan-900 flex flex-col items-center justify-center p-6">
+      {/* Language Switcher */}
+      <div className="absolute top-4 right-4 flex gap-2">
+        <button
+          onClick={() => switchLanguage('de')}
+          className={`px-3 py-1 rounded-lg font-bold text-sm transition-all ${
+            language === 'de'
+              ? 'bg-blue-500 text-white'
+              : 'bg-cyan-700 text-blue-200 hover:bg-cyan-600'
+          }`}
+        >
+          DE
+        </button>
+        <button
+          onClick={() => switchLanguage('en')}
+          className={`px-3 py-1 rounded-lg font-bold text-sm transition-all ${
+            language === 'en'
+              ? 'bg-blue-500 text-white'
+              : 'bg-cyan-700 text-blue-200 hover:bg-cyan-600'
+          }`}
+        >
+          EN
+        </button>
+      </div>
+
+      {/* Logo & Title */}
+      <div className="text-center mb-8">
+        <div className="text-6xl mb-3 animate-bounce">⚓</div>
+        <h1 className="text-4xl font-black text-blue-100 tracking-tight">{t('anchorOfHope.title')}</h1>
+        <p className="text-blue-300 mt-2 text-lg">{t('anchorOfHope.subtitle')}</p>
+      </div>
+
+      {/* Login Card */}
+      <div className="bg-blue-50 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border-2 border-blue-300 p-8">
+        <div className="text-center mb-6">
+          <p className="text-cyan-700 text-sm leading-relaxed">
+            {t('anchorOfHope.loginDescription')}
+          </p>
+        </div>
+
+        {loginError && (
+          <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 mb-4">
+            <p className="text-red-700 text-sm font-bold">⚠️ {loginError}</p>
+          </div>
+        )}
+
+        <div className="space-y-4">
+          <input
+            type="text"
+            value={pin}
+            onChange={(e) => setPin(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+            placeholder={t('setup.pinPlaceholder')}
+            className="w-full border-2 border-blue-200 rounded-xl px-4 py-3 text-lg font-bold focus:outline-none focus:border-blue-500"
+            disabled={loading}
+          />
+
+          <button
+            onClick={handleLogin}
+            disabled={loading || !pin}
+            className="w-full bg-blue-700 hover:bg-blue-800 disabled:bg-gray-400 text-white font-black text-lg py-4 rounded-2xl shadow-lg active:scale-95 transition-all"
+          >
+            {loading ? t('anchorOfHope.loginLoading') : t('anchorOfHope.loginButton')}
+          </button>
+        </div>
+
+        <p className="text-xs text-gray-500 mt-4 text-center">
+          {t('anchorOfHope.pinReminder')}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function GameScreen({ team, onLogout }) {
+  const navigate = useNavigate();
+  const { t, language, switchLanguage } = useI18n();
+  const [photo, setPhoto] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
+  const [submissionId, setSubmissionId] = useState(null);
+  const [submissionCode, setSubmissionCode] = useState(null);
+  const [submissionStatus, setSubmissionStatus] = useState('pending');
+  const [rejectionMessage, setRejectionMessage] = useState(null);
+
+  // Poll for submission status updates
+  useEffect(() => {
+    if (!submissionId || submissionStatus !== 'pending') return;
+
+    console.log('⏱️ Starting status polling for submission:', submissionId);
+    
+    let pollInterval;
+    
+    const startPolling = async () => {
+      pollInterval = setInterval(async () => {
+        try {
+          const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+          const response = await fetch(`${apiBase}/anchor-of-hope/submissions/${submissionId}/status`);
+          const data = await response.json();
+          
+          console.log('📊 Status check:', data.status, data);
+          
+          if (data.status === 'confirmed') {
+            console.log('✅ Submission confirmed!', data);
+            setSubmissionCode(data.code);
+            setSubmissionStatus('confirmed');
+            clearInterval(pollInterval);
+          } else if (data.status === 'rejected') {
+            console.log('❌ Submission rejected!');
+            setSubmissionStatus('rejected');
+            setRejectionMessage(t('anchorOfHope.rejectedMessage'));
+            clearInterval(pollInterval);
+          }
+        } catch (error) {
+          console.error('Error checking status:', error);
+        }
+      }, 2000); // Check every 2 seconds
+    };
+
+    startPolling();
+
+    return () => {
+      if (pollInterval) clearInterval(pollInterval);
+    };
+  }, [submissionId, t]);
+
+  async function handlePhotoUpload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('photo', file);
+      formData.append('teamId', team.id);
+
+      const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+      const response = await fetch(`${apiBase}/anchor-of-hope/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(t('anchorOfHope.uploadError'));
+      }
+
+      const data = await response.json();
+      setPhoto(file);
+      setSubmissionId(data.submissionId);
+      setSubmissionStatus('pending');
+      setSubmitted(true);
+    } catch (error) {
+      setUploadError(error.message || t('anchorOfHope.uploadError'));
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-blue-50">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-cyan-900 to-blue-900 text-blue-100 px-4 pt-6 pb-4 shadow-lg sticky top-0 z-10">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <span className="text-4xl">⚓</span>
+            <div>
+              <h1 className="text-2xl font-black leading-tight text-blue-50">{t('anchorOfHope.title')}</h1>
+              <p className="text-blue-300 text-sm">{t('anchorOfHope.subtitle')}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1">
+              <button
+                onClick={() => switchLanguage('de')}
+                className={`px-2 py-1 rounded text-xs font-bold transition-all ${
+                  language === 'de'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-cyan-700 text-blue-200 hover:bg-cyan-600'
+                }`}
+              >
+                DE
+              </button>
+              <button
+                onClick={() => switchLanguage('en')}
+                className={`px-2 py-1 rounded text-xs font-bold transition-all ${
+                  language === 'en'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-cyan-700 text-blue-200 hover:bg-cyan-600'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+            <button
+              onClick={onLogout}
+              className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1 rounded-lg text-sm"
+            >
+              {t('common.logout')}
+            </button>
+          </div>
+        </div>
+
+        {/* Team Info */}
+        <div className="bg-cyan-800/50 rounded-xl px-3 py-2">
+          <p className="text-blue-300 text-sm font-bold">
+            {team.icon} {team.name}
+          </p>
+        </div>
+      </div>
+
+      <div className="px-4 py-6 max-w-4xl mx-auto">
+        {!submitted ? (
+          <>
+            {/* Instructions */}
+            <div className="bg-blue-100 border-2 border-blue-300 rounded-2xl p-6 mb-8">
+              <p className="text-blue-900 font-bold text-lg mb-4">{t('anchorOfHope.instructions')}</p>
+              <div className="text-blue-900 text-sm space-y-3">
+                <p>{t('anchorOfHope.step1')}</p>
+                <p>{t('anchorOfHope.step2')}</p>
+                <p>{t('anchorOfHope.step3')}</p>
+              </div>
+            </div>
+
+            {/* Photo Upload */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-blue-200">
+              <h3 className="text-xl font-black text-blue-900 mb-4">{t('anchorOfHope.uploadPhoto')}</h3>
+              
+              {uploadError && (
+                <div className="bg-red-50 border-2 border-red-300 rounded-xl p-3 mb-4">
+                  <p className="text-red-700 text-sm font-bold">⚠️ {uploadError}</p>
+                </div>
+              )}
+
+              <div className="space-y-4">
+                <label className="block">
+                  <div className="border-2 border-dashed border-blue-300 rounded-2xl p-8 text-center cursor-pointer hover:bg-blue-50 transition-all">
+                    <span className="text-4xl block mb-2">📸</span>
+                    <p className="text-blue-900 font-bold">{t('anchorOfHope.choosePhoto')}</p>
+                    <p className="text-stone-500 text-sm mt-1">{t('anchorOfHope.photoHint')}</p>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoUpload}
+                    disabled={uploading}
+                    className="hidden"
+                  />
+                </label>
+
+                {photo && (
+                  <div className="bg-green-50 border-2 border-green-300 rounded-xl p-3">
+                    <p className="text-green-700 font-bold">✅ {t('anchorOfHope.photoSelected')}</p>
+                  </div>
+                )}
+
+                <button
+                  disabled={!photo || uploading}
+                  className="w-full bg-blue-700 hover:bg-blue-800 disabled:bg-gray-400 text-white font-black text-lg py-4 rounded-2xl shadow-lg active:scale-95 transition-all"
+                >
+                  {uploading ? t('anchorOfHope.uploading') : t('anchorOfHope.submitPhoto')}
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          /* Submitted State */
+          <div className="bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-8 shadow-lg text-center">
+            {submissionStatus === 'confirmed' ? (
+              <>
+                <div className="text-6xl mb-4">✅</div>
+                <h2 className="text-3xl font-black text-green-700 mb-2">{t('anchorOfHope.submitted')}</h2>
+                <p className="text-green-700 text-lg mb-6">{t('anchorOfHope.codeReceived')}</p>
+                
+                <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-6">
+                  <p className="text-green-700 font-bold text-sm mb-2">🎉 {t('anchorOfHope.code')}:</p>
+                  <p className="text-4xl font-black text-green-700 tracking-widest">{submissionCode}</p>
+                </div>
+
+                {/* Instructions for entering code */}
+                <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-4 mb-6">
+                  <p className="text-blue-900 font-bold text-sm mb-2">📝 {t('common.instructions')}:</p>
+                  <p className="text-blue-800 text-sm">
+                    {t('anchorOfHope.codeInstructions') || 'Bitte tragen Sie den Code oben in die Station ein und klicken Sie dann auf "Zurück", um zum Teilnehmerbereich zurückzukehren.'}
+                  </p>
+                </div>
+                
+                <button
+                  onClick={() => {
+                    localStorage.removeItem('fyw_anchor_of_hope_team_id');
+                    navigate('/');
+                  }}
+                  className="w-full bg-blue-700 hover:bg-blue-800 text-white font-black px-6 py-4 rounded-2xl text-lg"
+                >
+                  ← {t('common.back')}
+                </button>
+              </>
+            ) : submissionStatus === 'rejected' ? (
+              <>
+                <div className="text-6xl mb-4">❌</div>
+                <h2 className="text-3xl font-black text-red-700 mb-2">{t('anchorOfHope.rejected')}</h2>
+                <p className="text-red-700 text-lg mb-6">{rejectionMessage}</p>
+                
+                <button
+                  onClick={() => {
+                    setPhoto(null);
+                    setSubmitted(false);
+                    setUploadError(null);
+                    setSubmissionId(null);
+                    setSubmissionCode(null);
+                    setSubmissionStatus('pending');
+                    setRejectionMessage(null);
+                  }}
+                  className="bg-red-700 hover:bg-red-800 text-white font-black px-6 py-3 rounded-2xl"
+                >
+                  {t('anchorOfHope.tryAgain')}
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="text-6xl mb-4 animate-spin">⏳</div>
+                <h2 className="text-3xl font-black text-green-700 mb-2">{t('anchorOfHope.submitted')}</h2>
+                <p className="text-green-700 text-lg mb-2">{t('anchorOfHope.waitingConfirmation')}</p>
+                <p className="text-green-600 text-sm">{t('anchorOfHope.adminWillConfirm')}</p>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default function AnchorOfHopePage() {
+  const { t } = useI18n();
+  const [team, setTeam] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const savedTeamId = localStorage.getItem('fyw_anchor_of_hope_team_id');
+    if (savedTeamId) {
+      fetchTeam(savedTeamId)
+        .then(t => setTeam(t))
+        .catch(() => localStorage.removeItem('fyw_anchor_of_hope_team_id'))
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  function handleLogin(teamData) {
+    localStorage.setItem('fyw_anchor_of_hope_team_id', teamData.id);
+    setTeam(teamData);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('fyw_anchor_of_hope_team_id');
+    setTeam(null);
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-blue-50 flex items-center justify-center">
+        <p className="text-gray-500">{t('common.loading')}</p>
+      </div>
+    );
+  }
+
+  return team ? (
+    <GameScreen team={team} onLogout={handleLogout} />
+  ) : (
+    <LoginScreen onLogin={handleLogin} />
+  );
+}

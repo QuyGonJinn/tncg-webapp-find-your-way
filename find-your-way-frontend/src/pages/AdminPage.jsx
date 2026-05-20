@@ -9,6 +9,7 @@ import StationCodes from '../components/admin/StationCodes';
 import AdminSettings from '../components/admin/AdminSettings';
 import BibelposeModerator from '../components/admin/BibelposeModerator';
 import HeiligeBuchstabenjagdModerator from '../components/admin/HeiligeBuchstabenjagdModerator';
+import AnchorOfHopeModerator from '../components/admin/AnchorOfHopeModerator';
 import { STATIONS } from '../data/stations';
 import { adminLogin } from '../api';
 
@@ -23,7 +24,7 @@ function formatTime(timestamp) {
 export default function AdminPage() {
   const { teams, gameState, handleTimerStart, handleTimerPause, handleTimerReset, handleUncomplete, handleDeleteTeam, handleApprove, handleReject } = useAdmin();
   const [adminTab, setAdminTab] = useState('overview');
-  const [codesSubTab, setCodesSubTab] = useState('stations'); // 'stations', 'bibelpose', 'heilige-buchstabenjagd'
+  const [codesSubTab, setCodesSubTab] = useState('stations'); // 'stations', 'bibelpose', 'heilige-buchstabenjagd', 'anchor-of-hope'
   const [authenticated, setAuthenticated] = useState(() => {
     // Restore admin session from localStorage on mount
     return localStorage.getItem('fyw_admin_authenticated') === 'true';
@@ -192,10 +193,21 @@ export default function AdminPage() {
               >
                 📜 Heilige Buchstabenjagd
               </button>
+              <button
+                onClick={() => setCodesSubTab('anchor-of-hope')}
+                className={`px-4 py-2 rounded-xl font-bold text-sm transition-all ${
+                  codesSubTab === 'anchor-of-hope'
+                    ? 'bg-blue-700 text-white'
+                    : 'bg-stone-200 text-stone-800 hover:bg-stone-300'
+                }`}
+              >
+                ⚓ Anchor of Hope
+              </button>
             </div>
             {codesSubTab === 'stations' && <StationCodes />}
             {codesSubTab === 'bibelpose' && <BibelposeModerator />}
             {codesSubTab === 'heilige-buchstabenjagd' && <HeiligeBuchstabenjagdModerator />}
+            {codesSubTab === 'anchor-of-hope' && <AnchorOfHopeModerator />}
           </div>
         )}
         {adminTab === 'chat' && <AdminChat teams={teams} />}

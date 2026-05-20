@@ -79,6 +79,18 @@ db.exec(`
     confirmed_at INTEGER,
     FOREIGN KEY (team_id) REFERENCES teams(id)
   );
+  CREATE TABLE IF NOT EXISTS anchor_of_hope_submissions (
+    id TEXT PRIMARY KEY,
+    team_id TEXT NOT NULL,
+    team_name TEXT NOT NULL,
+    photo_path TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending',
+    code TEXT,
+    submitted_at INTEGER NOT NULL,
+    confirmed_at INTEGER,
+    rejected_at INTEGER,
+    FOREIGN KEY (team_id) REFERENCES teams(id)
+  );
 `);
 
 // Enable foreign keys

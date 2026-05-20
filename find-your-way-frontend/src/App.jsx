@@ -12,6 +12,7 @@ import ControlPage from './pages/ControlPage';
 import WortDesGlaubensPage from './pages/WortDesGlaubensPage';
 import BibelposePage from './pages/BibelposePage';
 import HeiligeBuchstabenjagdPage from './pages/HeiligeBuchstabenjagdPage';
+import AnchorOfHopePage from './pages/AnchorOfHopePage';
 
 function GameApp() {
   const { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP, waitingRoomEnabled } = useGameState();
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/wort-des-glaubens" element={<WortDesGlaubensPage />} />
         <Route path="/bibelpose" element={<BibelposePage />} />
         <Route path="/heilige-buchstabenjagd" element={<HeiligeBuchstabenjagdPage />} />
+        <Route path="/anchor-of-hope" element={<AnchorOfHopePage />} />
         <Route path="*" element={<GameApp />} />
       </Routes>
     </BrowserRouter>

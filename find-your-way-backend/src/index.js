@@ -25,6 +25,7 @@ async function main() {
   app.use('/api/stations', require('./routes/stations'));
   app.use('/api/bibelpose', require('./routes/bibelpose'));
   app.use('/api/heilige-buchstabenjagd', require('./routes/heilige-buchstabenjagd'));
+  app.use('/api/anchor-of-hope', require('./routes/anchor-of-hope'));
   
   // Admin auth
   app.post('/api/admin/login', (req, res) => {
