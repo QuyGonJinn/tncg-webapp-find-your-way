@@ -76,7 +76,7 @@ function WordInput({ wordData, value, onChange, feedback, t }) {
 }
 
 function LoginScreen({ onLogin, error }) {
-  const { t } = useI18n();
+  const { t, language, switchLanguage } = useI18n();
   const [pin, setPin] = useState('');
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState(error);
@@ -96,6 +96,30 @@ function LoginScreen({ onLogin, error }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-800 via-stone-800 to-stone-900 flex flex-col items-center justify-center p-6">
+      {/* Language Switcher */}
+      <div className="absolute top-4 right-4 flex gap-2">
+        <button
+          onClick={() => switchLanguage('de')}
+          className={`px-3 py-1 rounded-lg font-bold text-sm transition-all ${
+            language === 'de'
+              ? 'bg-amber-500 text-white'
+              : 'bg-stone-700 text-amber-200 hover:bg-stone-600'
+          }`}
+        >
+          DE
+        </button>
+        <button
+          onClick={() => switchLanguage('en')}
+          className={`px-3 py-1 rounded-lg font-bold text-sm transition-all ${
+            language === 'en'
+              ? 'bg-amber-500 text-white'
+              : 'bg-stone-700 text-amber-200 hover:bg-stone-600'
+          }`}
+        >
+          EN
+        </button>
+      </div>
+
       {/* Logo & Title */}
       <div className="text-center mb-8">
         <div className="text-6xl mb-3 animate-bounce">🐝</div>
@@ -146,7 +170,7 @@ function LoginScreen({ onLogin, error }) {
 }
 
 function GameScreen({ team, onLogout }) {
-  const { t } = useI18n();
+  const { t, language, switchLanguage } = useI18n();
   const [answers, setAnswers] = useState({
     1: '',
     2: '',
@@ -214,12 +238,36 @@ function GameScreen({ team, onLogout }) {
               <p className="text-amber-300 text-sm">{t('wortDesGlaubens.subtitle')}</p>
             </div>
           </div>
-          <button
-            onClick={onLogout}
-            className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1 rounded-lg text-sm"
-          >
-            {t('common.logout')}
-          </button>
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1">
+              <button
+                onClick={() => switchLanguage('de')}
+                className={`px-2 py-1 rounded text-xs font-bold transition-all ${
+                  language === 'de'
+                    ? 'bg-amber-500 text-white'
+                    : 'bg-stone-700 text-amber-200 hover:bg-stone-600'
+                }`}
+              >
+                DE
+              </button>
+              <button
+                onClick={() => switchLanguage('en')}
+                className={`px-2 py-1 rounded text-xs font-bold transition-all ${
+                  language === 'en'
+                    ? 'bg-amber-500 text-white'
+                    : 'bg-stone-700 text-amber-200 hover:bg-stone-600'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+            <button
+              onClick={onLogout}
+              className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 py-1 rounded-lg text-sm"
+            >
+              {t('common.logout')}
+            </button>
+          </div>
         </div>
 
         {/* Team Info */}
