@@ -206,7 +206,9 @@
     "tip4": "✓ Plan your route to the stations"
   },
   "final": {
-    "title": "🏆 Game Over!",
+    "title": "🏆 Goal Reached!",
+    "subtitle": "You have found your way.",
+    "instruction": "Please come to the café stand to receive your treasure!",
     "yourRank": "Your Rank:",
     "totalXP": "Total XP:",
     "completed": "Stations completed:",

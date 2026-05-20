@@ -206,7 +206,9 @@
     "tip4": "✓ Plant eure Route zu den Stationen"
   },
   "final": {
-    "title": "🏆 Spiel vorbei!",
+    "title": "🏆 Ziel erreicht!",
+    "subtitle": "Ihr habt euren Weg gefunden.",
+    "instruction": "Bitte kommt alle zur Caféstand, um euren Schatz zu erhalten!",
     "yourRank": "Euer Rang:",
     "totalXP": "Gesamt XP:",
     "completed": "Stationen erledigt:",
