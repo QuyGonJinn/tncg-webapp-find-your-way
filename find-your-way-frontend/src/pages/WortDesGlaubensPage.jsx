@@ -327,104 +327,106 @@ function GameScreen({ team, onLogout }) {
       </div>
 
       <div className="px-4 py-6 max-w-2xl mx-auto">
-        {!minimumMet ? (
-          <>
-            {/* Instructions */}
-            <div className="bg-amber-100 border-2 border-amber-300 rounded-2xl p-4 mb-6">
-              <p className="text-amber-900 font-bold text-sm mb-2">{t('wortDesGlaubens.instructions')}</p>
-              <ol className="text-amber-900 text-sm space-y-1 list-decimal list-inside">
-                <li>{t('wortDesGlaubens.step1')}</li>
-                <li>{t('wortDesGlaubens.step2')}</li>
-                <li>{t('wortDesGlaubens.step3')}</li>
-                <li>{t('wortDesGlaubens.step4')}</li>
-              </ol>
-            </div>
-
-            {/* Videos Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-              {WORT_DES_GLAUBENS_VIDEOS.map(videoData => (
-                <div key={videoData.id} className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl font-black text-amber-700">{videoData.id}</span>
-                    <p className="text-sm font-bold text-stone-600">{videoData.hint}</p>
-                  </div>
-                  <VideoCard videoId={videoData.id} />
-                </div>
-              ))}
-            </div>
-
-            {/* Video Word Input Section */}
-            <div className="bg-white rounded-2xl shadow p-6 mb-6">
-              <h2 className="text-amber-900 font-black text-lg mb-4">{t('wortDesGlaubens.enterWords')}</h2>
-              <div className="space-y-4">
-                {WORT_DES_GLAUBENS_VIDEOS.map(videoData => (
-                  <WordInput
-                    key={videoData.id}
-                    wordData={videoData}
-                    value={videoAnswers[videoData.id]}
-                    onChange={(value) => handleVideoAnswerChange(videoData.id, value)}
-                    feedback={videoFeedback[videoData.id]}
-                    t={t}
-                    isScrambled={false}
-                  />
-                ))}
+        {/* Success Box - Sticky at top when minimum is met */}
+        {minimumMet && (
+          <div className="sticky top-20 z-20 bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-6 shadow-lg mb-6">
+            <div className="text-center">
+              <div className="text-4xl mb-3">✅</div>
+              <h2 className="text-2xl font-black text-green-700 mb-3">{t('wortDesGlaubens.allCorrect')}</h2>
+              
+              <div className="bg-white rounded-xl p-3 border-2 border-green-400 mb-4">
+                <p className="text-green-700 font-bold text-xs mb-1">🎉 {t('wortDesGlaubens.hereIsCode')}:</p>
+                <p className="text-3xl font-black text-green-700 tracking-widest">{correctCode}</p>
               </div>
-            </div>
 
-            {/* Scrambled Words Section */}
-            <div className="bg-white rounded-2xl shadow p-6 mb-6">
-              <h2 className="text-amber-900 font-black text-lg mb-4">{t('wortDesGlaubens.enterScrambled')}</h2>
-              <div className="space-y-4">
-                {WORT_DES_GLAUBENS_SCRAMBLED.map(scrambledData => (
-                  <WordInput
-                    key={scrambledData.id}
-                    wordData={scrambledData}
-                    value={scrambledAnswers[scrambledData.id]}
-                    onChange={(value) => handleScrambledAnswerChange(scrambledData.id, value)}
-                    feedback={scrambledFeedback[scrambledData.id]}
-                    t={t}
-                    isScrambled={true}
-                  />
-                ))}
+              {/* Instructions for entering code */}
+              <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-3 mb-4">
+                <p className="text-blue-900 font-bold text-xs mb-1">📝 {t('common.instructions')}:</p>
+                <p className="text-blue-800 text-xs">
+                  {t('wortDesGlaubens.codeInstructions') || 'Trag den Code ein. Klicke auf "Zurück", um zum Teilnehmerbereich zurückzukehren und den Code zu der Station einzutragen.'}
+                </p>
               </div>
+              
+              <button
+                onClick={() => {
+                  localStorage.removeItem('fyw_wort_des_glaubens_team_id');
+                  navigate('/');
+                }}
+                className="w-full bg-blue-700 hover:bg-blue-800 text-white font-black px-4 py-3 rounded-xl text-sm"
+              >
+                ← {t('common.back')}
+              </button>
             </div>
+          </div>
+        )}
 
-            {/* Progress Indicator */}
-            <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center space-y-2">
-              <p className="text-amber-900 font-bold text-sm">
-                {t('wortDesGlaubens.progress', { videoCorrect: videoCorrectCount, scrambledCorrect: scrambledCorrectCount })}
-              </p>
-              <p className="text-amber-700 text-xs font-semibold">{t('wortDesGlaubens.minimumRequired')}</p>
-            </div>
-          </>
-        ) : (
-          /* Success State */
-          <div className="bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-400 rounded-2xl p-8 shadow-lg text-center">
-            <div className="text-6xl mb-4">✅</div>
-            <h2 className="text-3xl font-black text-green-700 mb-2">{t('wortDesGlaubens.allCorrect')}</h2>
-            
-            <div className="bg-white rounded-xl p-4 border-2 border-green-400 mb-6">
-              <p className="text-green-700 font-bold text-sm mb-2">🎉 {t('wortDesGlaubens.hereIsCode')}:</p>
-              <p className="text-4xl font-black text-green-700 tracking-widest">{correctCode}</p>
-            </div>
+        {/* Instructions */}
+        <div className="bg-amber-100 border-2 border-amber-300 rounded-2xl p-4 mb-6">
+          <p className="text-amber-900 font-bold text-sm mb-2">{t('wortDesGlaubens.instructions')}</p>
+          <ol className="text-amber-900 text-sm space-y-1 list-decimal list-inside">
+            <li>{t('wortDesGlaubens.step1')}</li>
+            <li>{t('wortDesGlaubens.step2')}</li>
+            <li>{t('wortDesGlaubens.step3')}</li>
+            <li>{t('wortDesGlaubens.step4')}</li>
+          </ol>
+        </div>
 
-            {/* Instructions for entering code */}
-            <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-4 mb-6">
-              <p className="text-blue-900 font-bold text-sm mb-2">📝 {t('common.instructions')}:</p>
-              <p className="text-blue-800 text-sm">
-                {t('wortDesGlaubens.codeInstructions') || 'Trag den Code ein. Klicke auf "Zurück", um zum Teilnehmerbereich zurückzukehren und den Code zu der Station einzutragen.'}
-              </p>
+        {/* Videos Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          {WORT_DES_GLAUBENS_VIDEOS.map(videoData => (
+            <div key={videoData.id} className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-black text-amber-700">{videoData.id}</span>
+                <p className="text-sm font-bold text-stone-600">{videoData.hint}</p>
+              </div>
+              <VideoCard videoId={videoData.id} />
             </div>
-            
-            <button
-              onClick={() => {
-                localStorage.removeItem('fyw_wort_des_glaubens_team_id');
-                navigate('/');
-              }}
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white font-black px-6 py-4 rounded-2xl text-lg"
-            >
-              ← {t('common.back')}
-            </button>
+          ))}
+        </div>
+
+        {/* Video Word Input Section */}
+        <div className="bg-white rounded-2xl shadow p-6 mb-6">
+          <h2 className="text-amber-900 font-black text-lg mb-4">{t('wortDesGlaubens.enterWords')}</h2>
+          <div className="space-y-4">
+            {WORT_DES_GLAUBENS_VIDEOS.map(videoData => (
+              <WordInput
+                key={videoData.id}
+                wordData={videoData}
+                value={videoAnswers[videoData.id]}
+                onChange={(value) => handleVideoAnswerChange(videoData.id, value)}
+                feedback={videoFeedback[videoData.id]}
+                t={t}
+                isScrambled={false}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Scrambled Words Section */}
+        <div className="bg-white rounded-2xl shadow p-6 mb-6">
+          <h2 className="text-amber-900 font-black text-lg mb-4">{t('wortDesGlaubens.enterScrambled')}</h2>
+          <div className="space-y-4">
+            {WORT_DES_GLAUBENS_SCRAMBLED.map(scrambledData => (
+              <WordInput
+                key={scrambledData.id}
+                wordData={scrambledData}
+                value={scrambledAnswers[scrambledData.id]}
+                onChange={(value) => handleScrambledAnswerChange(scrambledData.id, value)}
+                feedback={scrambledFeedback[scrambledData.id]}
+                t={t}
+                isScrambled={true}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Progress Indicator */}
+        {!minimumMet && (
+          <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 text-center space-y-2">
+            <p className="text-amber-900 font-bold text-sm">
+              {t('wortDesGlaubens.progress', { videoCorrect: videoCorrectCount, scrambledCorrect: scrambledCorrectCount })}
+            </p>
+            <p className="text-amber-700 text-xs font-semibold">{t('wortDesGlaubens.minimumRequired')}</p>
           </div>
         )}
       </div>
