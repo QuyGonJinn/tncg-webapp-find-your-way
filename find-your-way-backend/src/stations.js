@@ -11,8 +11,8 @@ const STATIONS = [
   { id: 8,  title: "Heilige Buchstabenjagd",  type: "passiv", points: 20, emoji: "🔤", code: "BJ29" },
   { id: 9,  title: "Glaubenssprung",          type: "aktiv",  points: 50, emoji: "🙏", code: null },
   { id: 10, title: "Der Gute Hirte",          type: "aktiv",  points: 50, emoji: "🐑", code: null },
-  { id: 11, title: "Wer bin Ich / Standbild", type: "passiv", points: 20, emoji: "🗿", code: "WI54" },
-  { id: 12, title: "Spelling Bee",            type: "passiv", points: 20, emoji: "❤️", code: "KM91" },
+  { id: 11, title: "Bibelpose",           type: "passiv", points: 20, emoji: "🗿", code: "WI54" },
+  { id: 12, title: "Wort des Glaubens",   type: "passiv", points: 20, emoji: "❤️", code: "KM91" },
 ];
 
 module.exports = STATIONS;

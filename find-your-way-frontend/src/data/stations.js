@@ -12,8 +12,8 @@ export const STATIONS_DATA = [
   { id: 8,  titleKey: "stations.heiligeBuchstabenjagd.title",   descriptionKey: "stations.heiligeBuchstabenjagd.description", type: "passiv", points: 20, emoji: "🔤", code: "BJ29", instructionsKey: "stations.heiligeBuchstabenjagd.instructions" },
   { id: 9,  titleKey: "stations.glaubenssprung.title",          descriptionKey: "stations.glaubenssprung.description", type: "aktiv",  points: 50, emoji: "🙏", code: null, instructionsKey: "stations.glaubenssprung.instructions" },
   { id: 10, titleKey: "stations.guterHirte.title",              descriptionKey: "stations.guterHirte.description", type: "aktiv",  points: 50, emoji: "🐑", code: null, instructionsKey: "stations.guterHirte.instructions" },
-  { id: 11, titleKey: "stations.werBinIch.title",               descriptionKey: "stations.werBinIch.description", type: "passiv", points: 20, emoji: "🗿", code: "WI54", instructionsKey: "stations.werBinIch.instructions" },
-  { id: 12, titleKey: "stations.spellingBee.title",             descriptionKey: "stations.spellingBee.description", type: "passiv", points: 20, emoji: "🐝", code: "12345", instructionsKey: "stations.spellingBee.instructions" },
+  { id: 11, titleKey: "stations.bibelpose.title",               descriptionKey: "stations.bibelpose.description", type: "passiv", points: 20, emoji: "🗿", code: "WI54", instructionsKey: "stations.bibelpose.instructions" },
+  { id: 12, titleKey: "stations.wortDesGlaubens.title",         descriptionKey: "stations.wortDesGlaubens.description", type: "passiv", points: 20, emoji: "🐝", code: "12345", instructionsKey: "stations.wortDesGlaubens.instructions" },
 ];
 
 // Helper function to get translated stations

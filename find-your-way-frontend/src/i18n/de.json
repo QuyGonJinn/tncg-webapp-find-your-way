@@ -125,19 +125,19 @@
       "description": "Führt euer 'Schaf' (verbundene Augen) sicher durch den Parcours.",
       "instructions": "Ein Teamkollege hat verbundene Augen (das Schaf). Die anderen führen ihn nur mit Stimme durch einen Parcours. Ziel erreicht = Bestätigung!"
     },
-    "werBinIch": {
-      "title": "Wer bin Ich / Standbild",
-      "description": "Stellt eine biblische Person als Standbild dar – die anderen raten, wer gemeint ist.",
-      "instructions": "Euer Team stellt eine biblische Person als Standbild dar (keine Worte!). Der Betreuer rät – wenn er es richtig errät, bekommt ihr den Code."
+    "bibelpose": {
+      "title": "Bibelpose",
+      "description": "Stellt eine biblische Person als Pose dar.",
+      "instructions": "Euer Team stellt eine biblische Person als Pose dar."
     },
-    "spellingBee": {
-      "title": "Spelling Bee",
+    "wortDesGlaubens": {
+      "title": "Wort des Glaubens",
       "description": "Gebärden-Rätsel: Schaut Videos an und erratet die 5 Wörter.",
-      "instructions": "Öffnet die Spelling Bee Seite, meldet euch mit eurem PIN an und erratet die 5 Wörter aus den Gebärden-Videos. Wenn alle richtig sind, bekommt ihr den Code!"
+      "instructions": "Öffnet die Wort des Glaubens Seite, meldet euch mit eurem PIN an und erratet die 5 Wörter aus den Gebärden-Videos. Wenn alle richtig sind, bekommt ihr den Code!"
     }
   },
-  "spellingBee": {
-    "title": "Spelling Bee",
+  "wortDesGlaubens": {
+    "title": "Wort des Glaubens",
     "subtitle": "Gebärden-Rätsel · 5 Videos",
     "instructions": "📋 Anleitung:",
     "step1": "Schau dir die 5 Videos an",

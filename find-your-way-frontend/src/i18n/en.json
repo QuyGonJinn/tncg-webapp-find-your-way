@@ -125,19 +125,19 @@
       "description": "Guide your 'sheep' (blindfolded) safely through the course.",
       "instructions": "One team member is blindfolded (the sheep). The others guide him only by voice through a course. Reach the goal = Confirmation!"
     },
-    "werBinIch": {
-      "title": "Who Am I / Tableau",
-      "description": "Represent a biblical person as a tableau – others guess who it is.",
-      "instructions": "Your team represents a biblical person as a tableau (no words!). The supervisor guesses – if he guesses correctly, you get the code."
+    "bibelpose": {
+      "title": "Bible Pose",
+      "description": "Represent a biblical person as a pose – others guess who it is.",
+      "instructions": "Your team represents a biblical person as a pose (no words!). The supervisor guesses – if he guesses correctly, you get the code."
     },
-    "spellingBee": {
-      "title": "Spelling Bee",
+    "wortDesGlaubens": {
+      "title": "Word of Faith",
       "description": "Sign language puzzle: Watch videos and guess the 5 words.",
-      "instructions": "Open the Spelling Bee page, login with your PIN and guess the 5 words from the sign language videos. When all are correct, you get the code!"
+      "instructions": "Open the Word of Faith page, login with your PIN and guess the 5 words from the sign language videos. When all are correct, you get the code!"
     }
   },
-  "spellingBee": {
-    "title": "Spelling Bee",
+  "wortDesGlaubens": {
+    "title": "Word of Faith",
     "subtitle": "Sign Language Puzzle · 5 Videos",
     "instructions": "📋 Instructions:",
     "step1": "Watch the 5 videos",
