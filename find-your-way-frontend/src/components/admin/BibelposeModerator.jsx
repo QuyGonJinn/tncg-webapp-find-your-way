@@ -125,6 +125,29 @@ export default function BibelposeModerator() {
     }
   }
 
+  async function handleDeleteAll() {
+    if (submissions.length === 0) return;
+
+    if (!confirm(`Möchtest du wirklich ALLE ${submissions.length} Einreichungen löschen? Das können nicht rückgängig gemacht werden!`)) return;
+
+    try {
+      const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
+      const response = await fetch(`${apiBase}/bibelpose/submissions`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) throw new Error('Failed to delete all');
+
+      const data = await response.json();
+      setSelectedSubmission(null);
+      setError(null);
+      loadSubmissions();
+      alert(`✅ ${data.count} Einreichungen gelöscht!`);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   const pendingCount = submissions.filter(s => s.status === 'pending').length;
   const confirmedCount = submissions.filter(s => s.status === 'confirmed').length;
 
@@ -132,12 +155,22 @@ export default function BibelposeModerator() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-black text-amber-900">🎭 {t('bibelpose.moderationTitle')}</h2>
-        <button
-          onClick={loadSubmissions}
-          className="bg-amber-700 hover:bg-amber-800 text-white font-bold px-4 py-2 rounded-lg"
-        >
-          🔄 {t('bibelpose.refresh')}
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={loadSubmissions}
+            className="bg-amber-700 hover:bg-amber-800 text-white font-bold px-4 py-2 rounded-lg"
+          >
+            🔄 {t('bibelpose.refresh')}
+          </button>
+          {submissions.length > 0 && (
+            <button
+              onClick={handleDeleteAll}
+              className="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg"
+            >
+              🗑️ Alle löschen ({submissions.length})
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Stats */}

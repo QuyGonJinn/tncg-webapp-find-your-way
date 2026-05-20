@@ -241,4 +241,31 @@ router.delete('/submissions/:id', (req, res) => {
   }
 });
 
+// Delete all submissions (admin)
+router.delete('/submissions', (req, res) => {
+  try {
+    // Get all submissions to delete photos
+    const submissions = all('SELECT * FROM heilige_buchstabenjagd_submissions');
+    
+    let deletedCount = 0;
+    submissions.forEach(submission => {
+      const photoPath = path.join(__dirname, '..', '..', submission.photo_path);
+      if (fs.existsSync(photoPath)) {
+        fs.unlinkSync(photoPath);
+        console.log('📸 Deleted photo:', photoPath);
+      }
+      deletedCount++;
+    });
+
+    // Delete all submissions from database
+    run('DELETE FROM heilige_buchstabenjagd_submissions');
+
+    console.log(`✅ Deleted ${deletedCount} submissions`);
+    res.json({ success: true, message: `Deleted ${deletedCount} submissions`, count: deletedCount });
+  } catch (error) {
+    console.error('Error deleting all submissions:', error);
+    res.status(500).json({ error: 'Failed to delete submissions' });
+  }
+});
+
 module.exports = router;
