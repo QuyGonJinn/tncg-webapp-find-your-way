@@ -11,6 +11,7 @@ const router = express.Router();
 const uploadDir = path.join(__dirname, '..', '..', 'data', 'bibelpose');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
+  console.log('✅ Created bibelpose upload directory:', uploadDir);
 }
 
 // Configure multer for file uploads
@@ -45,6 +46,13 @@ router.post('/upload', upload.single('photo'), (req, res) => {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
+    console.log('📸 File uploaded:', {
+      filename: req.file.filename,
+      path: req.file.path,
+      size: req.file.size,
+      mimetype: req.file.mimetype,
+    });
+
     const { teamId, sceneId, sceneName } = req.body;
 
     if (!teamId || !sceneId || !sceneName) {
@@ -59,7 +67,7 @@ router.post('/upload', upload.single('photo'), (req, res) => {
 
     // Create submission record
     const submissionId = uuidv4();
-    const photoPath = `/data/bibelpose/${req.file.filename}`;
+    const photoPath = `bibelpose/${req.file.filename}`;
     const now = Math.floor(Date.now() / 1000);
 
     run(
@@ -68,6 +76,8 @@ router.post('/upload', upload.single('photo'), (req, res) => {
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [submissionId, teamId, team.name, sceneId, sceneName, photoPath, 'pending', now]
     );
+
+    console.log('✅ Submission created:', { submissionId, photoPath });
 
     res.json({
       success: true,
@@ -78,6 +88,18 @@ router.post('/upload', upload.single('photo'), (req, res) => {
     console.error('Upload error:', error);
     res.status(500).json({ error: error.message || 'Upload failed' });
   }
+});
+
+// Error handler for multer
+router.use((error, req, res, next) => {
+  if (error instanceof multer.MulterError) {
+    console.error('Multer error:', error);
+    return res.status(400).json({ error: `Upload error: ${error.message}` });
+  } else if (error) {
+    console.error('Upload error:', error);
+    return res.status(500).json({ error: error.message || 'Upload failed' });
+  }
+  next();
 });
 
 // Get all pending submissions (for admin)

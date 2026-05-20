@@ -183,7 +183,7 @@ export default function BibelposeModerator() {
                 {/* Photo Preview */}
                 <div className="mb-6">
                   <img
-                    src={`${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}${selectedSubmission.photo_path}`}
+                    src={`${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/data/${selectedSubmission.photo_path}`}
                     alt={selectedSubmission.scene_name}
                     className="w-full rounded-xl border-2 border-amber-200 max-h-64 object-cover"
                     onError={(e) => {
