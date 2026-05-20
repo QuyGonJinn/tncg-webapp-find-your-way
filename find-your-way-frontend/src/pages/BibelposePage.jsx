@@ -97,7 +97,7 @@ function LoginScreen({ onLogin, error }) {
             type="text"
             value={pin}
             onChange={(e) => setPin(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+            onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
             placeholder={t('setup.pinPlaceholder')}
             className="w-full border-2 border-amber-200 rounded-xl px-4 py-3 text-lg font-bold focus:outline-none focus:border-amber-500"
             disabled={loading}
@@ -163,7 +163,7 @@ function GameScreen({ team, onLogout }) {
     }, 2000); // Check every 2 seconds
 
     return () => clearInterval(pollInterval);
-  }, [submissionId, submissionStatus, t]);
+  }, [submissionId]);
 
   async function handlePhotoUpload(e) {
     const file = e.target.files?.[0];
@@ -345,21 +345,38 @@ function GameScreen({ team, onLogout }) {
                   <p className="text-4xl font-black text-green-700 tracking-widest">{submissionCode}</p>
                 </div>
                 
-                <button
-                  onClick={() => {
-                    setSelectedScene(null);
-                    setPhoto(null);
-                    setSubmitted(false);
-                    setUploadError(null);
-                    setSubmissionId(null);
-                    setSubmissionCode(null);
-                    setSubmissionStatus('pending');
-                    setRejectionMessage(null);
-                  }}
-                  className="bg-green-700 hover:bg-green-800 text-white font-black px-6 py-3 rounded-2xl"
-                >
-                  {t('bibelpose.submitAnother')}
-                </button>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => {
+                      setSelectedScene(null);
+                      setPhoto(null);
+                      setSubmitted(false);
+                      setUploadError(null);
+                      setSubmissionId(null);
+                      setSubmissionCode(null);
+                      setSubmissionStatus('pending');
+                      setRejectionMessage(null);
+                    }}
+                    className="flex-1 bg-green-700 hover:bg-green-800 text-white font-black px-6 py-3 rounded-2xl"
+                  >
+                    {t('bibelpose.submitAnother')}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedScene(null);
+                      setPhoto(null);
+                      setSubmitted(false);
+                      setUploadError(null);
+                      setSubmissionId(null);
+                      setSubmissionCode(null);
+                      setSubmissionStatus('pending');
+                      setRejectionMessage(null);
+                    }}
+                    className="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-black px-6 py-3 rounded-2xl"
+                  >
+                    ← {t('common.back')}
+                  </button>
+                </div>
               </>
             ) : submissionStatus === 'rejected' ? (
               <>
