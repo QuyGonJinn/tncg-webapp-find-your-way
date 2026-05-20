@@ -10,6 +10,7 @@ import WaitingRoom from './components/WaitingRoom';
 import AdminPage from './pages/AdminPage';
 import ControlPage from './pages/ControlPage';
 import WortDesGlaubensPage from './pages/WortDesGlaubensPage';
+import BibelposePage from './pages/BibelposePage';
 
 function GameApp() {
   const { screen, setScreen, team, completed, pending, timeLeft, timerRunning, xpPopups, error, startGame, loginGame, completeStation, resetGame, totalXP, waitingRoomEnabled } = useGameState();
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/control" element={<ControlPage />} />
         <Route path="/wort-des-glaubens" element={<WortDesGlaubensPage />} />
+        <Route path="/bibelpose" element={<BibelposePage />} />
         <Route path="*" element={<GameApp />} />
       </Routes>
     </BrowserRouter>
