@@ -25,10 +25,11 @@
 2. **Klickt "🚀 Anmelden"**
 3. Die Bibelpose-Seite lädt
 
+
 ### Schritt 3: Biblische Szene auswählen
 
 1. **Ihr seht 20 verschiedene biblische Szenen**
-2. **Wählt eine aus, die euch gefällt**
+2. **Wählt eine aus, die euch gefällt und scrollt runter**
 
 **Beispiele:**
 - Jesus und die Jünger
@@ -49,13 +50,6 @@
 3. **Versucht, die Szene möglichst realistisch darzustellen**
 4. **Nehmt verschiedene Posen an**
 
-**Tipps für gute Standbilder:**
-- ✅ **Alle sollten sichtbar sein** – Nicht verstecken!
-- ✅ **Klare Rollen** – Wer ist wer? (z.B. David, Goliath, Zuschauer)
-- ✅ **Interessante Posen** – Nicht einfach nur stehen
-- ✅ **Bewegung andeuten** – z.B. David mit Schleuder
-- ✅ **Kreativ sein** – Admins mögen Kreativität!
-
 **Beispiel: David und Goliath**
 ```
 David:     Kleine Person, Schleuder in der Hand, angespannt
@@ -70,13 +64,6 @@ Zuschauer: Andere Teamkollegen, überrascht/ängstlich
 3. **Gutes Licht ist wichtig!** (nicht zu dunkel)
 4. **Klickt auf "📸 Foto hochladen"**
 
-**Foto-Tipps:**
-- ✅ Alle Personen sollten im Bild sein
-- ✅ Gutes Licht (Tageslicht oder Lampen)
-- ✅ Keine Schatten auf den Personen
-- ✅ Interessanter Blickwinkel (nicht von oben/unten)
-- ✅ Fokus auf die Szene (nicht zu weit weg)
-
 ### Schritt 6: Foto hochladen
 
 1. **Wählt das Foto aus eurer Galerie**
@@ -86,6 +73,9 @@ Zuschauer: Andere Teamkollegen, überrascht/ängstlich
 ### Schritt 7: Wartet auf Bestätigung
 
 1. **Der Admin überprüft das Foto**
+ > Unter dem Reiter Codes > Bibelpose
+ > Das Team mit der Anfrage auswählen
+ > Runterscrollen und dann auf Bestätigen oder Ablehnen klicken
 2. **Das kann ein paar Minuten dauern**
 3. **Ihr seht: "⏳ Dein Foto wird gerade überprüft"**
 
@@ -108,16 +98,6 @@ Zuschauer: Andere Teamkollegen, überrascht/ängstlich
 3. **Gebt den Code ein** (z.B. `BP42`)
 4. **Klickt "Bestätigen"**
 5. **Station ist erledigt!** ✅ +50 XP
-
----
-
-## 📸 Screenshot-Platzhalter
-
-Hier können später Screenshots eingefügt werden:
-- `![Bibelpose Login](./images/bibelpose/login.png)`
-- `![Bibelpose Szene wählen](./images/bibelpose/scene_selection.png)`
-- `![Bibelpose Foto hochladen](./images/bibelpose/upload.png)`
-- `![Bibelpose Code erhalten](./images/bibelpose/code_received.png)`
 
 ---
 
