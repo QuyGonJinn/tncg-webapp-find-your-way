@@ -11,7 +11,7 @@ export default function HeiligeBuchstabenjagdModerator() {
   const [error, setError] = useState(null);
   const [stationCode, setStationCode] = useState('');
 
-  // Load station code for Heilige Buchstabenjagd (station 12)
+  // Load station code for Heilige Buchstabenjagd (station 8)
   useEffect(() => {
     loadStationCode();
   }, []);
@@ -21,9 +21,9 @@ export default function HeiligeBuchstabenjagdModerator() {
       const apiBase = `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api`;
       const response = await fetch(`${apiBase}/stations/codes`);
       const codes = await response.json();
-      // Station 12 is Heilige Buchstabenjagd
-      if (codes[12]) {
-        setStationCode(codes[12]);
+      // Station 8 is Heilige Buchstabenjagd
+      if (codes[8]) {
+        setStationCode(codes[8]);
       }
     } catch (err) {
       console.error('Error loading station code:', err);
